@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\ATKApp6.props" />
+</Project>
