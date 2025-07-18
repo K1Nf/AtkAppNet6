@@ -2,3 +2,4 @@
 **/bin/
 **/obj/
 ./ATKApp6.Infrastructure/Migrations
+**/Properties/launchSettings.json
