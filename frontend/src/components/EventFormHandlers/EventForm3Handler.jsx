@@ -96,12 +96,9 @@ export const handleForm3Submit = async ({
   }
 
 
-
   let sendToSubjects = isWorkUseChecked ? workUseDescription : null;
-
-
-
   let organizationsConfirmedBy = [];
+
 
   if (isExpertCouncilChecked) {
     organizationsConfirmedBy.push(
@@ -139,7 +136,6 @@ export const handleForm3Submit = async ({
 
 
 
-
   function transform(item) {
     return {
       name: item.org || item.name || "",
@@ -148,12 +144,7 @@ export const handleForm3Submit = async ({
     };
   }
 
-  // Пример
   const combined = selectedOrgs.map(transform);
-
-  console.log("После трансформации: ");
-  console.log(combined);
-
 
 
 
@@ -175,13 +166,9 @@ export const handleForm3Submit = async ({
     }
   };
 
-  console.log("---------------");
-  console.log(createEventRequest);
-  console.log("---------------");
+  // console.log(createEventRequest);
 
   const backCreateUrl = `/api/ref/events/createform4`;
-
-
 
 
   try {
@@ -198,7 +185,6 @@ export const handleForm3Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -208,6 +194,8 @@ export const handleForm3Submit = async ({
     }, 3000);
     
   } catch (error) {
-    console.error("Ошибка:", error);
+    
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

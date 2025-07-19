@@ -76,11 +76,7 @@ export const handleForm14Submit = async ({
       equalToEqual: cleanedPeerFormat
     };
 
-    console.log("---------------");
-    console.log(createEventForm1Request);
-    console.log("---------------");
-
-    
+    // console.log(createEventForm1Request);
 
     try {
       const response = await fetch(`/api/ref/events/createform1`, {
@@ -96,7 +92,6 @@ export const handleForm14Submit = async ({
       }
 
       const data = await response.text();
-      console.log("Событие создано:", data);
 
       //Показать уведомление
       toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -106,6 +101,8 @@ export const handleForm14Submit = async ({
       }, 3000);
       
     } catch (error) {
-      console.error("Ошибка:", error);
+    
+      // ОБРАБОТКА ОШИБКА *error*
+
     }
 };

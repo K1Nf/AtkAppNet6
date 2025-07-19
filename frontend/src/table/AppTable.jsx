@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import Sidebar from '../components/Sidebar.jsx';
-import ControlPanel from '../components/ControlPanel.jsx'; // Путь к компоненту ControlPanel
 import EventTable from '../components/EventTable.jsx'; // Путь к компоненту EventTable
 
 function App() {
@@ -21,6 +20,5 @@ function App() {
   );
   
 }
-
 
 export default App;

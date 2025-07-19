@@ -509,15 +509,11 @@ const [descriptions, setDescriptions] = useState({
 
 
     };
-    //alert(JSON.stringify(createEventRequest, null, 2));
 
-    console.log("---------------");
-    console.log(createEventRequest);
-    console.log("---------------");
+    
+    // console.log(createEventRequest);
 
     const backCreateUrl = `/api/ref/events/createform1`;
-
-
 
 
     try {
@@ -534,13 +530,14 @@ const [descriptions, setDescriptions] = useState({
       }
 
       const data = await response.text();
-      console.log("Событие создано:", data);
 
       //Показать уведомление
       toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
 
     } catch (error) {
-      console.error("Ошибка:", error);
+          
+      // ОБРАБОТКА ОШИБКА *error*
+
     }
   };
 
@@ -676,10 +673,6 @@ const [descriptions, setDescriptions] = useState({
 
 
 
-
-
-
-
   const [description, setDescription] = useState(""); // Состояние для описания выбранной темы
 
   useEffect(() => {
@@ -690,7 +683,9 @@ const [descriptions, setDescriptions] = useState({
         // console.log("Темы:", data);  // Проверка, что данные получены
         setTopics(data);  // Сохраняем полученные данные в состояние
       } catch (error) {
-        console.error('Ошибка при получении тем:', error);
+            
+      // ОБРАБОТКА ОШИБКА *error*
+
       }
     };
 

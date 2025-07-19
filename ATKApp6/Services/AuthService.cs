@@ -4,6 +4,7 @@ using ATKApp6.Infrastructure.Extensions;
 using CSharpFunctionalExtensions;
 //using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ATKApp6.Services
 {
@@ -27,7 +28,6 @@ namespace ATKApp6.Services
             var organization = _dB.Organizations
                 .AsNoTracking()
                 .FirstOrDefault(o => o.Name == authorizeRequest.OrganizationName);
-                //.Password;
 
             if (organization == null)
             {
@@ -35,11 +35,23 @@ namespace ATKApp6.Services
             }
 
 
-            if (_passwordHasher.VerifyPassword(authorizeRequest.Password, organization.Password))
+            char[] pwdChars = authorizeRequest.Password.ToCharArray();
+
+            try
             {
-                string token = _jwtProvider.CreateNewToken(organization.Id);
-                return Result.Success(token);
+                if (_passwordHasher.VerifyPassword(pwdChars, organization.Password))
+                {
+                    string token = _jwtProvider.CreateNewToken(organization.Id);
+                    return Result.Success(token);
+                }
             }
+            finally
+            {
+                Array.Clear(pwdChars, 0, pwdChars.Length);
+            }
+
+
+            
 
             return Result.Failure<string>($"Пароль неверен для {authorizeRequest.OrganizationName}!");
         }

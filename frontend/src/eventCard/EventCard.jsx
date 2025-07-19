@@ -8,7 +8,6 @@ const EventCard = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleDelete = async () => {
-    // Здесь логика удаления
 
     let pathToDelete = "/api/ref/events/delete/" + data.id;
     try {
@@ -28,9 +27,7 @@ const EventCard = () => {
 
         // сделать кнопки disabled (не доступными для клика)
 
-
         const data = await response.text();
-        //console.log("Событие удалено с сообщением:", data);
 
         //  Показать уведомление
         toastr.success("Мероприятие успешно удалено из системы!", "Удалено");
@@ -41,9 +38,10 @@ const EventCard = () => {
       }
 
     } catch (error) {
-      console.error("Ошибка:", error);
-    }
+          
+      // ОБРАБОТКА ОШИБКА *error*
 
+    }
 
     setShowModal(false);
   };
@@ -60,7 +58,7 @@ const EventCard = () => {
 
   const backUrl = `/api/ref/events/${id}`;
 
-  //console.log(backUrl);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -68,8 +66,10 @@ const EventCard = () => {
         if (!response.ok) {
           throw new Error("Ошибка загрузки данных");
         }
-        const result = await response.json();
-        setData(result);
+        else {
+          const result = await response.json();
+          setData(result);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -83,7 +83,6 @@ const EventCard = () => {
   if (loading) return <p>Загрузка...</p>;
   if (error) return <p>Ошибка: {error}</p>;
 
-  //console.log(data);
 
   return (
     <div className="container">
@@ -234,7 +233,7 @@ const EventCard = () => {
                 </tr>
               </thead>
               <tbody style={{ color: "black", border: "1px black solid" }}>
-                {data.interAgencyCooperations.map((element) => ( // ✅ исправили forEach на map
+                {data.interAgencyCooperations.map((element) => ( 
                   <tr key={element.id} style={{ color: "black", border: "1px black solid" }}>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.organization}</td>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.role}</td>
@@ -247,10 +246,9 @@ const EventCard = () => {
         )}
 
 
-        {/* фиксануть хранение в БД  */}
         {data.supports && data.supports.length > 0 && (
           <section>
-            
+
             <h2>Поддержка</h2>
 
             <p><strong>Получатель поддержки: </strong>{data.supports[0].receiver}</p>
@@ -292,13 +290,13 @@ const EventCard = () => {
               <tr key={agreement.id}>
                 <p><strong>Организация: {agreement.organization}</strong></p>
                 <p><strong>Результат: {agreement.result}</strong></p>
-                <p><strong>Описание: {agreement.description?? "Нет"}</strong></p>
+                <p><strong>Описание: {agreement.description ?? "Нет"}</strong></p>
               </tr>
             ))}
           </section>
         )}
-        
-        
+
+
         {data.violations && data.violations.length > 0 && (
           <section>
             <h2>Выявленные нарушения и блокировки: </h2>
@@ -306,7 +304,6 @@ const EventCard = () => {
               <tr key={violation.id}>
                 <p><strong>Орган власти или статья: {violation.name}</strong></p>
                 <p><strong>Количество заблокированных/отправленных материалов: {violation.blocked}/{violation.send}</strong></p>
-                {/* <p><strong>Количество отправленных материалов: {violation.send}</strong></p> */}
 
                 {violation.order && (
                   <p><strong>Соответствующий приказ: {violation.order}</strong></p>
@@ -315,8 +312,8 @@ const EventCard = () => {
             ))}
           </section>
         )}
-        
-        
+
+
         {data.concourse && (
           <section>
             <h2>Направление на участие в конкурсе</h2>
@@ -328,12 +325,12 @@ const EventCard = () => {
 
 
         {/* {data.isValuable !== null || data.isBestPractice !== null && ( */}
-          <section>
-            <h2>Дополнительные характеристики</h2>
-              <p><strong>Значимое мероприятие: </strong> {data.isValuable ? "Да" : "Нет"}</p>
-              <p><strong>Включено в сборник лучших практик: </strong> {data.isBestPractice ? "Да" : "Нет"}</p>
-              <p><strong>Формат равный равному: </strong> {data.equalToEqualDescription ?? "Нет"}</p>
-          </section>
+        <section>
+          <h2>Дополнительные характеристики</h2>
+          <p><strong>Значимое мероприятие: </strong> {data.isValuable ? "Да" : "Нет"}</p>
+          <p><strong>Включено в сборник лучших практик: </strong> {data.isBestPractice ? "Да" : "Нет"}</p>
+          <p><strong>Формат равный равному: </strong> {data.equalToEqualDescription ?? "Нет"}</p>
+        </section>
         {/* )} */}
 
 

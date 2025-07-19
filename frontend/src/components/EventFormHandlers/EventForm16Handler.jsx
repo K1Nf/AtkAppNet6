@@ -47,11 +47,7 @@ export const handleForm16Submit = async ({
     content: eventDescription,
     };
 
-
-  console.log("---------------");
-  console.log(createEventBaseRequest);
-  console.log("---------------");
-
+  // console.log(createEventBaseRequest);
 
   try {
     const response = await fetch(`/api/ref/events/createbase`, {
@@ -67,7 +63,6 @@ export const handleForm16Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -78,6 +73,8 @@ export const handleForm16Submit = async ({
 
 
   } catch (error) {
-    console.error("Ошибка:", error);
+
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

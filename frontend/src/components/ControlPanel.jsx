@@ -19,7 +19,9 @@ const ControlPanel = ({ onFilter }) => {
         setMunicipalityList(data);
 
       } catch (error) {
-        console.error("Ошибка при загрузке муниципалитетов: ", error);
+          
+      // ОБРАБОТКА ОШИБКА *error*
+
       }
     };
 
@@ -76,20 +78,6 @@ const ControlPanel = ({ onFilter }) => {
 
   const handleSubmit = () => {
 
-    // console.log("" + search);
-    // console.log("Муниципалитет: " + municipality);
-    // console.log("Организация: " + organization);
-    // console.log("Уровень: " + level);
-    // console.log("Важное: " + important);
-    // console.log("Равныйравному: " + peerFormat);
-    // console.log("Лучшиепрактики: " + bestPractice);
-    // console.log("Взаимодействие: " + interagency);
-    // console.log("Обратнаясвязь: " + feedback);
-    // console.log("Тема: " + theme);
-    // console.log("Финансирование: " + financing);
-    // console.log("Датаот: " + dateFrom);
-    // console.log("Датадо: " + dateTo);
-
     function buildQueryParams(filters) {
       const params = new URLSearchParams();
 
@@ -101,7 +89,6 @@ const ControlPanel = ({ onFilter }) => {
         } else if (typeof value === "boolean" && value === true) {
           params.append(key, "true");
         }
-        // Пропускаем false, null, undefined, пустые строки
       });
 
       return params.toString();
@@ -123,13 +110,8 @@ const ControlPanel = ({ onFilter }) => {
     });
 
     if (onFilter) {
-      onFilter(query); // <-- передаём строку запроса в EventTable
+      onFilter(query);
     }
-
-
-    // let utlToSort = `api/ref/events/sort?${query}`;
-    // fetch(utlToSort);
-    // console.log(utlToSort);
   };
 
 
@@ -232,11 +214,8 @@ const ControlPanel = ({ onFilter }) => {
             setFinancing(false);
             setDateFrom('');
             setDateTo('');
-            //onFilter({}, []); // сбросить фильтрацию
           }}>
-
             Сбросить фильтры
-
           </button>
 
           <button className="filter-submit" onClick={handleSubmit}>Фильтровать</button>

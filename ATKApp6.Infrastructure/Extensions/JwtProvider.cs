@@ -18,7 +18,6 @@ namespace ATKApp6.Infrastructure.Extensions
         }
 
 
-
         public string CreateNewToken(Guid userId)
         {
             var signingCredentials = new SigningCredentials(

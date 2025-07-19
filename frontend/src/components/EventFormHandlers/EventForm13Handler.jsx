@@ -91,7 +91,7 @@ export const handleForm13Submit = async ({
     return key;
   });
 
-  console.log(audiencesSelected);
+
 
 
   const buildSupportMap = (flags, descriptions) => {
@@ -101,14 +101,10 @@ export const handleForm13Submit = async ({
         let descKey;
         descKey = `${key}Description`;
 
-        console.log("descKey: " + descKey);
-        console.log("flags[key]: " + flags[key]);
-
         let description = descriptions[descKey]; 
 
         if(description == "" || description == undefined)
         {
-          console.log("descripitons was null or undefined");
           descKey = key;
           description = descriptions[descKey];
         }
@@ -145,13 +141,10 @@ export const handleForm13Submit = async ({
       audiences: audiencesSelected
     },
   };
-  console.log("---------------");
-  console.log(createEventRequest);
-  console.log("---------------");
+
+  // console.log(createEventRequest);
 
   const backCreateUrl = `/api/ref/events/createform1`;
-
-
 
 
   try {
@@ -168,7 +161,6 @@ export const handleForm13Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -178,6 +170,8 @@ export const handleForm13Submit = async ({
       }, 3000);
 
   } catch (error) {
-    console.error("Ошибка:", error);
+        
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

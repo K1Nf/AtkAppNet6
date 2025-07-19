@@ -120,13 +120,9 @@ export const handleForm2Submit = async ({
         let descKey;
         descKey = `${key}Description`;
 
-        console.log("descKey: " + descKey);
-        console.log("flags[key]: " + flags[key]);
-
         let description = descriptions[descKey];
 
         if (description == "" || description == undefined) {
-          console.log("descripitons was null or undefined");
           descKey = key;
           description = descriptions[descKey];
         }
@@ -142,9 +138,6 @@ export const handleForm2Submit = async ({
 
 
   const selectedSupportTypes = buildSupportMap(supportTypes, supportTypesDescription);
-
-
-  // обработка направления на конкурс
   
   // проверка, нажати ли вообще галочка
   competitionDescription = isCompetitionDirectionChecked ? competitionDescription : null;
@@ -191,10 +184,8 @@ export const handleForm2Submit = async ({
     }
 
   };
-  console.log("---------------");
-  console.log(createEventForm1Request);
-  console.log("---------------");
 
+  // console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {
@@ -210,7 +201,6 @@ export const handleForm2Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -220,6 +210,8 @@ export const handleForm2Submit = async ({
       }, 3000);
 
   } catch (error) {
-    console.error("Ошибка:", error);
+    
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

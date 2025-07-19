@@ -74,8 +74,6 @@ export const handleForm4Submit = async ({
     return;
   }
 
-  
-  
 
 
   const buildSupportMap = (flags, descriptions) => {
@@ -85,20 +83,14 @@ export const handleForm4Submit = async ({
         let descKey;
         descKey = `${key}Description`;
 
-        console.log("descKey: " + descKey);
-        console.log("flags[key]: " + flags[key]);
-
         let description = descriptions[descKey]; // вызывается ошибка
 
         if(description == "" || description == undefined)
         {
-
-          console.log("descripitons was null or undefined");
           descKey = key;
           description = descriptions[descKey];
         }
 
-        console.log(description); // даже не выводит
         if (description?.trim()) {
           result.push({key, description});
         }
@@ -135,11 +127,7 @@ export const handleForm4Submit = async ({
     },
   };
 
-
-  console.log("---------------");
-  console.log(createEventForm1Request);
-  console.log("---------------");
-
+  //console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {
@@ -155,7 +143,6 @@ export const handleForm4Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -166,6 +153,8 @@ export const handleForm4Submit = async ({
 
 
   } catch (error) {
-    console.error("Ошибка:", error);
+        
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

@@ -3,3 +3,5 @@
 ./ATKApp6.Infrastructure/Migrations
 **/Properties/launchSettings.json
 **/.vs/
+./.editorconfig
+**/wwwroot/

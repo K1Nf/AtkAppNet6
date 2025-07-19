@@ -27,17 +27,14 @@ export default defineConfig({
           return 'assets/[ext]/[name]-[hash][extname]';
         }
       }
-      
     }
   },
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5237",
         changeOrigin: true,
         secure: false,
       },
     },
   }
-  
 });

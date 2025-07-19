@@ -74,8 +74,6 @@ export const handleForm17Submit = async ({
     return key;
   });
 
-  console.log(result);
-
 
   let createEventForm1Request = {
     themeCode: selectedTopic,
@@ -93,10 +91,7 @@ export const handleForm17Submit = async ({
     }
   };
 
-
-  console.log("---------------");
-  console.log(createEventForm1Request);
-  console.log("---------------");
+  // console.log(createEventForm1Request);
 
 
   try {
@@ -113,7 +108,6 @@ export const handleForm17Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -124,6 +118,8 @@ export const handleForm17Submit = async ({
 
 
   } catch (error) {
-    console.error("Ошибка:", error);
+    
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

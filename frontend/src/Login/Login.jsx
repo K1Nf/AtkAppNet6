@@ -27,24 +27,22 @@ const Login = () => {
   };
 
   useEffect(() => {
-      // Асинхронная функция для запроса
-      const fetchData = async () => {
-        const urlBack = "/api/ref/auth/organizations";
-        try {
-          const response = await fetch(urlBack); // Пример URL
-          if (!response.ok) {
-            throw new Error('Ошибка при загрузке данных');
-          }
-          const result = await response.json();
-          console.log("Полученные организации:", result);
-  
-  
-          setMunicipalsOrganizations(result);
-        } catch (error) {
-          setError(error.message); // Обрабатываем ошибку, если что-то пошло не так
-        } finally {
-          setLoading(false); // Завершаем процесс загрузки
+    // Асинхронная функция для запроса
+    const fetchData = async () => {
+      const urlBack = "/api/ref/auth/organizations";
+      try {
+        const response = await fetch(urlBack); // Пример URL
+        if (!response.ok) {
+          throw new Error('Ошибка при загрузке данных');
         }
+        const result = await response.json();
+
+        setMunicipalsOrganizations(result);
+      } catch (error) {
+        setError(error.message); // Обрабатываем ошибку, если что-то пошло не так
+      } finally {
+        setLoading(false); // Завершаем процесс загрузки
+      }
     };
 
     fetchData(); // Выполняем запрос
@@ -71,10 +69,6 @@ const Login = () => {
     }
 
     const selectedOrg = municipalsOrganizations.find(org => org === organizationName);
-    //const orgIdToSend = selectedOrg ? selectedOrg.id : organizationName; // если нет в списке — отправим текст
-    //console.log("Пользователь выбрал организацию: " + organizationName);
-    //console.log("Пользователь ввел пароль: " + password);
-
 
     try {
       const response = await fetch('/api/ref/auth/authorize', {

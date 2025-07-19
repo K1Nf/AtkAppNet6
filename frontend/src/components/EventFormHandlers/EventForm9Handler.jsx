@@ -24,7 +24,6 @@ export const handleForm9Submit = async ({
     return;
   }
 
-  //console.log(laws);
   
   let selectedLaws = Object.fromEntries(
     Object.entries(laws).filter(([_, value]) => value.checked === true)
@@ -38,10 +37,8 @@ export const handleForm9Submit = async ({
       violations: selectedLaws,
     } 
   };
-  console.log("---------------");
-  console.log(createEventForm3Request);
-  console.log("---------------");
 
+  // console.log(createEventForm3Request);
 
 
   try {
@@ -58,7 +55,6 @@ export const handleForm9Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -68,6 +64,8 @@ export const handleForm9Submit = async ({
       }, 3000);
 
   } catch (error) {
-    console.error("Ошибка:", error);
+        
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

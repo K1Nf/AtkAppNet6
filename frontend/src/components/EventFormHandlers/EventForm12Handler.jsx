@@ -37,9 +37,8 @@ export const handleForm12Submit = async ({
     }
 
   };
-  console.log("---------------");
-  console.log(createEventForm1Request);
-  console.log("---------------");
+
+  // console.log(createEventForm1Request);
 
 
   try {
@@ -56,7 +55,6 @@ export const handleForm12Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -66,6 +64,8 @@ export const handleForm12Submit = async ({
       }, 3000);
 
   } catch (error) {
-    console.error("Ошибка:", error);
+    
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

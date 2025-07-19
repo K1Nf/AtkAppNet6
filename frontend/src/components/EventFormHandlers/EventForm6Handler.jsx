@@ -45,15 +45,12 @@ export const handleForm6Submit = async ({
     return;
   }
 
-  //console.log(laws);
 
   let selectedOrganizations = Object.fromEntries(
     Object.entries(departmentStates).filter(([_, value]) => value.checked === true)
   );
 
 
-  console.log("departmentStates: ");
-  console.log(departmentStates);
 
   let createEventForm3Request = {
     themeCode: selectedTopic,
@@ -66,10 +63,8 @@ export const handleForm6Submit = async ({
       violations: selectedOrganizations,
     } 
   };
-  console.log("---------------");
-  console.log(createEventForm3Request);
-  console.log("---------------");
-
+  
+  // console.log(createEventForm3Request);
 
 
   try {
@@ -86,7 +81,6 @@ export const handleForm6Submit = async ({
     }
 
     const data = await response.text();
-    console.log("Событие создано:", data);
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -96,6 +90,8 @@ export const handleForm6Submit = async ({
       }, 3000);
 
   } catch (error) {
-    console.error("Ошибка:", error);
+        
+      // ОБРАБОТКА ОШИБКА *error*
+
   }
 };

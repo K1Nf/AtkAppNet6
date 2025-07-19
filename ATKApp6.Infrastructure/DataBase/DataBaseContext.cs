@@ -4,12 +4,54 @@ using ATKApp6.Infrastructure.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using System;
+using Microsoft.Extensions.Hosting;
 
 
 namespace ATKApp6.Infrastructure.DataBase
 {
     public class DataBaseContext : DbContext
     {
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _env;
+
+
+        public DataBaseContext(
+            DbContextOptions<DataBaseContext> options,
+            ILoggerFactory loggerFactory,
+            IConfiguration configuration,
+            IWebHostEnvironment env)
+            : base(options)
+        {
+            _loggerFactory = loggerFactory;
+            _configuration = configuration;
+            _env = env;
+        }
+
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                string connectionString = _configuration.GetValue<string>("DefaultConnectionString");
+
+                optionsBuilder
+                    .UseNpgsql(connectionString)
+                    .UseLoggerFactory(_loggerFactory);
+
+                if (_env.IsDevelopment())
+                {
+                    optionsBuilder
+                        .EnableSensitiveDataLogging()
+                        .EnableDetailedErrors();
+                }
+            }
+        }
+
+
         public DbSet<EventBase> EventsBase { get; set; }
         public DbSet<EventForm1> EventForm1s { get; set; }
         public DbSet<EventForm2> EventForm2s { get; set; }
@@ -36,16 +78,6 @@ namespace ATKApp6.Infrastructure.DataBase
 
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=AtkTest;Username=postgres;Password=Fnaticwinner");
-            //optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
-
-            optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
-        }
-
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EventBaseConfiguration());
@@ -60,11 +92,6 @@ namespace ATKApp6.Infrastructure.DataBase
             modelBuilder.Entity<EventForm2>().ToTable("EventsForm2");
             modelBuilder.Entity<EventForm3>().ToTable("EventsForm3");
             modelBuilder.Entity<EventForm4>().ToTable("EventsForm4");
-
-
-            //modelBuilder.Entity<EventBase>()
-            //    .Navigation(x => x.Categories)
-            //    .AutoInclude();
             
             
             base.OnModelCreating(modelBuilder);

@@ -110,12 +110,8 @@ export const  handleForm7Submit = async ({
       },
     };
 
-    console.log("---------------");
-    console.log(createEventForm1Request);
-    console.log("---------------");
-
+    // console.log(createEventForm1Request);
     
-
     try {
       const response = await fetch(`/api/ref/events/createform1`, {
         method: "POST",
@@ -130,7 +126,6 @@ export const  handleForm7Submit = async ({
       }
 
       const data = await response.text();
-      console.log("Событие создано:", data);
 
       //Показать уведомление
       toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
@@ -140,6 +135,8 @@ export const  handleForm7Submit = async ({
       }, 3000);
       
     } catch (error) {
-      console.error("Ошибка:", error);
+          
+      // ОБРАБОТКА ОШИБКА *error*
+
     }
 };
