@@ -124,7 +124,7 @@ const EventCard = () => {
 
         {data.name && (
           <section>
-            <label>Наименование мероприятия:</label>
+            <label>Наименование мероприятия</label>
             <p>{data.name}</p>
           </section>
         )}
@@ -132,7 +132,7 @@ const EventCard = () => {
 
         {data.date && (
           <section>
-            <label>Дата проведения:</label>
+            <label>Дата проведения</label>
             <p>{data.date}</p>
           </section>
         )}
@@ -140,7 +140,7 @@ const EventCard = () => {
 
         {data.content && (
           <section>
-            <label>Краткое описание мероприятия:</label>
+            <label>Краткое описание мероприятия</label>
             <p>{data.content}</p>
           </section>
         )}
@@ -148,7 +148,7 @@ const EventCard = () => {
 
         {data.levelType && (
           <section>
-            <label>Уровень мероприятия:</label>
+            <label>Уровень мероприятия</label>
             <p>{data.levelType}</p>
           </section>
         )}
@@ -176,7 +176,7 @@ const EventCard = () => {
 
         {data.mediaLinks && data.mediaLinks.length > 0 && (
           <section>
-            <label>Ссылка на СМИ/СМК:</label>
+            <label>Ссылка на СМИ/СМК</label>
 
             {data.mediaLinks.map((link) => (
               <tr key={link.id}>
@@ -284,7 +284,7 @@ const EventCard = () => {
 
         {data.theme.code === "1.3.5" && (
           <section>
-            <h2>Отправка</h2>
+            <h2>Отправка материала</h2>
             <p><strong>Отправка в НАК: {data.directToNAC ? "Да" : "Нет"}</strong></p>
             <p><strong>Отправка в субъекты: {data.directToSubjects ?? "Нет"}</strong></p>
           </section>
@@ -307,7 +307,7 @@ const EventCard = () => {
 
         {data.violations && data.violations.length > 0 && (
           <section>
-            <h2>Выявленные нарушения и блокировки: </h2>
+            <h2>Выявленные нарушения и блокировки</h2>
             {data.violations.map((violation) => (
               <tr key={violation.id}>
                 <p><strong>Орган власти или статья: {violation.name}</strong></p>
@@ -332,14 +332,12 @@ const EventCard = () => {
         )}
 
 
-        {/* {data.isValuable !== null || data.isBestPractice !== null && ( */}
         <section>
           <h2>Дополнительные характеристики</h2>
           <p><strong>Значимое мероприятие: </strong> {data.isValuable ? "Да" : "Нет"}</p>
           <p><strong>Включено в сборник лучших практик: </strong> {data.isBestPractice ? "Да" : "Нет"}</p>
           <p><strong>Формат равный равному: </strong> {data.equalToEqualDescription ?? "Нет"}</p>
         </section>
-        {/* )} */}
 
 
         <button className="delete" type="button" onClick={() => setShowModal(true)}>Удалить</button>
@@ -348,7 +346,7 @@ const EventCard = () => {
           onConfirm={handleDelete}
           onCancel={() => setShowModal(false)}
         />
-        <button className="back" type="button" onClick={() => window.history.back()}> Назад</button>
+        <button className="back" type="button" onClick={() => window.history.back()}>Назад</button>
       </div>
     </div>
   );

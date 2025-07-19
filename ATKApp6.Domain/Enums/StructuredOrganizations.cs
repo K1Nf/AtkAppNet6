@@ -4,7 +4,7 @@ namespace ATKApp6.Domain.Enums
 {
     public enum StructuredOrganizations
     {
-        [EnumMember(Value = "АТК-ХМАО Югры")]
+        [EnumMember(Value = "АТК ХМАО-Югры")]
         atk_khmao = 0,
 
         [EnumMember(Value = "АТК Белоярский район")]

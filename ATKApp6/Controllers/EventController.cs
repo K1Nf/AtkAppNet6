@@ -4,11 +4,13 @@ using ATKApp6.Domain.Models;
 using ATKApp6.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ATKApp6.Controllers
 {
     [Route("api/ref/[controller]")]
     [ApiController]
+    [Authorize]
     public class EventsController : ControllerBase
     {
         private readonly JWTConfiguration _jwtConfiguration;
@@ -39,6 +41,9 @@ namespace ATKApp6.Controllers
             {
                 return Ok(@event);
             }
+
+
+            //var data = new PageData();
 
             return NotFound("Не найдено такое мероприятие с Id: " + id);
         }
@@ -139,7 +144,8 @@ namespace ATKApp6.Controllers
         [HttpGet("sort")]
         public async Task<IActionResult> GetSortedAndFiltered([FromQuery] FilterEntity filterEntity, int? page)
         {
-            var events = await _eventService.GetSortedAndFiltered(filterEntity, page);
+            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            var events = await _eventService.GetSortedAndFiltered(filterEntity, page, tokenId);
             return Ok(events);
         }
 

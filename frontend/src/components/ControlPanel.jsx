@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import './EventForm.css';
 
-const ControlPanel = ({ onFilter }) => {
+const ControlPanel = ({ onFilter, role }) => {    // ROLE????????????????????????????????????????????????
 
   const [municipalityList, setMunicipalityList] = useState('');
   const [municipality, setMunicipality] = useState('');
@@ -14,6 +14,7 @@ const ControlPanel = ({ onFilter }) => {
   useEffect(() => {
     const fetchMunicipalities = async () => {
       try {
+        console.log(role);                        // ROLE????????????????????????????????????????????????
         const res = await fetch("/api/ref/organizations/municipalities"); // или другой URL
         const data = await res.json();
         setMunicipalityList(data);
@@ -139,6 +140,9 @@ const ControlPanel = ({ onFilter }) => {
       {showFilters && (
         <div className="filters">
           <div className="row">
+
+
+            {/* CHECK ON USER ROLE */}
             <select
               id="municipality"
               value={municipality}
@@ -152,6 +156,8 @@ const ControlPanel = ({ onFilter }) => {
               ))}
             </select>
 
+
+            {/* CHECK ON USER ROLE */}
             <select value={organization} onChange={(e) => setOrganization(e.target.value)} disabled={!organizationList.length}>
               <option value="">-- Выберите департамент --</option>
               {organizationList.map((dep) => (

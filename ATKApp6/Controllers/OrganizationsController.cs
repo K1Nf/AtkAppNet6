@@ -4,6 +4,7 @@ using ATKApp6.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ATKApp6.Controllers
 {
@@ -29,6 +30,7 @@ namespace ATKApp6.Controllers
 
 
         [HttpGet("municipalities")]
+        [Authorize]
         public async Task<IActionResult> GetMunicipalities()
         {
             Municipalities[] municipalities = (Municipalities[])Enum.GetValues(typeof(Municipalities));
@@ -38,10 +40,9 @@ namespace ATKApp6.Controllers
 
 
         [HttpGet("departments")]
+        [Authorize]
         public async Task<IActionResult> GetDepartaments([FromQuery] string municipality)
         {
-            //string[] departments = [municipality + "123", municipality + "321", municipality + "222"];
-
             Municipalities? municipalityEnum = EnumHelper.GetEnumValueFromEnumMember<Municipalities>(municipality);
 
             var departments = await _dB.Organizations

@@ -349,17 +349,42 @@ namespace ATKApp6.Services
 
 
 
-        public async Task<object> GetSortedAndFiltered(FilterEntity filter, int? page)
+        public async Task<object?> GetSortedAndFiltered(FilterEntity filter, int? page, Guid userId)
         {
+            var userOrganization = await _dB.Organizations
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == userId);
+
+            string role = "";
+
+            if (userOrganization == null)
+            {
+                return null;
+            }
 
             IQueryable<EventBase> eventsQuery = _dB.EventsBase
-                //.Include(x => x.Finance)
+                .AsQueryable();
+                /*.Include(x => x.Finance)
                 //.Include(x => x.FeedBack)
                 //.Include(x => x.InterAgencyCooperations)
                 //.Include(x => x.Theme)
-                //.Include(x => x.Organizer)
-                .AsQueryable();
+                //.Include(x => x.Organizer)*/
 
+            if(userOrganization.Municipality == Municipalities.noMunicipality) // atk_khmao
+            {
+                role = "atk_khmao";
+
+            }
+            else if (userOrganization.Name.ToString().StartsWith("atk_"))
+            {
+                eventsQuery = eventsQuery.Where(e => e.Organizer!.Municipality == userOrganization.Municipality);
+                role = "atk_municipality";
+            }
+            else if (userOrganization.Name.ToString().Contains("_dep_"))
+            {
+                eventsQuery = eventsQuery.Where(e => e.Organizer!.Name == userOrganization.Name);
+                role = "department";
+            }
 
 
             if (filter.Municipality != null)
@@ -488,7 +513,7 @@ namespace ATKApp6.Services
             .ToListAsync();
 
             //new { data = events, totalPages = events.Count }
-            return new { data = result, totalPages = Math.Ceiling(totalEntitiesCount / 10) };
+            return new { role, data = result, totalPages = Math.Ceiling(totalEntitiesCount / 10) };
         }
 
 

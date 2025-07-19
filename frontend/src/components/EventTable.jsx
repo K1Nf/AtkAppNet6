@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import GetEvents from '../../Api/getevents'; // Путь к компоненту загрузки событий
 import ControlPanel from './ControlPanel';
 
@@ -6,6 +6,9 @@ import ControlPanel from './ControlPanel';
 const EventTable = () => {
 
   const [events, setEvents] = useState([]);
+
+  const [userRole, setUserRole] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [queryString, setQueryString] = useState('');
@@ -36,6 +39,7 @@ const EventTable = () => {
       const data = await response.json();
 
       setEvents(data.items || data); // в зависимости от структуры ответа
+      setUserRole(data.role); 
       setTotalPagesReal(data.totalPages || 1); // если приходит с сервера
       setCurrentPage(page);
     } catch (err) {
@@ -61,7 +65,7 @@ const EventTable = () => {
   return (
     <>
 
-      <ControlPanel onFilter={(query) => setQueryString(query)} />
+      <ControlPanel onFilter={(query) => setQueryString(query)} Role = {userRole} />
       <div className="filters" >
         <table>
           <thead>
