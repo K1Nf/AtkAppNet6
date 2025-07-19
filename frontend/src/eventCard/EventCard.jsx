@@ -19,8 +19,9 @@ const EventCard = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Ошибка при удалении события");
-        // обработка ошибки
+        const errorText = await response.text(); // получаем описание ошибки с сервера
+        toastr.error(`Ошибка при удалении: ${errorText}. Попробуйте позже`, "Ошибка");
+        return; // прерываем выполнение, чтобы не шло дальше
       }
 
       if (response.status == 204) {
@@ -38,9 +39,9 @@ const EventCard = () => {
       }
 
     } catch (error) {
-          
-      // ОБРАБОТКА ОШИБКА *error*
 
+      // ОБРАБОТКА ОШИБКА *error*
+      toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
     }
 
     setShowModal(false);
@@ -64,13 +65,20 @@ const EventCard = () => {
       try {
         const response = await fetch(backUrl);
         if (!response.ok) {
-          throw new Error("Ошибка загрузки данных");
+          const errorText = await response.text(); // получаем описание ошибки с сервера
+
+          alert(`Ошибка: ${errorText}`);
+          window.history.go(-1);
+
+          return; 
         }
         else {
           const result = await response.json();
           setData(result);
         }
       } catch (err) {
+
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
         setError(err.message);
       } finally {
         setLoading(false);
@@ -233,7 +241,7 @@ const EventCard = () => {
                 </tr>
               </thead>
               <tbody style={{ color: "black", border: "1px black solid" }}>
-                {data.interAgencyCooperations.map((element) => ( 
+                {data.interAgencyCooperations.map((element) => (
                   <tr key={element.id} style={{ color: "black", border: "1px black solid" }}>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.organization}</td>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.role}</td>

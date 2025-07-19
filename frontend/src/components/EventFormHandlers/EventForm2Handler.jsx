@@ -127,7 +127,6 @@ export const handleForm2Submit = async ({
           description = descriptions[descKey];
         }
 
-        console.log(description); // даже не выводит
         if (description?.trim()) {
           result.push({ key, description });
         }
@@ -138,7 +137,7 @@ export const handleForm2Submit = async ({
 
 
   const selectedSupportTypes = buildSupportMap(supportTypes, supportTypesDescription);
-  
+
   // проверка, нажати ли вообще галочка
   competitionDescription = isCompetitionDirectionChecked ? competitionDescription : null;
   participationResult = isCompetitionDirectionChecked ? participationResult : null;
@@ -185,7 +184,6 @@ export const handleForm2Submit = async ({
 
   };
 
-  // console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {
@@ -197,7 +195,9 @@ export const handleForm2Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -205,13 +205,13 @@ export const handleForm2Submit = async ({
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
     window.setTimeout(function () {
-        // Move to a new location or you can do something else
-        window.location.href = "/";
-      }, 3000);
+      // Move to a new location or you can do something else
+      window.location.href = "/";
+    }, 3000);
 
   } catch (error) {
-    
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

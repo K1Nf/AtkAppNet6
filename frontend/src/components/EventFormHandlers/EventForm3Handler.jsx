@@ -166,10 +166,8 @@ export const handleForm3Submit = async ({
     }
   };
 
-  // console.log(createEventRequest);
 
   const backCreateUrl = `/api/ref/events/createform4`;
-
 
   try {
     const response = await fetch(backCreateUrl, {
@@ -181,7 +179,9 @@ export const handleForm3Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -192,10 +192,10 @@ export const handleForm3Submit = async ({
       // Move to a new location or you can do something else
       window.location.href = "/";
     }, 3000);
-    
-  } catch (error) {
-    
-      // ОБРАБОТКА ОШИБКА *error*
 
+  } catch (error) {
+
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

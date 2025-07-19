@@ -5,7 +5,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../ATKApplication/wwwroot", // Куда складываем сборку
+    outDir: "../ATKApp6/wwwroot", // Куда складываем сборку
     emptyOutDir: true,
     rollupOptions: {
       input: {

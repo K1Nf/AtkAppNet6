@@ -66,13 +66,13 @@ export const handleForm17Submit = async ({
   let otherAudienceDesc = audience.other ? otherAudienceDescription : null;
 
   const result = Object.entries(audience)
-  .filter(([key, value]) => value === true)
-  .map(([key]) => {
-    if (key === "other") {
-      return otherAudienceDesc;
-    }
-    return key;
-  });
+    .filter(([key, value]) => value === true)
+    .map(([key]) => {
+      if (key === "other") {
+        return otherAudienceDesc;
+      }
+      return key;
+    });
 
 
   let createEventForm1Request = {
@@ -84,14 +84,12 @@ export const handleForm17Submit = async ({
     equalToEqual: schoolsAndYouthsDescription,
 
     createMediaLinkRequest: {
-        content: link.split(',').map(l => l.trim())
-      },
+      content: link.split(',').map(l => l.trim())
+    },
     createAudienceRequest: {
       audiences: result
     }
   };
-
-  // console.log(createEventForm1Request);
 
 
   try {
@@ -104,22 +102,24 @@ export const handleForm17Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
-    window.setTimeout(function(){
-        // Move to a new location or you can do something else
-        window.location.href = "/";
+    window.setTimeout(function () {
+      // Move to a new location or you can do something else
+      window.location.href = "/";
     }, 3000);
 
 
   } catch (error) {
-    
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

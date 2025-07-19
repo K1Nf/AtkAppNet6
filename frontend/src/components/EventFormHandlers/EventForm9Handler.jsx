@@ -7,7 +7,7 @@ export const handleForm9Submit = async ({
   executor,
   lawArticles,
   laws,
-  
+
 }) => {
   e.preventDefault();
 
@@ -24,7 +24,7 @@ export const handleForm9Submit = async ({
     return;
   }
 
-  
+
   let selectedLaws = Object.fromEntries(
     Object.entries(laws).filter(([_, value]) => value.checked === true)
   );
@@ -35,10 +35,8 @@ export const handleForm9Submit = async ({
 
     createViolationsRequest: {
       violations: selectedLaws,
-    } 
+    }
   };
-
-  // console.log(createEventForm3Request);
 
 
   try {
@@ -51,7 +49,9 @@ export const handleForm9Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -59,13 +59,13 @@ export const handleForm9Submit = async ({
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
     window.setTimeout(function () {
-        // Move to a new location or you can do something else
-        window.location.href = "/";
-      }, 3000);
+      // Move to a new location or you can do something else
+      window.location.href = "/";
+    }, 3000);
 
   } catch (error) {
-        
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

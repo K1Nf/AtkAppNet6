@@ -33,12 +33,15 @@ const Login = () => {
       try {
         const response = await fetch(urlBack); // Пример URL
         if (!response.ok) {
-          throw new Error('Ошибка при загрузке данных');
+          const errorText = await response.text(); // получаем описание ошибки с сервера
+          toastr.error(`Ошибка при загрузке организаций: ${errorText}`, "Ошибка");
+          return; // прерываем выполнение, чтобы не шло дальше
         }
         const result = await response.json();
 
         setMunicipalsOrganizations(result);
       } catch (error) {
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
         setError(error.message); // Обрабатываем ошибку, если что-то пошло не так
       } finally {
         setLoading(false); // Завершаем процесс загрузки
@@ -80,16 +83,23 @@ const Login = () => {
       });
 
       if (!response.ok) {
-        throw new Error(await response.text());
+        const errorText = await response.text(); // получаем описание ошибки с сервера
+        alert(`Ошибка при авторизации: ${errorText}`, "Ошибка");
+        return; // прерываем выполнение, чтобы не шло дальше
       }
 
       const data = await response.text();
 
-      alert(data);
-      localStorage.setItem('tokenATK', data.token);
       toastr.success('Успешный вход!', 'Добро пожаловать');
-      window.location.href = '/events';
+      localStorage.setItem('tokenATK', data.token);
+
+      window.setTimeout(function () {
+        window.location.href = '/events';
+      }, 2000);
+
     } catch (err) {
+
+      toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
       toastr.error(err.message || 'Ошибка входа', 'Ошибка');
     }
   }

@@ -19,9 +19,9 @@ const ControlPanel = ({ onFilter }) => {
         setMunicipalityList(data);
 
       } catch (error) {
-          
-      // ОБРАБОТКА ОШИБКА *error*
 
+        // ОБРАБОТКА ОШИБКА *error*
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
       }
     };
 
@@ -39,7 +39,11 @@ const ControlPanel = ({ onFilter }) => {
     fetch(`/api/ref/organizations/departments?municipality=${municipality}`)
       .then((res) => res.json())
       .then(setOrganizationList)
-      .catch((err) => console.error("Ошибка при загрузке департаментов", err));
+      .catch((err) => {
+
+        // ОБРАБОТКА ОШИБКА *error*
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
+      });
   }, [municipality]);
 
 
@@ -66,7 +70,11 @@ const ControlPanel = ({ onFilter }) => {
     fetch('/api/ref/themes')
       .then(res => res.json())
       .then(data => setThemes(data))
-      .catch(err => console.error("Ошибка загрузки тем:", err));
+      .catch(err => {
+
+        // ОБРАБОТКА ОШИБКА *error*
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
+      });
   }, []);
 
   const toggleFilters = () => setShowFilters(!showFilters);
@@ -219,7 +227,7 @@ const ControlPanel = ({ onFilter }) => {
           </button>
 
           <button className="filter-submit" onClick={handleSubmit}>Фильтровать</button>
-        
+
         </div>
       )}
     </div>

@@ -23,14 +23,24 @@ const EventTable = () => {
     const url = `/api/ref/events/sort?${params.toString()}`;
 
     try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error('Ошибка при загрузке данных');
-      const data = await res.json();
+      const response = await fetch(url);
+      if (!response.ok) {
+        const errorText = await response.text(); // получаем описание ошибки с сервера
+        // toastr.error(`Ошибка при получении мероприятий: ${errorText}`, "Ошибка");
+
+        alert(`Ошибка при получении мероприятий: ${errorText}`,);
+        window.history.go(-1);
+
+        return;
+      }
+      const data = await response.json();
 
       setEvents(data.items || data); // в зависимости от структуры ответа
       setTotalPagesReal(data.totalPages || 1); // если приходит с сервера
       setCurrentPage(page);
     } catch (err) {
+
+      toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
       setError(err.message);
     } finally {
       setLoading(false);
@@ -50,26 +60,26 @@ const EventTable = () => {
 
   return (
     <>
-     
+
       <ControlPanel onFilter={(query) => setQueryString(query)} />
-        <div className="filters" >
-      <table>
-        <thead>
-          <tr>
-            <th>Организатор</th>
-            <th>№ темы</th>
-            <th>Наименование</th>
-            <th>Описание</th>
-            <th>Дата</th>
-            <th>Количество участников</th>
-            <th>Ссылки</th>
-            <th>Управление</th>
-          </tr>
-        </thead>
-        <tbody>
-          <GetEvents data={events.data} error={error} loading={loading} />
-        </tbody>
-      </table>
+      <div className="filters" >
+        <table>
+          <thead>
+            <tr>
+              <th>Организатор</th>
+              <th>№ темы</th>
+              <th>Наименование</th>
+              <th>Описание</th>
+              <th>Дата</th>
+              <th>Количество участников</th>
+              <th>Ссылки</th>
+              <th>Управление</th>
+            </tr>
+          </thead>
+          <tbody>
+            <GetEvents data={events.data} error={error} loading={loading} />
+          </tbody>
+        </table>
       </div>
 
       <div className="pagination">

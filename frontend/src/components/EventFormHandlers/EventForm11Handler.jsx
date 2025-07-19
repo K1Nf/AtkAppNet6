@@ -125,13 +125,13 @@ export const handleForm11Submit = async ({
   let otherAudienceDesc = audience.other ? otherAudienceDescription : null;
 
   const resultAudiences = Object.entries(audience)
-  .filter(([key, value]) => value === true)
-  .map(([key]) => {
-    if (key === "other") {
-      return otherAudienceDesc;
-    }
-    return key;
-  });
+    .filter(([key, value]) => value === true)
+    .map(([key]) => {
+      if (key === "other") {
+        return otherAudienceDesc;
+      }
+      return key;
+    });
 
 
 
@@ -169,7 +169,6 @@ export const handleForm11Submit = async ({
 
   };
 
-  // console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {
@@ -181,7 +180,9 @@ export const handleForm11Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -194,8 +195,8 @@ export const handleForm11Submit = async ({
     }, 3000);
 
   } catch (error) {
-        
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

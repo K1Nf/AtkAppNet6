@@ -39,13 +39,14 @@ namespace ATKApp6.Infrastructure.DataBase
                 string connectionString = _configuration.GetValue<string>("DefaultConnectionString");
 
                 optionsBuilder
-                    .UseNpgsql(connectionString)
-                    .UseLoggerFactory(_loggerFactory);
+                    .UseNpgsql(connectionString);
+                    
 
                 if (_env.IsDevelopment())
                 {
                     optionsBuilder
                         .EnableSensitiveDataLogging()
+                        .UseLoggerFactory(_loggerFactory)
                         .EnableDetailedErrors();
                 }
             }

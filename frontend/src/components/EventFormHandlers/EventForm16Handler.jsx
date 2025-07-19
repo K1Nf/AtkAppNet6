@@ -45,9 +45,8 @@ export const handleForm16Submit = async ({
     themeCode: selectedTopic,
     actor: executor,
     content: eventDescription,
-    };
+  };
 
-  // console.log(createEventBaseRequest);
 
   try {
     const response = await fetch(`/api/ref/events/createbase`, {
@@ -59,22 +58,24 @@ export const handleForm16Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
 
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
-    window.setTimeout(function(){
-        // Move to a new location or you can do something else
-        window.location.href = "/";
+    window.setTimeout(function () {
+      // Move to a new location or you can do something else
+      window.location.href = "/";
     }, 3000);
 
 
   } catch (error) {
 
-      // ОБРАБОТКА ОШИБКА *error*
-
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

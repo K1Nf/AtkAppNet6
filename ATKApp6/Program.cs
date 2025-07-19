@@ -84,6 +84,7 @@ builder.Services.AddScoped<AuthService>();
 
 var app = builder.Build();
 
+app.UseMiddleware<MyExceptionHandlerMiddleware>();
 
 app.UseHsts();
 app.UseHttpsRedirection();

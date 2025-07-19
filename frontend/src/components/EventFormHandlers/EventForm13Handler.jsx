@@ -83,13 +83,13 @@ export const handleForm13Submit = async ({
   let otherAudienceDesc = audience.other ? otherAudienceDescription : null;
 
   const audiencesSelected = Object.entries(audience)
-  .filter(([key, value]) => value === true)
-  .map(([key]) => {
-    if (key === "other") {
-      return otherAudienceDesc;
-    }
-    return key;
-  });
+    .filter(([key, value]) => value === true)
+    .map(([key]) => {
+      if (key === "other") {
+        return otherAudienceDesc;
+      }
+      return key;
+    });
 
 
 
@@ -101,17 +101,15 @@ export const handleForm13Submit = async ({
         let descKey;
         descKey = `${key}Description`;
 
-        let description = descriptions[descKey]; 
+        let description = descriptions[descKey];
 
-        if(description == "" || description == undefined)
-        {
+        if (description == "" || description == undefined) {
           descKey = key;
           description = descriptions[descKey];
         }
 
-        console.log(description); // даже не выводит
         if (description?.trim()) {
-          result.push({key, description});
+          result.push({ key, description });
         }
       }
     }
@@ -142,7 +140,6 @@ export const handleForm13Submit = async ({
     },
   };
 
-  // console.log(createEventRequest);
 
   const backCreateUrl = `/api/ref/events/createform1`;
 
@@ -157,7 +154,9 @@ export const handleForm13Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -165,13 +164,13 @@ export const handleForm13Submit = async ({
     //Показать уведомление
     toastr.success("Данные успешно сохранены и добавлены в таблицу!", "Успех");
     window.setTimeout(function () {
-        // Move to a new location or you can do something else
-        window.location.href = "/";
-      }, 3000);
+      // Move to a new location or you can do something else
+      window.location.href = "/";
+    }, 3000);
 
   } catch (error) {
-        
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };

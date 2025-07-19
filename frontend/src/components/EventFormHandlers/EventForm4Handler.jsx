@@ -18,7 +18,6 @@ export const handleForm4Submit = async ({
 
   e.preventDefault();
 
-  console.log("Нажат обработчик формы 4")
   if (!selectedTopic) {
     toastr.error("Пожалуйста, выберите тему", "Ошибка");
     return;
@@ -33,7 +32,7 @@ export const handleForm4Submit = async ({
   ];
 
   if (formType == "3.2.2" && formType === "2.7.1") {
-      requiredFields.push({ value: link, id: "link" });
+    requiredFields.push({ value: link, id: "link" });
   }
 
 
@@ -52,7 +51,7 @@ export const handleForm4Submit = async ({
 
 
   if (formType == "3.2.2" && formType === "2.7.1") {
-  // Проверка на корректность ссылки
+    // Проверка на корректность ссылки
     const linkElement = document.getElementById("link");
     const links = link.split(',').map((l) => l.trim());
 
@@ -85,14 +84,13 @@ export const handleForm4Submit = async ({
 
         let description = descriptions[descKey]; // вызывается ошибка
 
-        if(description == "" || description == undefined)
-        {
+        if (description == "" || description == undefined) {
           descKey = key;
           description = descriptions[descKey];
         }
 
         if (description?.trim()) {
-          result.push({key, description});
+          result.push({ key, description });
         }
       }
     }
@@ -108,7 +106,6 @@ export const handleForm4Submit = async ({
     ...selectedHelpTypes
   ];
 
-  console.log("combinedSupportArray: " + combinedSupport);
 
   let createEventForm1Request = {
     themeCode: selectedTopic,
@@ -116,18 +113,17 @@ export const handleForm4Submit = async ({
     content: eventDescription,
     date: eventDate,
     name: eventName,
-    
+
     createSupportrequest: {
       supports: combinedSupport,
       supported: ""
     },
 
     createMediaLinkRequest: {
-        content: link.split(',').map(l => l.trim())
+      content: link.split(',').map(l => l.trim())
     },
   };
 
-  //console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {
@@ -139,7 +135,9 @@ export const handleForm4Submit = async ({
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка при создании события");
+      const errorText = await response.text(); // получаем описание ошибки с сервера
+      toastr.error(`Ошибка при сохранении: ${errorText}`, "Ошибка");
+      return; // прерываем выполнение, чтобы не шло дальше
     }
 
     const data = await response.text();
@@ -153,8 +151,8 @@ export const handleForm4Submit = async ({
 
 
   } catch (error) {
-        
-      // ОБРАБОТКА ОШИБКА *error*
 
+    // ОБРАБОТКА ОШИБКА *error*
+    toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
 };
