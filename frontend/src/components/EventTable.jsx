@@ -4,22 +4,17 @@ import ControlPanel from './ControlPanel';
 
 
 const EventTable = () => {
-
   const [events, setEvents] = useState([]);
-
-  const [userRole, setUserRole] = useState("");
-
+  const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [queryString, setQueryString] = useState('');
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPagesReal, setTotalPagesReal] = useState(1); // важно!
 
 
   const fetchEvents = async (page = 1, query = '') => {
     setLoading(true);
-
     // добавляем page к queryString
     const params = new URLSearchParams(query);
     params.set("page", page);
@@ -29,19 +24,17 @@ const EventTable = () => {
       const response = await fetch(url);
       if (!response.ok) {
         const errorText = await response.text(); // получаем описание ошибки с сервера
-        // toastr.error(`Ошибка при получении мероприятий: ${errorText}`, "Ошибка");
-
         alert(`Ошибка при получении мероприятий: ${errorText}`,);
         window.history.go(-1);
-
         return;
       }
       const data = await response.json();
 
       setEvents(data.items || data); // в зависимости от структуры ответа
-      setUserRole(data.role); 
+      setUserRole(data.role); // ✅ Вот этой строки не хватало!
       setTotalPagesReal(data.totalPages || 1); // если приходит с сервера
       setCurrentPage(page);
+
     } catch (err) {
 
       toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
@@ -50,6 +43,14 @@ const EventTable = () => {
       setLoading(false);
     }
   };
+
+
+  useEffect(() => {
+    if (userRole !== null) {
+      // тут можешь вызвать что-то, если нужно
+    }
+  }, [userRole]);
+
 
   // Обновление при изменении фильтров
   useEffect(() => {
@@ -64,8 +65,9 @@ const EventTable = () => {
 
   return (
     <>
-
-      <ControlPanel onFilter={(query) => setQueryString(query)} Role = {userRole} />
+      {userRole !== null && (
+        <ControlPanel onFilter={(query) => setQueryString(query)} role={userRole} />
+      )}
       <div className="filters" >
         <table>
           <thead>

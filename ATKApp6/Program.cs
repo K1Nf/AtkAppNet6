@@ -6,6 +6,8 @@ using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using ATKApp6.Infrastructure.Extensions.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,7 @@ builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.Configure<JWTConfiguration>(builder.Configuration.GetSection(nameof(JWTConfiguration)));
-
+builder.Services.AddScoped<IAuthorizationHandler, AuthorizeHandler>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -66,7 +68,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanUserReadResource", policy =>
+        policy.Requirements.Add(new PolicyNameRequirements("CanUserReadResource")));
+});
 
 builder.Services.AddControllers()
     .AddNewtonsoftJson(options =>

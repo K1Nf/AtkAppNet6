@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import './EventForm.css';
 
-const ControlPanel = ({ onFilter, role }) => {    // ROLE????????????????????????????????????????????????
+const ControlPanel = ({ onFilter, role }) => {
 
   const [municipalityList, setMunicipalityList] = useState('');
   const [municipality, setMunicipality] = useState('');
@@ -14,38 +14,49 @@ const ControlPanel = ({ onFilter, role }) => {    // ROLE???????????????????????
   useEffect(() => {
     const fetchMunicipalities = async () => {
       try {
-        console.log(role);                        // ROLE????????????????????????????????????????????????
-        const res = await fetch("/api/ref/organizations/municipalities"); // или другой URL
+        const res = await fetch("/api/ref/organizations/municipalities");
         const data = await res.json();
         setMunicipalityList(data);
 
       } catch (error) {
-
         // ОБРАБОТКА ОШИБКА *error*
         toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
       }
     };
-
     fetchMunicipalities();
   }, []);
 
 
 
   useEffect(() => {
-    if (!municipality) {
+    const fetchOrganizations = async () => {
+      try {
+        let url = "/api/ref/organizations/departments";
+
+        // Если роль — atk_khmao, добавляем параметр municipality
+        if (role === "atk_khmao" && municipality) {
+          url += `?municipality=${municipality}`;
+        }
+
+        const res = await fetch(url);
+        const data = await res.json();
+        setOrganizationList(data);
+      } catch (error) {
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
+      }
+    };
+
+    // Условия:
+    if (role === "atk_khmao" && !municipality) {
+      // Ждём, пока пользователь выберет муниципалитет
       setOrganizationList([]);
       return;
     }
 
-    fetch(`/api/ref/organizations/departments?municipality=${municipality}`)
-      .then((res) => res.json())
-      .then(setOrganizationList)
-      .catch((err) => {
-
-        // ОБРАБОТКА ОШИБКА *error*
-        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
-      });
-  }, [municipality]);
+    if (role === "atk_khmao" || role === "atk_municipality") {
+      fetchOrganizations();
+    }
+  }, [municipality, role]);
 
 
 
@@ -142,31 +153,31 @@ const ControlPanel = ({ onFilter, role }) => {    // ROLE???????????????????????
           <div className="row">
 
 
-            {/* CHECK ON USER ROLE */}
-            <select
-              id="municipality"
-              value={municipality}
-              onChange={(e) => setMunicipality(e.target.value)}
-            >
-              <option value="">Выбор муниципалитета</option>
-              {municipalityList.map((mun) => (
-                <option key={mun} value={mun}>
-                  {mun}
-                </option>
-              ))}
-            </select>
+            {role === 'atk_khmao' && (
+              <select
+                id="municipality"
+                value={municipality}
+                onChange={(e) => setMunicipality(e.target.value)}
+              >
+                <option value="">Выбор муниципалитета</option>
+                {municipalityList.map((mun) => (
+                  <option key={mun} value={mun}>
+                    {mun}
+                  </option>
+                ))}
+              </select>
+            )}
 
-
-            {/* CHECK ON USER ROLE */}
-            <select value={organization} onChange={(e) => setOrganization(e.target.value)} disabled={!organizationList.length}>
-              <option value="">-- Выберите департамент --</option>
-              {organizationList.map((dep) => (
-                <option key={dep} value={dep}>
-                  {dep}
-                </option>
-              ))}
-            </select>
-
+            {(role === 'atk_municipality' || role === 'atk_khmao') && (
+              <select value={organization} onChange={(e) => setOrganization(e.target.value)} disabled={!organizationList.length}>
+                <option value="">-- Выберите департамент --</option>
+                {organizationList.map((dep) => (
+                  <option key={dep} value={dep}>
+                    {dep}
+                  </option>
+                ))}
+              </select>
+            )}
 
             <select value={level} onChange={e => setLevel(e.target.value)}>
               <option value="">Уровень мероприятия</option>

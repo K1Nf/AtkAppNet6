@@ -70,7 +70,7 @@ const EventCard = () => {
           alert(`Ошибка: ${errorText}`);
           window.history.go(-1);
 
-          return; 
+          return;
         }
         else {
           const result = await response.json();
@@ -95,90 +95,90 @@ const EventCard = () => {
   return (
     <div className="container">
       <div className="event-card">
-        <h2>Основная информация о мероприятии «{data.name ?? ""}» </h2>
-        <h2>Организатор: {data.organizer.name} ({data.organizer.municipality})</h2>
+        <h2>Основная информация о мероприятии «{data.event.name ?? ""}» </h2>
+        <h2>Организатор: {data.event.organizer.name} ({data.event.organizer.municipality})</h2>
         <section>
-          <label>Номер темы: {data.theme.code}</label>
+          <label>Номер темы: {data.event.theme.code}</label>
           {/* <p></p> */}
         </section>
 
         <section>
           <label>Описание темы</label>
-          <p>{data.theme.description}</p>
+          <p>{data.event.theme.description}</p>
         </section>
 
 
         <section>
           <label>Структурная организация</label>
-          <p>{data.organizer.name} ({data.organizer.municipality})</p>
+          <p>{data.event.organizer.name} ({data.event.organizer.municipality})</p>
         </section>
 
 
-        {data.actor && (
+        {data.event.actor && (
           <section>
             <label>Исполнитель</label>
-            <p>{data.actor}</p>
+            <p>{data.event.actor}</p>
           </section>
         )}
 
 
-        {data.name && (
+        {data.event.name && (
           <section>
             <label>Наименование мероприятия</label>
-            <p>{data.name}</p>
+            <p>{data.event.name}</p>
           </section>
         )}
 
 
-        {data.date && (
+        {data.event.date && (
           <section>
             <label>Дата проведения</label>
-            <p>{data.date}</p>
+            <p>{data.event.date}</p>
           </section>
         )}
 
 
-        {data.content && (
+        {data.event.content && (
           <section>
             <label>Краткое описание мероприятия</label>
-            <p>{data.content}</p>
+            <p>{data.event.content}</p>
           </section>
         )}
 
 
-        {data.levelType && (
+        {data.event.levelType && (
           <section>
             <label>Уровень мероприятия</label>
-            <p>{data.levelType}</p>
+            <p>{data.event.levelType}</p>
           </section>
         )}
 
-        {data.eventType && (
+        {data.event.eventType && (
           <section>
             <label>Форма проведения</label>
-            <p>{data.eventType}</p>
+            <p>{data.event.eventType}</p>
           </section>
         )}
 
-        {data.decision && (
+        {data.event.decision && (
           <section>
             <label>Необходимые управленческие решения</label>
-            <p>{data.decision}</p>
+            <p>{data.event.decision}</p>
           </section>
         )}
 
-        {data.result && (
+        {data.event.result && (
           <section>
             <label>Результат мероприятия</label>
-            <p>{data.result}</p>
+            <p>{data.event.result}</p>
           </section>
         )}
 
-        {data.mediaLinks && data.mediaLinks.length > 0 && (
+        {data.event.mediaLinks && data.event.mediaLinks.length > 0 && (
           <section>
             <label>Ссылка на СМИ/СМК</label>
 
-            {data.mediaLinks.map((link) => (
+            {data.event.mediaLinks.map((link) => (
               <tr key={link.id}>
 
                 {link.organizationName && (
@@ -192,10 +192,10 @@ const EventCard = () => {
         )}
 
 
-        {data.categories && data.categories.length > 0 && (
+        {data.event.categories && data.event.categories.length > 0 && (
           <section>
             <h2>Участники мероприятия</h2>
-            {data.categories.map((category) => (
+            {data.event.categories.map((category) => (
               <tr key={category.id}>
                 <p><strong>{category.name}: </strong>{category.count}</p>
               </tr>
@@ -204,32 +204,32 @@ const EventCard = () => {
         )}
 
 
-        {data.finance && (
+        {data.event.finance && (
           <section>
             <h2>Финансирование</h2>
-            <p><strong>Муниципальный бюджет:</strong> {data.finance?.municipalBudget} руб.</p>
-            <p><strong>Окружной бюджет:</strong> {data.finance?.regionalBudget} руб.</p>
-            <p><strong>Гранты/Субсидии:</strong> {data.finance?.granteBudget} руб.</p>
-            <p><strong>Другое:</strong> {data.finance?.otherBudget} руб.</p>
-            <p><strong>ИТОГО: {data.finance?.total} руб. </strong></p>
+            <p><strong>Муниципальный бюджет:</strong> {data.event.finance?.municipalBudget} руб.</p>
+            <p><strong>Окружной бюджет:</strong> {data.event.finance?.regionalBudget} руб.</p>
+            <p><strong>Гранты/Субсидии:</strong> {data.event.finance?.granteBudget} руб.</p>
+            <p><strong>Другое:</strong> {data.event.finance?.otherBudget} руб.</p>
+            <p><strong>ИТОГО: {data.event.finance?.total} руб. </strong></p>
           </section>
         )}
 
 
-        {data.feedBack && (
+        {data.event.feedBack && (
           <section>
             <h2>Обратная связь</h2>
-            <p><strong>Опрос:</strong> {data.feedBack.hasOpros ? "Да" : "Нет"}</p>
-            <p><strong>Онлайн-опрос:</strong> {data.feedBack.hasInternet ? "Да" : "Нет"}</p>
-            <p><strong>Анкетирование:</strong> {data.feedBack.hasGuestionnaire ? "Да" : "Нет"}</p>
-            <p><strong>Интервью:</strong> {data.feedBack.hasInterview ? "Да" : "Нет"}</p>
-            <p><strong>Другое:</strong> {data.feedBack.hasOther ? "Да" : "Нет"}</p>
-            <p><strong>Описание:</strong> {data.feedBack.description}</p>
+            <p><strong>Опрос:</strong> {data.event.feedBack.hasOpros ? "Да" : "Нет"}</p>
+            <p><strong>Онлайн-опрос:</strong> {data.event.feedBack.hasInternet ? "Да" : "Нет"}</p>
+            <p><strong>Анкетирование:</strong> {data.event.feedBack.hasGuestionnaire ? "Да" : "Нет"}</p>
+            <p><strong>Интервью:</strong> {data.event.feedBack.hasInterview ? "Да" : "Нет"}</p>
+            <p><strong>Другое:</strong> {data.event.feedBack.hasOther ? "Да" : "Нет"}</p>
+            <p><strong>Описание:</strong> {data.event.feedBack.description}</p>
           </section>
         )}
 
 
-        {data.interAgencyCooperations && data.interAgencyCooperations.length > 0 && (
+        {data.event.interAgencyCooperations && data.event.interAgencyCooperations.length > 0 && (
           <section>
             <h2>Взаимодействие</h2>
             <table style={{ color: "black", border: "1px black solid" }}>
@@ -241,7 +241,7 @@ const EventCard = () => {
                 </tr>
               </thead>
               <tbody style={{ color: "black", border: "1px black solid" }}>
-                {data.interAgencyCooperations.map((element) => (
+                {data.event.interAgencyCooperations.map((element) => (
                   <tr key={element.id} style={{ color: "black", border: "1px black solid" }}>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.organization}</td>
                     <td style={{ color: "black", border: "1px black solid" }}>{element.role}</td>
@@ -254,14 +254,14 @@ const EventCard = () => {
         )}
 
 
-        {data.supports && data.supports.length > 0 && (
+        {data.event.supports && data.event.supports.length > 0 && (
           <section>
 
             <h2>Поддержка</h2>
 
-            <p><strong>Получатель поддержки: </strong>{data.supports[0].receiver}</p>
+            <p><strong>Получатель поддержки: </strong>{data.event.supports[0].receiver}</p>
 
-            {data.supports.map((support) => (
+            {data.event.supports.map((support) => (
               <tr key={support.id}>
                 <p><strong>{support.supportType}: </strong>{support.description}</p>
               </tr>
@@ -270,10 +270,10 @@ const EventCard = () => {
         )}
 
 
-        {data.audiences && data.audiences.length > 0 && (
+        {data.event.audiences && data.event.audiences.length > 0 && (
           <section>
             <h2>Целевая аудитория</h2>
-            {data.audiences.map((audience) => (
+            {data.event.audiences.map((audience) => (
               <tr key={audience.id}>
                 <p><strong>  {audience.category}</strong></p>
               </tr>
@@ -282,19 +282,19 @@ const EventCard = () => {
         )}
 
 
-        {data.theme.code === "1.3.5" && (
+        {data.event.theme.code === "1.3.5" && (
           <section>
             <h2>Отправка материала</h2>
-            <p><strong>Отправка в НАК: {data.directToNAC ? "Да" : "Нет"}</strong></p>
-            <p><strong>Отправка в субъекты: {data.directToSubjects ?? "Нет"}</strong></p>
+            <p><strong>Отправка в НАК: {data.event.directToNAC ? "Да" : "Нет"}</strong></p>
+            <p><strong>Отправка в субъекты: {data.event.directToSubjects ?? "Нет"}</strong></p>
           </section>
         )}
 
 
-        {data.agreements && data.agreements.length > 0 && (
+        {data.event.agreements && data.event.agreements.length > 0 && (
           <section>
             <h2>Согласования</h2>
-            {data.agreements.map((agreement) => (
+            {data.event.agreements.map((agreement) => (
               <tr key={agreement.id}>
                 <p><strong>Организация: {agreement.organization}</strong></p>
                 <p><strong>Результат: {agreement.result}</strong></p>
@@ -305,10 +305,10 @@ const EventCard = () => {
         )}
 
 
-        {data.violations && data.violations.length > 0 && (
+        {data.event.violations && data.event.violations.length > 0 && (
           <section>
             <h2>Выявленные нарушения и блокировки</h2>
-            {data.violations.map((violation) => (
+            {data.event.violations.map((violation) => (
               <tr key={violation.id}>
                 <p><strong>Орган власти или статья: {violation.name}</strong></p>
                 <p><strong>Количество заблокированных/отправленных материалов: {violation.blocked}/{violation.send}</strong></p>
@@ -322,30 +322,35 @@ const EventCard = () => {
         )}
 
 
-        {data.concourse && (
+        {data.event.concourse && (
           <section>
             <h2>Направление на участие в конкурсе</h2>
-            <p><strong>Название/описание конкурса: </strong> {data.concourse.description}</p>
-            <p><strong>Результат конкурса: </strong> {data.concourse.result}</p>
-            <p><strong>Описание результата конкурса: </strong> {data.concourse.details ?? ""}</p>
+            <p><strong>Название/описание конкурса: </strong> {data.event.concourse.description}</p>
+            <p><strong>Результат конкурса: </strong> {data.event.concourse.result}</p>
+            <p><strong>Описание результата конкурса: </strong> {data.event.concourse.details ?? ""}</p>
           </section>
         )}
 
 
         <section>
           <h2>Дополнительные характеристики</h2>
-          <p><strong>Значимое мероприятие: </strong> {data.isValuable ? "Да" : "Нет"}</p>
-          <p><strong>Включено в сборник лучших практик: </strong> {data.isBestPractice ? "Да" : "Нет"}</p>
-          <p><strong>Формат равный равному: </strong> {data.equalToEqualDescription ?? "Нет"}</p>
+          <p><strong>Значимое мероприятие: </strong> {data.event.isValuable ? "Да" : "Нет"}</p>
+          <p><strong>Включено в сборник лучших практик: </strong> {data.event.isBestPractice ? "Да" : "Нет"}</p>
+          <p><strong>Формат равный равному: </strong> {data.event.equalToEqualDescription ?? "Нет"}</p>
         </section>
 
 
-        <button className="delete" type="button" onClick={() => setShowModal(true)}>Удалить</button>
-        <DeleteConfirmationModal
-          isOpen={showModal}
-          onConfirm={handleDelete}
-          onCancel={() => setShowModal(false)}
-        />
+        {data.canDelete && (
+          <>
+            <button className="delete" type="button" onClick={() => setShowModal(true)}>Удалить</button>
+            <DeleteConfirmationModal
+              isOpen={showModal}
+              onConfirm={handleDelete}
+              onCancel={() => setShowModal(false)}
+            />
+          </>
+        )}
+
         <button className="back" type="button" onClick={() => window.history.back()}>Назад</button>
       </div>
     </div>

@@ -29,7 +29,7 @@ namespace ATKApp6.Services
         }
 
 
-        public async Task<object?> Get(Guid id)
+        public async Task<object?> Get(Guid eventId, Guid tokenId)
         {
             var eventForm1 = await _dB.EventForm1s
                 .WithBaseIncludes()
@@ -39,44 +39,60 @@ namespace ATKApp6.Services
                 .Include(x => x.InterAgencyCooperations)
                 .Include(x => x.Supports)
                 .Include(x => x.Audiences)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm1 != null)
-                return eventForm1;
+            {
+                return new { @event = eventForm1, canDelete = eventForm1.Organizer!.Id == tokenId };
+            }
+
 
 
             var eventForm2 = await _dB.EventForm2s
                 .WithBaseIncludes()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm2 != null)
-                return eventForm2;
+            {
+                return new { @event = eventForm2, canDelete = eventForm2.Organizer!.Id == tokenId };
+            }
+
 
 
             var eventForm3 = await _dB.EventForm3s
                 .WithBaseIncludes()
                 .Include(x => x.Violations)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm3 != null)
-                return eventForm3;
+            {
+                return new { @event = eventForm3, canDelete = eventForm3.Organizer!.Id == tokenId };
+            }
+
 
 
             var eventForm4 = await _dB.EventForm4s
                 .WithBaseIncludes()
                 .Include(x => x.Agreements)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm4 != null)
-                return eventForm4;
+            {
+                return new { @event = eventForm4, canDelete = eventForm4.Organizer!.Id == tokenId };
+            }
+
 
 
             var eventBase = await _dB.EventsBase
                 .WithBaseIncludes()
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventBase != null)
-                return eventBase;
+            {
+                return new { @event = eventBase, canDelete = eventBase.Organizer!.Id == tokenId };
+            }
+
+
 
             return null;
         }
@@ -103,7 +119,6 @@ namespace ATKApp6.Services
                     Links = x.MediaLinks
                         .Select(x => x.Content)
                         .ToArray(),
-
                 })
                 .OrderBy(x => x.ThemeCode)
                 .ToListAsync();

@@ -33,17 +33,18 @@ namespace ATKApp6.Controllers
 
 
         [HttpGet("{Id:guid}")]
+        [Authorize(Policy = "CanUserReadResource")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var @event = await _eventService.Get(id);
+            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+
+            var @event = await _eventService.Get(id, tokenId);
+
 
             if (@event is not null)
             {
                 return Ok(@event);
             }
-
-
-            //var data = new PageData();
 
             return NotFound("Не найдено такое мероприятие с Id: " + id);
         }
