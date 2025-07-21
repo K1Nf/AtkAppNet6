@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         var jwt = builder.Configuration.GetSection(nameof(JWTConfiguration));
 
-        var key = jwt.GetSection(nameof(JWTConfiguration.SecretKey));
+        var key = builder.Configuration.GetValue<string>("JWTConfiguration:SecretKey");
         var issuer = jwt.GetSection(nameof(JWTConfiguration.Issuer));
         var audience = jwt.GetSection(nameof(JWTConfiguration.Audience));
 
@@ -45,7 +45,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(key.Value!))
+                Encoding.UTF8.GetBytes(key))
         };
 
 
@@ -85,6 +85,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<OrganizationService>();
 
 
 

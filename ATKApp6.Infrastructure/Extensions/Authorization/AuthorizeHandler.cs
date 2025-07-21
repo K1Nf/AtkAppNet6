@@ -4,6 +4,7 @@ using ATKApp6.Infrastructure.DataBase;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Security;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static CSharpFunctionalExtensions.Result;
 
 namespace ATKApp6.Infrastructure.Extensions.Authorization
 {
@@ -18,9 +20,11 @@ namespace ATKApp6.Infrastructure.Extensions.Authorization
     {
         private readonly DataBaseContext _dB;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public AuthorizeHandler(DataBaseContext context, IHttpContextAccessor httpContextAccessor)
+        private readonly IConfiguration _configuration;
+        public AuthorizeHandler(IConfiguration configuration, DataBaseContext context, IHttpContextAccessor httpContextAccessor)
         {
             _dB = context;
+            _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -28,7 +32,7 @@ namespace ATKApp6.Infrastructure.Extensions.Authorization
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, PolicyNameRequirements requirement)
         {
             Claim? claim = context.User.Claims
-                .SingleOrDefault(c => c.Type == "OrganizationId");
+                .SingleOrDefault(c => c.Type == _configuration.GetValue<string>("JWTConfiguration:OrgId"));
 
 
             if (claim == null)

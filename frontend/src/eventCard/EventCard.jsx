@@ -9,7 +9,12 @@ const EventCard = () => {
 
   const handleDelete = async () => {
 
-    let pathToDelete = "/api/ref/events/delete/" + data.id;
+    // 1. Получаем текущий URL
+    const pathD = window.location.pathname;  // Например: "/element/5"
+    const partsD = pathD.split("/");          // Разделяем строку по "/"
+    const idToDelete = partsD[partsD.length - 1];     // Берем последний элемент (5)
+
+    let pathToDelete = "/api/ref/events/delete/" + idToDelete;
     try {
       const response = await fetch(pathToDelete, {
         method: "DELETE",
@@ -211,7 +216,7 @@ const EventCard = () => {
             <p><strong>Окружной бюджет:</strong> {data.event.finance?.regionalBudget} руб.</p>
             <p><strong>Гранты/Субсидии:</strong> {data.event.finance?.granteBudget} руб.</p>
             <p><strong>Другое:</strong> {data.event.finance?.otherBudget} руб.</p>
-            <p><strong>ИТОГО: {data.event.finance?.total} руб. </strong></p>
+            <p><strong>ИТОГО: {data.event.finance?.municipalBudget + data.event.finance?.regionalBudget + data.event.finance?.granteBudget + data.event.finance?.otherBudget} руб. </strong></p>
           </section>
         )}
 

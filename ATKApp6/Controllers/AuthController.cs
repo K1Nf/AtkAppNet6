@@ -48,8 +48,6 @@ namespace ATKApplication.Controllers
         [HttpGet("organizations")]
         public async Task<IActionResult> GetOrganizations()
         {
-            await Task.Delay(500);
-
             StructuredOrganizations[] orgs = (StructuredOrganizations[])Enum.GetValues(typeof(StructuredOrganizations));
             return Ok(orgs);
         }

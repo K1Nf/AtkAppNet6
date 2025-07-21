@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using ATKApp6.Services;
 
 namespace ATKApp6.Controllers
 {
@@ -13,13 +14,13 @@ namespace ATKApp6.Controllers
     [ApiController]
     public class OrganizationsController : ControllerBase
     {
-        private readonly DataBaseContext _dB;
-        private readonly JWTConfiguration _jwtConfiguration;
+        private readonly IConfiguration _configuration;
+        private readonly OrganizationService _organizationService;
 
-        public OrganizationsController(DataBaseContext dB, IOptions<JWTConfiguration> options)
+        public OrganizationsController(IConfiguration configuration, OrganizationService organizationService)
         {
-            _dB = dB;
-            _jwtConfiguration = options.Value;
+            _organizationService = organizationService;
+            _configuration = configuration;
         }
 
 
@@ -27,7 +28,7 @@ namespace ATKApp6.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetOrgnanizations()
         {
-            return Ok(await _dB.Organizations.ToListAsync());
+            return Ok(await _organizationService.GetOrganizations());
         }
 
 
@@ -46,36 +47,16 @@ namespace ATKApp6.Controllers
         [Authorize]
         public async Task<IActionResult> GetDepartaments([FromQuery] string? municipality)
         {
-            if (!string.IsNullOrEmpty(municipality))
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
+
+            var departments = await _organizationService.GetDepartmentsAsync(municipality, tokenId);
+
+            if(departments.IsFailure)
             {
-                Municipalities? municipalityEnum = EnumHelper.GetEnumValueFromEnumMember<Municipalities>(municipality);
-
-                var departments = await _dB.Organizations
-                    .Where(x => x.Municipality == municipalityEnum)
-                    .Select(m => m.Name)
-                    .ToListAsync();
-
-                return Ok(departments);
+                return BadRequest("Ошибка: " + departments.Error);
             }
 
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
-
-            var municipalityOrganization = await _dB.Organizations
-                .AsNoTracking()
-                .Where(x => x.Id == tokenId)
-                .FirstOrDefaultAsync();
-
-            if (municipalityOrganization == null)
-            {
-                return NotFound("Организация не найдена.");
-            }
-
-            var deps = await _dB.Organizations
-                    .Where(x => x.Municipality == municipalityOrganization.Municipality)
-                    .Select(m => m.Name)
-                    .ToListAsync();
-
-            return Ok(deps);
+            return Ok(departments.Value);
         }
     }
 }

@@ -341,25 +341,17 @@ namespace ATKApp6.Services
 
         public async Task<Result> Delete(Guid eventId)
         {
-            var transaction = await _dB.Database.BeginTransactionAsync();
+            var @event = await _dB.Set<EventBase>()
+                .FirstOrDefaultAsync(x => x.Id == eventId);
 
-            try
+            if (@event != null)
             {
-                var @event = await _dB.EventsBase
-                    .FirstOrDefaultAsync(x => x.Id == eventId);
-
-                if (@event != null)
-                    _dB.Remove(@event);
-
-                await transaction.CommitAsync();
-                return Result.Success();
+                _dB.Remove(@event);
+                await _dB.SaveChangesAsync();
+                return Result.Success("Мероприятие успешно удалено!");
             }
-            catch (TransactionAbortedException ex)
-            {
-                await transaction.RollbackAsync();
-                Console.WriteLine("Ошибка при удалении мероприятия (транзакция прервана): " + ex.Message);
-                return Result.Failure("Что-то пошло не так!");
-            }
+
+            return Result.Failure("Не найдено такое мероприятие.");
         }
 
 
@@ -621,7 +613,7 @@ namespace ATKApp6.Services
                 else
                 {
                     // add just total row info into db
-                    Category? category = Category.Create("TOTAL", createParticipantsRequest.Total, eventId);
+                    Category? category = Category.Create("ВСЕГО", createParticipantsRequest.Total, eventId);
 
                     if (category != null)
                         await _dB.Categories.AddAsync(category);

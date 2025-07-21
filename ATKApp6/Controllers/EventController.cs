@@ -13,15 +13,16 @@ namespace ATKApp6.Controllers
     [Authorize]
     public class EventsController : ControllerBase
     {
-        private readonly JWTConfiguration _jwtConfiguration;
+        private readonly IConfiguration _configuration;
         private readonly EventService _eventService;
 
-
-        public EventsController(EventService eventService, IOptions<JWTConfiguration> options)
+        public EventsController(IConfiguration configuration, EventService eventService)
         {
-            _jwtConfiguration = options.Value;
+            _configuration = configuration;
             _eventService = eventService;
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -36,7 +37,7 @@ namespace ATKApp6.Controllers
         [Authorize(Policy = "CanUserReadResource")]
         public async Task<IActionResult> Get(Guid id)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
 
             var @event = await _eventService.Get(id, tokenId);
 
@@ -54,7 +55,7 @@ namespace ATKApp6.Controllers
         [HttpPost("Createbase")]
         public async Task<IActionResult> Create([FromBody] CreateEventBaseRequest createEventBaseRequest)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
 
             var result = await _eventService.CreateBase(tokenId, createEventBaseRequest);
 
@@ -62,7 +63,7 @@ namespace ATKApp6.Controllers
             {
                 return Ok("Created new event with Id: " + result.Value.Id);
             }
-            return BadRequest("Мероприятие не добавлено:");
+            return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
 
 
@@ -70,14 +71,14 @@ namespace ATKApp6.Controllers
         [HttpPost("Createform1")]
         public async Task<IActionResult> Create1([FromBody] CreateEventForm1Request createEventForm1Request)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm1(tokenId, createEventForm1Request);
 
             if (result.IsSuccess)
             {
                 return Ok("Created new event with Id: " + result.Value.Id);
             }
-            return BadRequest("Мероприятие не добавлено:");
+            return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
 
 
@@ -85,14 +86,14 @@ namespace ATKApp6.Controllers
         [HttpPost("Createform2")]
         public async Task<IActionResult> Create2([FromBody] CreateEventForm2Request createEventForm2Request)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm2(tokenId, createEventForm2Request);
 
             if (result.IsSuccess)
             {
                 return Ok("Created new event with Id: " + result.Value.Id);
             }
-            return BadRequest("Мероприятие не добавлено:");
+            return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
 
 
@@ -100,14 +101,14 @@ namespace ATKApp6.Controllers
         [HttpPost("Createform3")]
         public async Task<IActionResult> Create3([FromBody] CreateEventForm3Request createEventForm3Request)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm3(tokenId, createEventForm3Request);
 
             if (result.IsSuccess)
             {
                 return Ok("Created new event with Id: " + result.Value.Id);
             }
-            return BadRequest("Мероприятие не добавлено:");
+            return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
 
 
@@ -115,14 +116,14 @@ namespace ATKApp6.Controllers
         [HttpPost("Createform4")]
         public async Task<IActionResult> Create4([FromBody] CreateEventForm4Request createEventForm4Request)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm4(tokenId, createEventForm4Request);
 
             if (result.IsSuccess)
             {
                 return Ok("Created new event with Id: " + result.Value.Id);
             }
-            return BadRequest("Мероприятие не добавлено:");
+            return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
         
         
@@ -137,7 +138,7 @@ namespace ATKApp6.Controllers
                 return NoContent();
             }
 
-            return BadRequest("Мероприятие не было удалено из базы(((");
+            return BadRequest("Ошибка. Похоже, данного мероприятия не существует");
         }
 
 
@@ -145,7 +146,7 @@ namespace ATKApp6.Controllers
         [HttpGet("sort")]
         public async Task<IActionResult> GetSortedAndFiltered([FromQuery] FilterEntity filterEntity, int? page)
         {
-            Guid tokenId = Guid.Parse(User.FindFirst(_jwtConfiguration.OrganizationId)!.Value);
+            Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var events = await _eventService.GetSortedAndFiltered(filterEntity, page, tokenId);
             return Ok(events);
         }
