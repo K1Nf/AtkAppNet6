@@ -2,7 +2,7 @@
 {
     public interface IPasswordHash
     {
-        public string HashPassword(string password);
+        public string HashPassword(char[] pass);
         public bool VerifyPassword(char[] password, string hashedPassword);
     }
 }

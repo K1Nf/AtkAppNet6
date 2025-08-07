@@ -28,102 +28,102 @@ namespace ATKApp6.Infrastructure.Configurations
                 .OnDelete(DeleteBehavior.SetNull);
 
             //builder.HasData(GetMunicipalityOrgs());
-            builder.HasData(GetDepartmentsOrgs());
+            //builder.HasData(GetDepartmentsOrgs());
         }
 
         public List<Organization> GetMunicipalityOrgs() => new()
         {
             Organization.Create(StructuredOrganizations.atk_khmao,
-            hasher.HashPassword("atk_khmao"),
+            hasher.HashPassword("atk_khmao".ToCharArray()),
             Municipalities.noMunicipality),
 
 
             Organization.Create(StructuredOrganizations.atk_beloyarskiy_rayon,
-            hasher.HashPassword("atkbelray"),
+            hasher.HashPassword("atkbelray".ToCharArray()),
             Municipalities.Beloyarskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_berezovskiy_rayon,
-            hasher.HashPassword("atkberray"),
+            hasher.HashPassword("atkberray".ToCharArray()),
             Municipalities.Berezovskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_condinskiy_rayon,
-            hasher.HashPassword("atkconray"),
+            hasher.HashPassword("atkconray".ToCharArray()),
             Municipalities.Condinskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_khanty_mansiysk,
-            hasher.HashPassword("atkkhm"),
+            hasher.HashPassword("atkkhm".ToCharArray()),
             Municipalities.Khanty_mansiysk),
 
             Organization.Create(StructuredOrganizations.atk_khanty_mansiyskiy_rayon,
-            hasher.HashPassword("atkkhmray"),
+            hasher.HashPassword("atkkhmray".ToCharArray()),
             Municipalities.Khanty_mansiyskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_kogalym,
-            hasher.HashPassword("atkkog"),
+            hasher.HashPassword("atkkog".ToCharArray()),
             Municipalities.Kogalym),
 
             Organization.Create(StructuredOrganizations.atk_langepas,
-            hasher.HashPassword("atklan"),
+            hasher.HashPassword("atklan".ToCharArray()              ),
             Municipalities.Langepas),
 
             Organization.Create(StructuredOrganizations.atk_megion,
-            hasher.HashPassword("atkmeg"),
+            hasher.HashPassword("atkmeg".ToCharArray()),
             Municipalities.Megion),
 
             Organization.Create(StructuredOrganizations.atk_nefteyugansk,
-            hasher.HashPassword("atkneft"),
+            hasher.HashPassword("atkneft".ToCharArray()),
             Municipalities.Nefteyugansk),
 
             Organization.Create(StructuredOrganizations.atk_nefteyuganskiy_rayon,
-            hasher.HashPassword("atkneftray"),
+            hasher.HashPassword("atkneftray".ToCharArray()),
             Municipalities.Nefteyuganskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_nizhnevartovsk,
-            hasher.HashPassword("atknizh"),
+            hasher.HashPassword("atknizh".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
             Organization.Create(StructuredOrganizations.atk_nizhnevartovskiy_rayon,
-            hasher.HashPassword("atknizhray"),
+            hasher.HashPassword("atknizhray".ToCharArray()),
             Municipalities.Nizhnevartovskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_nyagan,
-            hasher.HashPassword("atknya"),
+            hasher.HashPassword("atknya".ToCharArray()),
             Municipalities.Nyagan),
 
             Organization.Create(StructuredOrganizations.atk_oktyabrskiy_rayon,
-            hasher.HashPassword("atkoktray"),
+            hasher.HashPassword("atkoktray".ToCharArray()),
             Municipalities.Oktyabrskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_pokachi,
-            hasher.HashPassword("atkpok"),
+            hasher.HashPassword("atkpok".ToCharArray()),
             Municipalities.Pokachi),
 
             Organization.Create(StructuredOrganizations.atk_pyth_yach,
-            hasher.HashPassword("atkpyth"),
+            hasher.HashPassword("atkpyth".ToCharArray()),
             Municipalities.Pyth_yach),
 
             Organization.Create(StructuredOrganizations.atk_raduzhnyi,
-            hasher.HashPassword("atkrad"),
+            hasher.HashPassword("atkrad".ToCharArray()),
             Municipalities.Raduzhnyi),
 
             Organization.Create(StructuredOrganizations.atk_sovietskiy_rayon,
-            hasher.HashPassword("atksovray"),
+            hasher.HashPassword("atksovray".ToCharArray()),
             Municipalities.Sovietskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_surgut,
-            hasher.HashPassword("atksur"),
+            hasher.HashPassword("atksur".ToCharArray()),
             Municipalities.Surgut),
 
             Organization.Create(StructuredOrganizations.atk_surgutskiy_rayon,
-            hasher.HashPassword("atksurray"),
+            hasher.HashPassword("atksurray".ToCharArray()),
             Municipalities.Surgutskiy_rayon),
 
             Organization.Create(StructuredOrganizations.atk_urai,
-            hasher.HashPassword("atkurai"),
+            hasher.HashPassword("atkurai".ToCharArray()),
             Municipalities.Urai),
 
             Organization.Create(StructuredOrganizations.atk_yugorsk,
-            hasher.HashPassword("atkyug"),
+            hasher.HashPassword("atkyug".ToCharArray()),
             Municipalities.Yugorsk)
         };
 
@@ -132,19 +132,19 @@ namespace ATKApp6.Infrastructure.Configurations
         public List<Organization> GetDepartmentsOrgs() => new() {
 
             Organization.Create(StructuredOrganizations.khanty_mansiysk_dep_culture,
-            hasher.HashPassword("khmcul"),
+            hasher.HashPassword("khmcul".ToCharArray()),
             Municipalities.Khanty_mansiysk),
 
             Organization.Create(StructuredOrganizations.khanty_mansiysk_dep_education,
-            hasher.HashPassword("khmedu"),
+            hasher.HashPassword("khmedu".ToCharArray()),
             Municipalities.Khanty_mansiysk),
 
             Organization.Create(StructuredOrganizations.khanty_mansiysk_dep_young,
-            hasher.HashPassword("khmyou"),
+            hasher.HashPassword("khmyou".ToCharArray()),
             Municipalities.Khanty_mansiysk),
 
             Organization.Create(StructuredOrganizations.khanty_mansiysk_dep_sport,
-            hasher.HashPassword("khmspo"),
+            hasher.HashPassword("khmspo".ToCharArray()),
             Municipalities.Khanty_mansiysk),
 
 
@@ -152,19 +152,19 @@ namespace ATKApp6.Infrastructure.Configurations
 
 
             Organization.Create(StructuredOrganizations.surgut_dep_culture,
-            hasher.HashPassword("surcul"),
+            hasher.HashPassword("surcul".ToCharArray()),
             Municipalities.Surgut),
 
             Organization.Create(StructuredOrganizations.surgut_dep_education,
-            hasher.HashPassword("suredu"),
+            hasher.HashPassword("suredu".ToCharArray()),
             Municipalities.Surgut),
 
             Organization.Create(StructuredOrganizations.surgut_dep_young,
-            hasher.HashPassword("suryou"),
+            hasher.HashPassword("suryou".ToCharArray()),
             Municipalities.Surgut),
 
             Organization.Create(StructuredOrganizations.surgut_dep_sport,
-            hasher.HashPassword("surspo"),
+            hasher.HashPassword("surspo".ToCharArray()),
             Municipalities.Surgut),
 
 
@@ -172,19 +172,19 @@ namespace ATKApp6.Infrastructure.Configurations
 
 
             Organization.Create(StructuredOrganizations.nefteyugansk_dep_culture,
-            hasher.HashPassword("nefcul"),
+            hasher.HashPassword("nefcul".ToCharArray()),
             Municipalities.Nefteyugansk),
 
             Organization.Create(StructuredOrganizations.nefteyugansk_dep_education,
-            hasher.HashPassword("nefedu"),
+            hasher.HashPassword("nefedu".ToCharArray()),
             Municipalities.Nefteyugansk),
 
             Organization.Create(StructuredOrganizations.nefteyugansk_dep_young,
-            hasher.HashPassword("nefyou"),
+            hasher.HashPassword("nefyou".ToCharArray()),
             Municipalities.Nefteyugansk),
 
             Organization.Create(StructuredOrganizations.nefteyugansk_dep_sport,
-            hasher.HashPassword("nefspo"),
+            hasher.HashPassword("nefspo".ToCharArray()),
             Municipalities.Nefteyugansk),
         };
     }

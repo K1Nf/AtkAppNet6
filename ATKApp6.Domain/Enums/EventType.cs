@@ -13,7 +13,11 @@ namespace ATKApp6.Domain.Enums
         [EnumMember(Value = "Игра")] 
         Game,
         [EnumMember(Value = "Квест")]
-        quest,
+        Quest,
+        [EnumMember(Value = "Организация выставки")]
+        Exhibition,
+        [EnumMember(Value = "Проведение экскурсии")]
+        Excursion,
         [EnumMember(Value = "Другое")] 
         Other
     }

@@ -1,4 +1,5 @@
 ﻿using ATKApp6.Contracts.Request;
+using ATKApp6.Domain.Enums;
 using ATKApp6.Infrastructure.DataBase;
 using ATKApp6.Infrastructure.Extensions;
 using CSharpFunctionalExtensions;
@@ -23,7 +24,7 @@ namespace ATKApp6.Services
         }
 
 
-        public Result<string> Authorize(AuthorizeRequest authorizeRequest)
+        public Result<(string, string)> Authorize(AuthorizeRequest authorizeRequest)
         {
             var organization = _dB.Organizations
                 .AsNoTracking()
@@ -31,18 +32,19 @@ namespace ATKApp6.Services
 
             if (organization == null)
             {
-                return Result.Failure<string>($"Не найден пользователь {authorizeRequest.OrganizationName}");
+                return Result.Failure<(string, string)>($"Не найден пользователь {authorizeRequest.OrganizationName}");
             }
 
 
             char[] pwdChars = authorizeRequest.Password.ToCharArray();
+            string? russianOrganizationName = EnumHelper.GetEnumMemberValueByName<StructuredOrganizations>(authorizeRequest.OrganizationName.ToString());
 
             try
             {
                 if (_passwordHasher.VerifyPassword(pwdChars, organization.Password))
                 {
                     string token = _jwtProvider.CreateNewToken(organization.Id);
-                    return Result.Success(token);
+                    return Result.Success((token, russianOrganizationName ?? authorizeRequest.OrganizationName.ToString()));
                 }
             }
             finally
@@ -50,10 +52,7 @@ namespace ATKApp6.Services
                 Array.Clear(pwdChars, 0, pwdChars.Length);
             }
 
-
-            
-
-            return Result.Failure<string>($"Пароль неверен для {authorizeRequest.OrganizationName}!");
+            return Result.Failure<(string, string)>($"Пароль неверен для \"{russianOrganizationName ?? "ВАШЕЙ ОРГАНИЗАЦИИ"}\"!");
         }
     }
 }

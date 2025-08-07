@@ -39,8 +39,15 @@ namespace ATKApplication.Controllers
                 return NotFound(result.Error);
             }
 
-            Response.Cookies.Append("tokenATK", result.Value);
-            return Ok("Вы успешно авторизовались как '" + authorizeRequest.OrganizationName + "'!");    
+            Response.Cookies.Append("tokenATK", result.Value.Item1, new CookieOptions
+            {
+                HttpOnly = true,                // защита от XSS — JS не увидит cookie
+                Secure = true,                  // cookie передается только по HTTPS
+                SameSite = SameSiteMode.Strict, // запрещает отправку cookie при переходах с других сайтов
+                Expires = DateTimeOffset.UtcNow.AddMinutes(90)
+            });
+
+            return Ok("Вы успешно авторизовались как '" + result.Value.Item2 + "'!");
         }
 
 

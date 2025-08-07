@@ -36,6 +36,10 @@ namespace ATKApp6.Infrastructure.Extensions
             switch (exception)
             {
                 case ArgumentNullException:
+                    statusCode = (int)HttpStatusCode.BadRequest;
+                    message = "Ссылка на null.";
+                    break;
+
                 case ArgumentException:
                     statusCode = (int)HttpStatusCode.BadRequest;
                     message = "Неверный запрос.";

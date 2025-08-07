@@ -100,11 +100,11 @@ const BasicInfo_LevelFormat = ({
           <option value="game">Игра</option>
           <option value="exhibition"> Организация выставки</option>
           <option value="excursion"> Проведение экскурсии</option>
-          <option value="other"> Другое</option>
+          <option value="other">Другое</option>
         </select>
 
         {/* Описание для "Другое" */}
-        {isOtherDescriptionVisible && (
+        {/*{isOtherDescriptionVisible && (
           <div id="otherDescriptionContainer">
             <label htmlFor="otherDescription">Описание:</label>
             <textarea
@@ -117,7 +117,7 @@ const BasicInfo_LevelFormat = ({
               required
             />
           </div>
-        )}
+        )}*/}
       </section>
     </>
   );

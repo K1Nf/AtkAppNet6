@@ -97,11 +97,10 @@ const Login = () => {
 
       const data = await response.text();
 
-      toastr.success('Успешный вход!', 'Добро пожаловать');
-      localStorage.setItem('tokenATK', data.token);
-
+      toastr.success(data, 'Добро пожаловать! ');
+      
       window.setTimeout(function () {
-        window.location.href = '/events';
+         window.location.href = '/events';
       }, 2000);
 
     } catch (err) {

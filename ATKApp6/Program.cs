@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using ATKApp6.Infrastructure.Extensions.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,10 +54,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnMessageReceived = context =>
             {
-                string? token = context.Request.Cookies["tokenATK"] ??
-                context.Request.Headers.Authorization
-                .ToString()
-                .Replace("Bearer ", "");
+                string? token = context.Request.Cookies["tokenATK"];
 
                 if (!string.IsNullOrWhiteSpace(token))
                 {
@@ -67,6 +65,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             }
         };
     });
+
 
 builder.Services.AddAuthorization(options =>
 {
@@ -80,7 +79,6 @@ builder.Services.AddControllers()
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         options.SerializerSettings.Converters.Add(new StringEnumConverter());
     });
-
 
 
 builder.Services.AddScoped<EventService>();
@@ -139,11 +137,6 @@ app.UseStatusCodePages(async context => {
         response.ContentType = "text/plain; charset=utf-8";
         await response.WriteAsync("Unexpected error with code: " + response.StatusCode);
     }
-
-    //if (response.StatusCode == (int)HttpStatusCode.Redirect)
-    //{
-    //    response.StatusCode = 403;
-    //}
 });
 
 
@@ -157,13 +150,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-
 app.MapGet("/authorize/login", async (context) =>
 {
     context.Response.ContentType = "text/html; charset=utf-8";
     context.Response.StatusCode = 401;
     await context.Response.SendFileAsync("wwwroot/html/LoginPage.html");
 });
-
 
 app.Run();

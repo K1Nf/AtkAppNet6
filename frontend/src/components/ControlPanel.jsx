@@ -138,12 +138,15 @@ const ControlPanel = ({ onFilter, role }) => {
   return (
     <div className="control-panel-wrapper">
       <div className="control-panel">
-        <input
+
+        {/* ПОКА ЧТО НЕ РАБОТАЕТ... */}
+        {/* <input
           type="text"
           placeholder="Поиск мероприятий..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        />
+        /> */}
+        
         <button onClick={() => window.location.href = '/create'}>Создать мероприятие</button>
         <button onClick={toggleFilters}>{showFilters ? 'Скрыть фильтры' : 'Фильтрация'}</button>
       </div>
