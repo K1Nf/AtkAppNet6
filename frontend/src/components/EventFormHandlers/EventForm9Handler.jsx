@@ -43,9 +43,11 @@ export const handleForm9Submit = async ({
     const response = await fetch(`/api/ref/events/createform3`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'RequestVerificationToken': localStorage.getItem('RequestVerificationToken')
       },
-      body: JSON.stringify(createEventForm3Request)
+      body: JSON.stringify(createEventForm3Request),
+      credentials: "include" // обязательно, чтобы отправилась кука XSRF-TOKEN
     });
 
     if (!response.ok) {

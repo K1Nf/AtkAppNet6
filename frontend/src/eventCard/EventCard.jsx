@@ -19,8 +19,10 @@ const EventCard = () => {
       const response = await fetch(pathToDelete, {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+          'RequestVerificationToken': localStorage.getItem('RequestVerificationToken')
+        },
+        credentials: "include" // обязательно, чтобы отправилась кука XSRF-TOKEN
       });
 
       if (!response.ok) {

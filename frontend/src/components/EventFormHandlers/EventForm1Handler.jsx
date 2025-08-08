@@ -187,9 +187,11 @@ export const handleForm1Submit = async ({
     const response = await fetch(backCreateUrl, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'RequestVerificationToken': localStorage.getItem('RequestVerificationToken')
       },
-      body: JSON.stringify(createEventRequest)
+      body: JSON.stringify(createEventRequest),
+      credentials: "include" // обязательно, чтобы отправилась кука XSRF-TOKEN
     });
 
     if (!response.ok) {

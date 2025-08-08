@@ -23,6 +23,17 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JWTConfiguration>(builder.Configuration.GetSection(nameof(JWTConfiguration)));
 builder.Services.AddScoped<IAuthorizationHandler, AuthorizeHandler>();
 
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddAntiforgery(options =>
+{
+    options.HeaderName = "RequestVerificationToken";    // заголовок, в который фронт кладёт request-токен
+    options.Cookie.Name = "XSRF-TOKEN";                 // имя cookie с cookie-токеном
+    options.Cookie.HttpOnly = true;                    // чтобы видеть в DevTools (но не используем в JS)
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    options.Cookie.SameSite = SameSiteMode.Strict;
+});
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, o =>

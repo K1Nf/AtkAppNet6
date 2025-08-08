@@ -79,28 +79,38 @@ const Login = () => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ organizationName, password })
+        body: JSON.stringify({ organizationName, password }),
+        credentials: "include"
       });
 
       if (!response.ok) {
         const errorText = await response.text(); // получаем описание ошибки с сервера
 
-        if(errorText.startsWith("Пароль неверен ")) {
+        if (errorText.startsWith("Пароль неверен ")) {
           alert(`Ошибка при авторизации: ${errorText}`, "Ошибка");
         }
-        else{
+        else {
           alert("Ошибка при авторизации: Выбрана несуществующая организация", "Ошибка");
         }
 
         return; // прерываем выполнение, чтобы не шло дальше
       }
 
-      const data = await response.text();
+      await fetch('/api/ref/auth/csrf-token', {
+        method: 'GET',
+        credentials: 'include'
+      })
+        .then(r => r.json())
+        .then(data => {
+          localStorage.setItem('RequestVerificationToken', data.csrf);
+        });
 
-      toastr.success(data, 'Добро пожаловать! ');
-      
+      const message = await response.text();
+
+      toastr.success(message, 'Добро пожаловать! ');
+
       window.setTimeout(function () {
-         window.location.href = '/events';
+        window.location.href = '/events';
       }, 2000);
 
     } catch (err) {
