@@ -38,7 +38,7 @@ namespace ATKApp6.Controllers
 
 
         [HttpPost("authorize")]
-        public async Task<IActionResult> Authorize([FromBody] AuthorizeRequest authorizeRequest)
+        public IActionResult Authorize([FromBody] AuthorizeRequest authorizeRequest)
         {
             var result = _authService.Authorize(authorizeRequest);
 
@@ -54,7 +54,6 @@ namespace ATKApp6.Controllers
                 SameSite = SameSiteMode.Strict, // запрещает отправку cookie при переходах с других сайтов
                 Expires = DateTimeOffset.UtcNow.AddMinutes(90)
             });
-
 
             return Ok("Вы успешно авторизовались как '" + result.Value.Item2 + "'!");
         }

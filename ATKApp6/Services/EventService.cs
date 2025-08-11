@@ -496,6 +496,7 @@ namespace ATKApp6.Services
 
 
             var result = await eventsQuery
+                .OrderBy(x => x.Theme!.Code)
                 .Skip(entitiesToSkip)
                 .Take(10)
             .Select(x => new ShortEventResponse
@@ -516,7 +517,6 @@ namespace ATKApp6.Services
                         .ToArray(),
 
             })
-            .OrderBy(x => x.ThemeCode)
             .ToListAsync();
 
             //new { data = events, totalPages = events.Count }

@@ -32,7 +32,7 @@ namespace ATKApp6.Services
 
             if (organization == null)
             {
-                return Result.Failure<(string, string)>($"Не найден пользователь {authorizeRequest.OrganizationName}");
+                return Result.Failure<(string, string)>($"Не найдена организация \"{authorizeRequest.OrganizationName}\"");
             }
 
 

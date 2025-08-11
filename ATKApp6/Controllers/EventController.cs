@@ -55,13 +55,8 @@ namespace ATKApp6.Controllers
 
         [HttpPost("Createbase")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([FromBody] CreateEventBaseRequest createEventBaseRequest, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Create([FromBody] CreateEventBaseRequest createEventBaseRequest)
         {
-            var csrfHeader = HttpContext.Request.Headers["RequestVerificationToken"].ToString();
-            Console.WriteLine($"CSRF token from header: {csrfHeader}");
-
-
-            //antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
 
             var result = await _eventService.CreateBase(tokenId, createEventBaseRequest);
@@ -77,10 +72,8 @@ namespace ATKApp6.Controllers
 
         [HttpPost("Createform1")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create1([FromBody] CreateEventForm1Request createEventForm1Request, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Create1([FromBody] CreateEventForm1Request createEventForm1Request)
         {
-            antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
-
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm1(tokenId, createEventForm1Request);
 
@@ -95,9 +88,8 @@ namespace ATKApp6.Controllers
 
         [HttpPost("Createform2")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create2([FromBody] CreateEventForm2Request createEventForm2Request, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Create2([FromBody] CreateEventForm2Request createEventForm2Request)
         {
-            antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm2(tokenId, createEventForm2Request);
 
@@ -112,9 +104,8 @@ namespace ATKApp6.Controllers
 
         [HttpPost("Createform3")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create3([FromBody] CreateEventForm3Request createEventForm3Request, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Create3([FromBody] CreateEventForm3Request createEventForm3Request)
         {
-            antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm3(tokenId, createEventForm3Request);
 
@@ -129,9 +120,8 @@ namespace ATKApp6.Controllers
 
         [HttpPost("Createform4")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create4([FromBody] CreateEventForm4Request createEventForm4Request, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Create4([FromBody] CreateEventForm4Request createEventForm4Request)
         {
-            antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
             var result = await _eventService.CreateEventForm4(tokenId, createEventForm4Request);
 
@@ -146,9 +136,10 @@ namespace ATKApp6.Controllers
         
         [HttpDelete("Delete/{Id:guid}")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete([FromRoute] Guid id, [FromServices] IAntiforgery antiforgery)
+        public async Task<IActionResult> Delete([FromRoute] Guid id/*, [FromServices] IAntiforgery antiforgery*/)
         {
-            antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
+            //antiforgery.ValidateRequestAsync(HttpContext).GetAwaiter().GetResult();
+
             var result = await _eventService.Delete(id);
 
             if (result.IsSuccess)
