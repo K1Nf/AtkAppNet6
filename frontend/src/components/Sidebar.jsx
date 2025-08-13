@@ -4,11 +4,22 @@ import './EventForm.css';
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const [activePath, setActivePath] = useState(window.location.pathname);
 
-  const closeSidebar = () => toggleSidebar(); // просто переключаем обратно
+  const closeSidebar = () => toggleSidebar();
 
   const handleNavigate = (path) => {
     window.location.href = path;
     setActivePath(path);
+  };
+
+  const handleLogout = () => {
+    try {
+      // очистка локального состояния авторизации (при необходимости дополни)
+      localStorage.removeItem('token');
+      sessionStorage.clear();
+      // если используешь cookie для токена — он погаснет на бэке по логауту/истечению
+    } catch {}
+    // переход на страницу авторизации
+    window.location.href = '/login';
   };
 
   useEffect(() => {
@@ -27,12 +38,14 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <span>Меню</span>
           <button className="close-btn" onClick={closeSidebar}>✖</button>
         </div>
+
+        {/* Основной список */}
         <ul className="menu-list">
           <li
             className={`menu-item ${activePath === '/events' ? 'active' : ''}`}
             onClick={() => handleNavigate('/events')}
           >
-            <i className="fas fa-table icon"></i> Таблицы мероприятий  
+            <i className="fas fa-table icon"></i> Таблицы мероприятий
           </li>
           <li
             className={`menu-item ${activePath === '/create' ? 'active' : ''}`}
@@ -45,6 +58,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             onClick={() => handleNavigate('/analytics')}
           >
             <i className="fas fa-chart-pie icon"></i> Статистика
+          </li>
+          <li
+            className="menu-item logout" onClick={handleLogout}
+          >
+            <i className="fas fa-sign-out-alt icon"></i> Выход
           </li>
         </ul>
       </nav>

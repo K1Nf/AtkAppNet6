@@ -55,7 +55,7 @@ namespace ATKApp6.Controllers
                 Expires = DateTimeOffset.UtcNow.AddMinutes(90)
             });
 
-            return Ok("Вы успешно авторизовались как '" + result.Value.Item2 + "'!");
+            return Ok($"Вы успешно авторизовались как «{result.Value.Item2}»!");
         }
 
 

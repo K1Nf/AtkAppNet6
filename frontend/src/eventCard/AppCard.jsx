@@ -1,12 +1,13 @@
-import React from "react";
-import EventCard from "./EventCard.jsx";
+// AppCard.jsx
+import React, { useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
-
+import EventCard from "./EventCard.jsx";
 
 const App = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <Sidebar />
+      <Sidebar isOpen={isOpen} toggleSidebar={() => setIsOpen(o => !o)} />
       <EventCard />
     </>
   );

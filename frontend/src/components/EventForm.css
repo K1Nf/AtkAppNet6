@@ -1084,3 +1084,368 @@ h3 {
 .filters{
   padding-left: 50%;
 }
+/* ВЗАИМОДЕЙТСТВИЕ */
+/* ========= Карточка EventCard: бейджи + описание ========= */
+
+/* общий отступ секций, чтобы дышало */
+.sec { margin-top: 18px; }
+
+/* «ключ-значение» в одну строку */
+.kv-badge-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 16px;
+}
+.kv-badge-value { color: #0f172a; }
+
+/* пара «ключ-значение», где ключ — бейдж */
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 10px 12px; align-items: start; }
+.kv-val { margin: 0; color: #0f172a; }
+
+/* список «бейдж + описание», универсальный */
+.badge-list { display: grid; gap: 10px; margin-top: 8px; }
+.badge-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.badge-item .desc { margin-top: 6px; color: #0f172a; }
+.desc-line { margin-top: 4px; }
+.muted { color: #64748b; }
+
+/* бейджи */
+.chip {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  line-height: 1;
+  white-space: nowrap;
+  user-select: none;
+}
+.chip-muted {
+  background: #f1f5f9;        /* серо‑голубой */
+  color: #334155;
+  border: 1px solid #e2e8f0;
+}
+.chip-primary {
+  background: #eff6ff;        /* светло‑синий */
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+  font-weight: 600;
+}
+
+/* адаптив: сетку badge-list можно раскладывать в 2 колонки на больших экранах */
+@media (min-width: 880px) {
+  .badge-list { grid-template-columns: 1fr 1fr; }
+}
+
+/* ========= Вариант 3 (кооперации) ========= */
+.coop-badges { display: grid; gap: 10px; margin-top: 8px; }
+.coop-badge-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.coop-badge-org {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-weight: 600;
+  margin-right: 8px;
+}
+.coop-badge-role {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #334155;
+}
+.coop-desc { margin-top: 6px; color: #0f172a; }
+
+/* ========= Табличные следы внутри EventCard убираем под чистый вид ========= */
+.event-card table, 
+.event-card thead, 
+.event-card tbody, 
+.event-card tr, 
+.event-card td, 
+.event-card th {
+  border: none !important;
+  background: transparent !important;
+  color: #0f172a !important;
+}
+.event-card thead { display: none; } /* таблица больше не нужна визуально */
+/* Кнопка удаления */
+button.delete {
+  background-color: #dc2626; /* красный */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.delete:hover {
+  background-color: #b91c1c; /* темнее при наведении */
+  transform: scale(1.05);
+}
+
+button.delete:active {
+  transform: scale(0.97);
+}
+
+/* Кнопка "Назад" */
+button.back {
+  background-color: #2563eb; /* синий */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button.back:hover {
+  background-color: #1d4ed8; /* темнее при наведении */
+  transform: scale(1.05);
+}
+
+button.back:active {
+  transform: scale(0.97);
+}
+
+.button-group {
+  display: flex;
+  gap: 12px; /* расстояние между кнопками */
+  margin-top: 20px;
+}
+
+.button-group .delete,
+.button-group .back {
+  flex: 0 0 auto; /* чтобы не растягивались */
+}
+
+/* Общий стиль "как взаимодействие" для всех секций EventCard */
+.badge-item {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column; /* чтобы каждая пара была на отдельной строке */
+  gap: 6px;
+  font-size: 18px;
+}
+
+.badge-item .chip,
+.kv .chip,
+.kv-badge-line .chip {
+  background: #eff6ff;    /* светло-синий фон */
+  color: #1e40af;         /* синий текст */
+  font-weight: 600;       /* полужирный */
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.badge-item .desc,
+.kv-val,
+.kv-badge-value,
+.coop-desc {
+  color: #000;            /* чёрный текст значений */
+  font-weight: 400;
+  font-size: 18px; /* крупнее значения */
+}
+.chip {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-weight: 600;
+  font-size: 18px; /* увеличенный размер */
+  border: 1px solid #bfdbfe;
+}
+/* === Приводим .kv и .kv-badge-line к стилю .badge-item (как "Участники мероприятия") === */
+.event-card .kv,
+.event-card .kv-badge-line {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin: 10px 0 16px;
+  box-sizing: border-box;
+}
+
+/* Подзаголовки — как coop-badge-org: синие, полужирные, одинакового размера */
+.event-card .kv .chip,
+.event-card .kv-badge-line .chip,
+.event-card .badge-item .chip,
+.event-card .chip,
+.event-card .chip-muted,
+.event-card .chip-primary {
+  background: #eff6ff;
+  color: #1e40af;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+/* Значения — чёрные, крупные, под подписью */
+.event-card .kv-val,
+.event-card .kv-badge-value,
+.event-card .badge-item .desc,
+.event-card .coop-desc {
+  color: #000;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* На всякий: список карточек остаётся столбцом (как у участников) */
+.event-card .badge-list,
+.event-card .coop-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+/* Организатор в виде карточки */
+.event-card .kv-badge-line {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  padding: 12px 14px;
+  margin: 10px 0 16px;
+  box-sizing: border-box;
+}
+
+/* Подзаголовок — синий, как coop-badge-org */
+.event-card .kv-badge-line .chip {
+  background: #eff6ff;
+  color: #1e40af;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 18px;
+}
+
+/* Значение — чёрное, крупное */
+.event-card .kv-badge-line .kv-badge-value {
+  color: #000;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.event-card .chip {
+  display: inline-block;
+  width: auto;
+  max-width: fit-content;  /* чтобы плашка была только по содержимому */
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+/* Чип для значений (обычный текст) */
+.chip-value {
+  display: inline-block;
+  width: auto;
+  max-width: fit-content;
+  padding: 6px 12px;
+  border-radius: 5px;
+  background: #d1e6fa;          /* светло-серый фон */
+  color: #000;                  /* чёрный текст */
+  font-weight: 400;              /* обычный вес */
+  border: 1px solid #e2e8f0;     /* тонкая серая рамка */
+  font-size: 18px;               /* крупный шрифт */
+  line-height: 1.4;
+}
+
+/* Компактные списки внутри карточки */
+.event-card .compact-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.event-card .compact-item{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 10px;
+  min-height: 40px;
+}
+
+/* Мелкие чипы */
+.event-card .chip.compact {
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  background: #eff6ff;
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+/* Значение в одну строку */
+.event-card .value-inline {
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Красный ИТОГО/ВСЕГО */
+.event-card .total-red {
+  color: #dc2626;      /* красный */
+  font-weight: 700;
+}
+
+/* Для обратной связи — плашки Да/Нет */
+.event-card .pill {
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 13px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.event-card .pill.yes {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+}
+.event-card .pill.no {
+  background: #f8fafc;
+  border-color: #e5e7eb;
+  color: #475569;
+}
+
+/* Описание фидбэка — компактной строкой на всю ширину */
+.event-card .feedback-desc {
+  grid-column: 1 / -1;       /* растянуть на всю ширину сетки */
+}
