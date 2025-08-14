@@ -1449,3 +1449,247 @@ button.back:active {
 .event-card .feedback-desc {
   grid-column: 1 / -1;       /* растянуть на всю ширину сетки */
 }
+
+/* --- Обратная связь: 4 пункта в строку, описание ниже --- */
+.feedback-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.feedback-row .badge-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feedback-desc {
+  margin-top: 12px;
+}
+
+/* --- Обратная связь: 4 пункта в строку, описание ниже --- */
+.feedback-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.feedback-row .badge-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feedback-desc {
+  margin-top: 12px;
+}
+
+/* --- Обратная связь: 4 пункта в строку, описание ниже --- */
+.feedback-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.feedback-row .badge-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.feedback-desc {
+  margin-top: 12px;
+}
+
+/* --- Вертикальные карточки (название сверху, значение снизу по центру) --- */
+.card-vert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.card-vert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-height: 110px;
+}
+.card-vert .chip-value.value-center {
+  margin-top: auto;
+  text-align: center;
+}
+
+/* --- Блок с итогами справа внизу секции --- */
+.totals-right {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+.total-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+}
+
+/* --- Дополнительные характеристики: ряд вертикальных карточек --- */
+.extra-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.extra-row .card-vert {
+  min-width: 260px;
+}
+
+/* =========================
+   УЧАСТНИКИ — ПОЛНАЯ ТАБЛИЦА
+   ========================= */
+
+/* В проекте ранее прятали заголовки и границы таблиц внутри .event-card.
+   Переопределяем для нашей таблицы участников. */
+.event-card thead { display: table-header-group !important; }
+
+.event-card .participants-table,
+.event-card .participants-table th,
+.event-card .participants-table td {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #0f172a !important;
+  border-collapse: collapse;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto; /* на всякий случай для узких экранов */
+}
+
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.participants-table th,
+.participants-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+}
+
+.participants-table th {
+  text-align: left;
+  font-weight: 700;
+}
+
+.participants-table .cat-name {
+  word-break: break-word;   /* переносим длинные названия */
+}
+
+.participants-table .cat-count {
+  text-align: center;
+  width: 140px;             /* фиксируем колонку количества */
+}
+
+.participants-table tfoot .sum-label {
+  text-align: right;
+  font-weight: 700;
+}
+
+.participants-table tfoot .sum-value {
+  text-align: center;
+}
+
+/* ===== Общие правки таблиц: вернуть заголовки и границы внутри .event-card ===== */
+.event-card thead { display: table-header-group !important; }
+
+.event-card table,
+.event-card th,
+.event-card td {
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #0f172a !important;
+  border-collapse: collapse;
+}
+
+/* Обёртка для горизонтальной прокрутки на узких экранах */
+.table-wrap { width: 100%; overflow-x: auto; }
+
+/* ===== Участники — таблица ===== */
+.participants-table { width: 100%; border-collapse: collapse; }
+
+.participants-table th,
+.participants-table td { padding: 10px 12px; vertical-align: middle; }
+
+.participants-table th { text-align: left; font-weight: 700; }
+
+.participants-table .cat-name { word-break: break-word; }
+
+.participants-table .cat-count { text-align: center; width: 140px; }
+
+.participants-table tfoot .sum-label { text-align: right; font-weight: 700; }
+
+.participants-table tfoot .sum-value { text-align: center; }
+
+/* ===== Финансирование — таблица ===== */
+.finance-table { width: 100%; border-collapse: collapse; }
+
+.finance-table th,
+.finance-table td { padding: 10px 12px; vertical-align: middle; }
+
+.finance-table th { text-align: left; font-weight: 700; }
+
+.finance-table .fin-desc { width: 40%; word-break: break-word; }
+
+.finance-table .fin-name { width: 35%; }
+
+.finance-table .fin-amount { width: 25%; text-align: center; white-space: nowrap; }
+
+.finance-table tfoot .fin-desc-footer {
+  text-align: left;
+  font-weight: 700;
+}
+
+.finance-table tfoot .sum-value { text-align: center; }
+
+/* ===== Списочные блоки (оставлены, но стили чипов не меняем) ===== */
+
+/* ===== (Если понадобится) вертикальные карточки — сохранил из прошлой версии ===== */
+.card-vert-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.card-vert { display: flex; flex-direction: column; align-items: center; gap: 10px; min-height: 110px; }
+.card-vert .chip-value.value-center { margin-top: auto; text-align: center; }
+
+/* Кнопки итога (если вдруг используешь вне таблиц) */
+.totals-right { display: flex; justify-content: flex-end; margin-top: 12px; }
+.total-pill { display: inline-flex; align-items: center; gap: 10px; padding: 6px 10px; }
+
+/* (Ранее просили) Обратная связь в ряд — сейчас не используется, оставляю на случай возврата:
+.feedback-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.feedback-row .badge-item { display: flex; align-items: center; gap: 8px; }
+.feedback-desc { margin-top: 12px; }
+*/
+
+/* ===== Дополнительные характеристики — таблица ===== */
+.extras-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.extras-table th,
+.extras-table td {
+  padding: 10px 12px;
+  vertical-align: middle;
+  background: #fff !important;
+  border: 1px solid #e5e7eb !important;
+  color: #0f172a !important;
+}
+
+.extras-table th {
+  text-align: left;
+  font-weight: 700;
+}
+
+.extras-table .extra-name {
+  word-break: break-word;
+}
+
+.extras-table .extra-value {
+  text-align: center;
+  width: 220px; /* можно подстроить под общий стиль */
+}

@@ -98,6 +98,10 @@ const EventCard = () => {
     (Number(ev?.finance?.granteBudget) || 0) +
     (Number(ev?.finance?.otherBudget) || 0);
 
+  const participantsTotal = Array.isArray(ev?.categories)
+    ? ev.categories.reduce((sum, c) => sum + (Number(c.count) || 0), 0)
+    : 0;
+
   const YesNo = (v) => (v ? "Да" : "Нет");
 
   // Нормализуем ссылки (поддержка массивов строк и объектов)
@@ -124,13 +128,13 @@ const EventCard = () => {
       .filter(Boolean);
   };
 
-  return (
+    return (
     <div className="container">
       <div className="event-card">
         {/* заголовок */}
         <h2>Основная информация о мероприятии «{ev?.name ?? ""}»</h2>
 
-        {/* организатор (без chip-value) */}
+        {/* организатор */}
         <section className="sec">
           <label>Организатор</label>
           <div className="kv-badge-line">
@@ -140,23 +144,19 @@ const EventCard = () => {
           </div>
         </section>
 
-        {/* номер темы (без chip-value) */}
+        {/* номер темы */}
         <section className="sec">
           <label>Номер темы</label>
-          <div className="kv">
-            <div className="kv-val">{ev?.theme?.code}</div>
-          </div>
+          <div className="kv"><div className="kv-val">{ev?.theme?.code}</div></div>
         </section>
 
-        {/* описание темы (без chip-value) */}
+        {/* описание темы */}
         <section className="sec">
           <label>Описание темы</label>
-          <div className="kv">
-            <div className="kv-val">{ev?.theme?.description}</div>
-          </div>
+          <div className="kv"><div className="kv-val">{ev?.theme?.description}</div></div>
         </section>
 
-        {/* структурная организация (без chip-value) */}
+        {/* структурная организация */}
         <section className="sec">
           <label>Структурная организация</label>
           <div className="kv">
@@ -166,84 +166,39 @@ const EventCard = () => {
           </div>
         </section>
 
-        {/* исполнитель (без chip-value) */}
+        {/* исполнитель */}
         {ev?.actor && (
           <section className="sec">
             <label>Исполнитель</label>
-            <div className="kv">
-              <div className="kv-val">{ev.actor}</div>
-            </div>
+            <div className="kv"><div className="kv-val">{ev.actor}</div></div>
           </section>
         )}
 
-        {/* наименование (без chip-value) */}
+        {/* наименование */}
         {ev?.name && (
           <section className="sec">
             <label>Наименование мероприятия</label>
-            <div className="kv">
-              <div className="kv-val">{ev.name}</div>
-            </div>
+            <div className="kv"><div className="kv-val">{ev.name}</div></div>
           </section>
         )}
 
-        {/* дата (без chip-value) */}
+        {/* дата */}
         {ev?.date && (
           <section className="sec">
             <label>Дата проведения</label>
-            <div className="kv">
-              <div className="kv-val">{ev.date}</div>
-            </div>
+            <div className="kv"><div className="kv-val">{ev.date}</div></div>
           </section>
         )}
 
-
-        {/* описание мероприятия (без chip-value) */}
+        {/* описание мероприятия */}
         {ev?.content && (
           <section className="sec">
             <label>Краткое описание</label>
-            <div className="kv">
-              <div className="kv-val">{ev.content}</div>
-            </div>
+            <div className="kv"><div className="kv-val">{ev.content}</div></div>
           </section>
         )}
 
-        {/* уровень/форма: форма без chip-value */}
-        {ev?.levelType && (
-          <section className="sec">
-            <label>Уровень мероприятия</label>
-            <div className="kv">
-              <div className="kv-val">{ev.levelType}</div>
-            </div>
-          </section>
-        )}
-        {ev?.eventType && (
-          <section className="sec">
-            <label>Форма проведения</label>
-            <div className="kv">
-              <div className="kv-val">{ev.eventType}</div>
-            </div>
-          </section>
-        )}
-
-        {/* управленческие решения / результат (без chip-value) */}
-        {ev?.decision && (
-          <section className="sec">
-            <label>Управленческие решения</label>
-            <div className="kv">
-              <div className="kv-val">{ev.decision}</div>
-            </div>
-          </section>
-        )}
-        {ev?.result && (
-          <section className="sec">
-            <label>Результат мероприятия</label>
-            <div className="kv">
-              <div className="kv-val">{ev.result}</div>
-            </div>
-          </section>
-        )}
-
-        {/* ссылки СМИ (умный рендер) */}
+        {/* Ссылки на материалы */}
         {normalizeLinks(ev?.mediaLinks).length > 0 && (
           <section className="sec">
             <label>Ссылки на материалы</label>
@@ -262,154 +217,122 @@ const EventCard = () => {
           </section>
         )}
 
-        {/* участники мероприятия (значения без chip-value) */}
+        {/* уровень/форма */}
+        {ev?.levelType && (
+          <section className="sec">
+            <label>Уровень мероприятия</label>
+            <div className="kv"><div className="kv-val">{ev.levelType}</div></div>
+          </section>
+        )}
+        {ev?.eventType && (
+          <section className="sec">
+            <label>Форма проведения</label>
+            <div className="kv"><div className="kv-val">{ev.eventType}</div></div>
+          </section>
+        )}
+
+        {/* управленческие решения / результат */}
+        {ev?.decision && (
+          <section className="sec">
+            <label>Управленческие решения</label>
+            <div className="kv"><div className="kv-val">{ev.decision}</div></div>
+          </section>
+        )}
+        {ev?.result && (
+          <section className="sec">
+            <label>Результат мероприятия</label>
+            <div className="kv"><div className="kv-val">{ev.result}</div></div>
+          </section>
+        )}
+
+        {/* УЧАСТНИКИ — ПОЛНАЯ ТАБЛИЦА */}
         {ev?.categories && ev.categories.length > 0 && (
           <section className="sec">
             <label>Участники мероприятия</label>
-            <div className="badge-list">
-              {ev.categories.map((c) => (
-                <div key={c.id} className="badge-item">
-                  <span className="chip">{c.name}</span>
-                  <div className="chip-value">{c.count}</div>
-                </div>
-              ))}
+
+            <div className="table-wrap">
+              <table className="participants-table">
+                <thead>
+                  <tr>
+                    <th>Категория</th>
+                    <th>Кол-во</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {ev.categories.map((c) => (
+                    <tr key={c.id || c.name}>
+                      <td className="cat-name">
+                        <span className="chip">{c.name}</span>
+                      </td>
+                      <td className="cat-count">
+                        <div className="chip-value">{c.count}</div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td className="sum-label">ВСЕГО</td>
+                    <td className="sum-value"><div className="chip-value">{participantsTotal}</div></td>
+                  </tr>
+                </tfoot>
+              </table>
             </div>
           </section>
         )}
 
-        {/* финансирование (оставляем chip-value для сумм) */}
+        {/* ФИНАНСИРОВАНИЕ — ПОЛНАЯ ТАБЛИЦА (Описание предпоследней строкой, ИТОГО последней) */}
         {ev?.finance && (
           <section className="sec">
             <label>Финансирование</label>
-            <div className="badge-list">
-              <div className="badge-item">
-                <span className="chip">Муниципальный бюджет</span>
-                <div className="chip-value">{ev.finance?.municipalBudget} руб.</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Окружной бюджет</span>
-                <div className="chip-value">{ev.finance?.regionalBudget} руб.</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Гранты/Субсидии</span>
-                <div className="chip-value">{ev.finance?.granteBudget} руб.</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Другое</span>
-                <div className="chip-value">{ev.finance?.otherBudget} руб.</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">ИТОГО</span>
-                <div className="chip-value">{totalFinance} руб.</div>
-              </div>
+
+            <div className="table-wrap">
+              <table className="finance-table">
+                <thead>
+                  <tr>
+                    <th>Статья</th>
+                    <th>Сумма</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="fin-name"><span className="chip">Муниципальный бюджет</span></td>
+                    <td className="fin-amount"><div className="chip-value">{ev.finance?.municipalBudget} руб.</div></td>
+                  </tr>
+                  <tr>
+                    <td className="fin-name"><span className="chip">Окружной бюджет</span></td>
+                    <td className="fin-amount"><div className="chip-value">{ev.finance?.regionalBudget} руб.</div></td>
+                  </tr>
+                  <tr>
+                    <td className="fin-name"><span className="chip">Гранты/Субсидии</span></td>
+                    <td className="fin-amount"><div className="chip-value">{ev.finance?.granteBudget} руб.</div></td>
+                  </tr>
+                  <tr>
+                    <td className="fin-name"><span className="chip">Другое</span></td>
+                    <td className="fin-amount"><div className="chip-value">{ev.finance?.otherBudget} руб.</div></td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                   <tr>
+                    <td className="sum-label">ИТОГО</td>
+                    <td className="sum-value">
+                      <div className="chip-value">{totalFinance} руб.</div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="fin-desc-footer" colSpan="2">
+                      Описание: 
+                      {ev.finance?.description || "—"}
+                    </td>
+                  </tr>
+                 
+                </tfoot>
+              </table>
             </div>
           </section>
         )}
 
-        {/* обратная связь (чипы для значений) */}
-        {ev?.feedBack && (
-          <section className="sec">
-            <label>Обратная связь</label>
-            <div className="badge-list">
-              <div className="badge-item">
-                <span className="chip">Опрос</span>
-                <div className="chip-value">{YesNo(ev.feedBack.hasOpros)}</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Онлайн-опрос</span>
-                <div className="chip-value">{YesNo(ev.feedBack.hasInternet)}</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Анкетирование</span>
-                <div className="chip-value">{YesNo(ev.feedBack.hasGuestionnaire)}</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Интервью</span>
-                <div className="chip-value">{YesNo(ev.feedBack.hasInterview)}</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Другое</span>
-                <div className="chip-value">{YesNo(ev.feedBack.hasOther)}</div>
-              </div>
-              {ev.feedBack.description && (
-                <div className="badge-item">
-                  <span className="chip">Описание</span>
-                  <div className="chip-value">{ev.feedBack.description}</div>
-                </div>
-              )}
-            </div>
-          </section>
-        )}
-
-        {/* взаимодействие */}
-        {ev?.interAgencyCooperations && ev.interAgencyCooperations.length > 0 && (
-          <section className="sec">
-            <label>Взаимодействие</label>
-            <div className="badge-list">
-              {ev.interAgencyCooperations.map((x) => (
-                <div key={x.id} className="badge-item">
-                  <span className="chip">{x.organization}</span>
-                  <div className="chip-value"> Тип взаимодействия: {x.role}</div>
-                  {x.description && <div className="chip-value"> Описание: {x.description}</div>}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* поддержка */}
-        {ev?.supports && ev.supports.length > 0 && (
-          <section className="sec">
-            <label>Поддержка</label>
-            <div className="badge-list">
-              {ev.supports[0]?.receiver && (
-                <div className="badge-item">
-                  <span className="chip">Получатель поддержки</span>
-                  <div className="chip-value"> {ev.supports[0].receiver}</div>
-                </div>
-              )}
-              {ev.supports.map((s) => (
-                <div key={s.id} className="badge-item">
-                  <span className="chip">Вид поддержки: {s.supportType}</span>
-                  <div className="chip-value"> Описание: {s.description}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* аудитории */}
-        {ev?.audiences && ev.audiences.length > 0 && (
-          <section className="sec">
-            <label>Целевая аудитория</label>
-            <div className="badge-list">
-              {ev.audiences.map((a) => (
-                <div key={a.id} className="badge-item">
-                  <span className="chip">{a.category}</span>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* отправка материалов */}
-        {ev?.theme?.code === "1.3.5" && (
-          <section className="sec">
-            <label>Отправка материала</label>
-            <div className="badge-list">
-              <div className="badge-item">
-                <span className="chip">Отправка в НАК</span>
-                <div className="chip-value">{YesNo(ev.directToNAC)}</div>
-              </div>
-              <div className="badge-item">
-                <span className="chip">Отправка в субъекты</span>
-                <div className="chip-value">{ev.directToSubjects ?? "Нет"}</div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* согласования */}
+        {/* СОГЛАСОВАНИЯ */}
         {ev?.agreements && ev.agreements.length > 0 && (
           <section className="sec">
             <label>Согласования</label>
@@ -417,19 +340,15 @@ const EventCard = () => {
               {ev.agreements.map((ag) => (
                 <div key={ag.id} className="badge-item">
                   <span className="chip">{ag.organization}</span>
-                  <div className="chip-value">
-                    <span className="muted">Результат: </span>{ag.result}
-                  </div>
-                  <div className="chip-value">
-                    <span className="muted">Описание: </span>{ag.description ?? "Нет"}
-                  </div>
+                  <div className="chip-value"><span className="muted">Результат: </span>{ag.result}</div>
+                  <div className="chip-value"><span className="muted">Описание: </span>{ag.description ?? "Нет"}</div>
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* нарушения */}
+        {/* НАРУШЕНИЯ */}
         {ev?.violations && ev.violations.length > 0 && (
           <section className="sec">
             <label>Выявленные нарушения и блокировки</label>
@@ -440,18 +359,14 @@ const EventCard = () => {
                   <div className="chip-value">
                     <span className="muted">Заблокировано/Отправлено: </span>{v.blocked}/{v.send}
                   </div>
-                  {v.order && (
-                    <div className="chip-value">
-                      <span className="muted">Приказ: </span>{v.order}
-                    </div>
-                  )}
+                  {v.order && (<div className="chip-value"><span className="muted">Приказ: </span>{v.order}</div>)}
                 </div>
               ))}
             </div>
           </section>
         )}
 
-        {/* конкурс */}
+        {/* КОНКУРС */}
         {ev?.concourse && (
           <section className="sec">
             <label>Направление на участие в конкурсе</label>
@@ -474,32 +389,66 @@ const EventCard = () => {
           </section>
         )}
 
-        {/* дополнительные характеристики */}
-        <section className="sec">
-          <label>Дополнительные характеристики</label>
-          <div className="badge-list">
-            <div className="badge-item">
-              <span className="chip">Значимое мероприятие</span>
-              <div className="chip-value">{YesNo(ev?.isValuable)}</div>
+     {/* ДОП. ХАРАКТЕРИСТИКИ — ТАБЛИЦА */}
+<section className="sec">
+  <label>Дополнительные характеристики</label>
+
+  <div className="table-wrap">
+    <table className="extras-table">
+      <thead>
+        <tr>
+          <th>Характеристика</th>
+          <th>Значение</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="extra-name">
+            <span className="chip">Значимое мероприятие</span>
+          </td>
+          <td className="extra-value">
+            <div className="chip-value">{YesNo(ev?.isValuable)}</div>
+          </td>
+        </tr>
+        <tr>
+          <td className="extra-name">
+            <span className="chip">Включено в лучшие практики</span>
+          </td>
+          <td className="extra-value">
+            <div className="chip-value">{YesNo(ev?.isBestPractice)}</div>
+          </td>
+        </tr>
+        <tr>
+          <td className="extra-name">
+            <span className="chip">Формат «равный равному»</span>
+          </td>
+          <td className="extra-value">
+            <div className="chip-value">{YesNo(ev?.equalToEqualDescription)}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+        {/* ОБРАТНАЯ СВЯЗЬ — только «Описание», последний блок */}
+        {ev?.feedBack?.description && (
+          <section className="sec">
+            <label>Обратная связь</label>
+            <div className="badge-list">
+              <div className="badge-item">
+                <span className="chip">Описание</span>
+                <div className="chip-value">{ev.feedBack.description}</div>
+              </div>
             </div>
-            <div className="badge-item">
-              <span className="chip">Включено в лучшие практики</span>
-              <div className="chip-value">{YesNo(ev?.isBestPractice)}</div>
-            </div>
-            <div className="badge-item">
-              <span className="chip">Формат «равный равному»</span>
-              <div className="chip-value">{YesNo(ev?.equalToEqualDescription)}</div>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* кнопки */}
         <div className="button-group">
           {data.canDelete && (
             <>
-              <button className="delete" type="button" onClick={() => setShowModal(true)}>
-                Удалить
-              </button>
+              <button className="delete" type="button" onClick={() => setShowModal(true)}>Удалить</button>
               <DeleteConfirmationModal
                 isOpen={showModal}
                 onConfirm={handleDelete}
@@ -507,9 +456,7 @@ const EventCard = () => {
               />
             </>
           )}
-          <button className="back" type="button" onClick={() => window.history.back()}>
-            Назад
-          </button>
+          <button className="back" type="button" onClick={() => window.history.back()}>Назад</button>
         </div>
       </div>
     </div>
