@@ -38,21 +38,24 @@ namespace ATKApp6.Controllers
 
 
         [HttpPost("authorize")]
+        [IgnoreAntiforgeryToken]
         public IActionResult Authorize([FromBody] AuthorizeRequest authorizeRequest)
         {
-            var result = _authService.Authorize(authorizeRequest);
+            // метод генерации JWT токена и соответствующего для пользователя сообщения
+            var result = _authService.Authorize(authorizeRequest); 
 
             if (result.IsFailure)
             {
                 return NotFound(result.Error);
             }
 
-            Response.Cookies.Append("tokenATK", result.Value.Item1, new CookieOptions
+            // Отправка Cookie авторизованному пользователю
+            Response.Cookies.Append("commissionToken", result.Value.Item1, new CookieOptions  
             {
                 HttpOnly = true,                // защита от XSS — JS не увидит cookie
                 Secure = true,                  // cookie передается только по HTTPS
                 SameSite = SameSiteMode.Strict, // запрещает отправку cookie при переходах с других сайтов
-                Expires = DateTimeOffset.UtcNow.AddMinutes(90)
+                Expires = DateTimeOffset.UtcNow.AddMinutes(90) // Время жизни токена
             });
 
             return Ok($"Вы успешно авторизовались как «{result.Value.Item2}»!");

@@ -42,9 +42,7 @@ namespace ATKApp6.Services
                 .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm1 != null)
-            {
                 return new { @event = eventForm1, canDelete = eventForm1.Organizer!.Id == tokenId };
-            }
 
 
 
@@ -53,9 +51,7 @@ namespace ATKApp6.Services
                 .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm2 != null)
-            {
                 return new { @event = eventForm2, canDelete = eventForm2.Organizer!.Id == tokenId };
-            }
 
 
 
@@ -65,9 +61,7 @@ namespace ATKApp6.Services
                 .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm3 != null)
-            {
                 return new { @event = eventForm3, canDelete = eventForm3.Organizer!.Id == tokenId };
-            }
 
 
 
@@ -77,9 +71,7 @@ namespace ATKApp6.Services
                 .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventForm4 != null)
-            {
                 return new { @event = eventForm4, canDelete = eventForm4.Organizer!.Id == tokenId };
-            }
 
 
 
@@ -88,10 +80,7 @@ namespace ATKApp6.Services
                 .FirstOrDefaultAsync(x => x.Id == eventId);
 
             if (eventBase != null)
-            {
                 return new { @event = eventBase, canDelete = eventBase.Organizer!.Id == tokenId };
-            }
-
 
 
             return null;
@@ -133,28 +122,27 @@ namespace ATKApp6.Services
             var (eventDate, themeId) = GetThemeIdAndDate(createEventBaseRequest.Date, createEventBaseRequest.ThemeCode);
 
 
-            var newEvent = EventBase.Create(createEventBaseRequest.Name, createEventBaseRequest.Actor,
+            var newEvent = EventBase.Create(createEventBaseRequest.Name, createEventBaseRequest.Actor,       // создание мероприятия
                 createEventBaseRequest.Content, eventDate, tokenId, themeId);
 
 
             using var transaction = await _dB.Database.BeginTransactionAsync();
 
             try
-            {
-                await CreateMediaLinkAsync(createEventBaseRequest.CreateMediaLinkRequest, newEvent.Id);
-                await CreateParticipantsAsync(createEventBaseRequest.CreateParticipantsRequest, newEvent.Id);
+            {   // добавление дополнительной информации о мероприятии в базу данных (БД)
+                await CreateMediaLinkAsync(createEventBaseRequest.CreateMediaLinkRequest, newEvent.Id);      // добавление ссылок на СМК/СМИ
+                await CreateParticipantsAsync(createEventBaseRequest.CreateParticipantsRequest, newEvent.Id);// добавление данных об участниках
 
-                await _dB.EventsBase.AddAsync(newEvent);
-                await _dB.SaveChangesAsync();
-                await transaction.CommitAsync();
+                await _dB.EventsBase.AddAsync(newEvent);        // добавление мероприятия в БД
+                await _dB.SaveChangesAsync();                   // сохранение изменений в БД
+                await transaction.CommitAsync();                // коммит транзакции БД
             }
-            catch (TransactionAbortedException ex)
+            catch (TransactionAbortedException ex)              // обработка ошибки прерывания транзакции - откат и логгирование
             {
                 await transaction.RollbackAsync();
                 _logger.LogError($"Транзакция по созданию мероприятия типа {typeof(EventBase)} провалилась с сообщением: {ex.Message}");
-                return Result.Failure<EventBase>("Не удалось создать мероприятие");
+                return Result.Failure<EventBase>("Не удалось создать мероприятие");     // возворат пользователю сообщения об ошибке
             }
-
             return Result.Success(newEvent);
         }
 
@@ -377,73 +365,69 @@ namespace ATKApp6.Services
                 //.Include(x => x.Theme)
                 //.Include(x => x.Organizer)*/
 
-            if(userOrganization.Municipality == Municipalities.noMunicipality) // atk_khmao
+            if(userOrganization.Municipality == Municipalities.NoMunicipality) // atk_khmao
             {
                 role = "atk_khmao";
-
             }
             else if (userOrganization.Name.ToString().StartsWith("atk_"))
             {
-                eventsQuery = eventsQuery.Where(e => e.Organizer!.Municipality == userOrganization.Municipality);
+                eventsQuery = eventsQuery
+                    .Where(e => e.Organizer!.Municipality == userOrganization.Municipality);
                 role = "atk_municipality";
             }
             else if (userOrganization.Name.ToString().Contains("_dep_"))
             {
-                eventsQuery = eventsQuery.Where(e => e.Organizer!.Name == userOrganization.Name);
+                eventsQuery = eventsQuery
+                    .Where(e => e.Organizer!.Name == userOrganization.Name);
                 role = "department";
             }
 
 
-            if (filter.Municipality != null)
+            if (filter.Municipality != null)    // Фильтрация по муниципалитету
             {
                 Municipalities? municipality = EnumHelper
-                                                .GetEnumValueFromEnumMember<Municipalities>(filter.Municipality);
+                    .GetEnumValueFromEnumMember<Municipalities>(filter.Municipality);
 
-                eventsQuery = eventsQuery.Where(x => x.Organizer!.Municipality == municipality);
+                eventsQuery = eventsQuery
+                    .Where(x => x.Organizer!.Municipality == municipality);
             }
-            if (filter.Organization != null)
+            if (filter.Organization != null)    // Фильтрация по Департаменту
             {
                 StructuredOrganizations? organization = EnumHelper
-                                                .GetEnumValueFromEnumMember<StructuredOrganizations>(filter.Organization);
-                
-                eventsQuery = eventsQuery.Where(x => x.Organizer!.Name == organization);
+                    .GetEnumValueFromEnumMember<StructuredOrganizations>(filter.Organization);
+
+                eventsQuery = eventsQuery
+                    .Where(x => x.Organizer!.Name == organization);
             }
-            if (filter.Theme != null)
+            if (filter.Theme != null)           // Фильтрация по теме
             {
-                eventsQuery = eventsQuery.Where(x => x.Theme!.Code == filter.Theme);
+                eventsQuery = eventsQuery
+                    .Where(x => x.Theme!.Code == filter.Theme);
             }
 
-
-
-
-
-            if (filter.Level != null)
+            if (filter.Level != null)           // Фильтрация по уровню мероприятия
             {
                 LevelType? levelType = EnumHelper.GetEnumValueFromEnumMember<LevelType>(filter.Level);
-
                 eventsQuery = eventsQuery
                     .OfType<EventForm1>()
                     .Where(x => x.LevelType == levelType);
             }
 
-            if (filter.BestPractice != null)
+            if (filter.BestPractice != null)    // Фильтрация мероприятий-лучших практик
             {
                 eventsQuery = eventsQuery
                     .OfType<EventForm1>()
                     .Where(x => x.IsBestPractice == filter.BestPractice);
             }
 
-            if (filter.Important != null)
+            if (filter.Important != null)       // Фильтрация только важных мероприятий
             {
                 eventsQuery = eventsQuery
                     .OfType<EventForm1>()
                     .Where(x => x.IsValuable == filter.Important);
             }
 
-
-
-
-            if (filter.PeerFormat != null)
+            if (filter.PeerFormat != null)      // Фильтрация только мероприятий "равный равному"
             {
                 eventsQuery = eventsQuery
                     .OfType<EventForm1>()
@@ -492,40 +476,40 @@ namespace ATKApp6.Services
             int entitiesToSkip = (pageNumber - 1) * 10;
 
 
-            double totalEntitiesCount = await eventsQuery.CountAsync();
+            double totalEntitiesCount = await eventsQuery   // количество записей,
+                .CountAsync();                              // подходящих под все условия фильтрации
 
 
             var result = await eventsQuery
-                .OrderBy(x => x.Theme!.Code)
-                .Skip(entitiesToSkip)
-                .Take(10)
-            .Select(x => new ShortEventResponse
+                .OrderBy(x => x.Theme!.Code)    // сортировка по номеру темы
+                .Skip(entitiesToSkip)           // пропуск записей для пагинации
+                .Take(10)                       // 10 записей на одной странице
+            .Select(x => new ShortEventResponse // Объект для возврата пользователю
             {
-                Id = x.Id,
-                ThemeCode = x.Theme!.Code,
-                Name = x.Name,
-                ParticipantsCount = x.Categories!.Sum(x => x.Count),
-                Content = x.Content,
-                OrganizerName = x.Organizer!.Name,
+                Id = x.Id,                      // айди мероприятия
+                ThemeCode = x.Theme!.Code,      // номер темы
+                Name = x.Name,                  // название мероприятия
+                ParticipantsCount = x.Categories!.Sum(x => x.Count),    // количество участников
+                Content = x.Content,            // Описание мероприятия
+                OrganizerName = x.Organizer!.Name,                      // Название организации
 
-                Date = x.Date == null ?
+                Date = x.Date == null ?         // Дата мероприятия
                         string.Empty :
                         $"{x.Date.Value.Day} {GetMonth(x.Date.Value.Month)} {x.Date.Value.Year}",
 
-                Links = x.MediaLinks
+                Links = x.MediaLinks            // Ссылки на медиаресурсы
                         .Select(x => x.Content)
                         .ToArray(),
-
             })
             .ToListAsync();
 
-            //new { data = events, totalPages = events.Count }
             return new { role, data = result, totalPages = Math.Ceiling(totalEntitiesCount / 10) };
         }
 
 
 
         public async Task<List<Theme>> GetThemes() => await _dB.Themes
+            .AsNoTracking()
             .OrderBy(t => t.Code)
             .ToListAsync();
 
@@ -571,11 +555,11 @@ namespace ATKApp6.Services
                 createMediaLinkRequest.Content.Count > 0)
             {
                 foreach (string link in createMediaLinkRequest?.Content!)
-                {
-                    var mediaLink = MediaLink.Create(link, null, eventId);
+                {   
+                    var mediaLink = MediaLink.Create(link, null, eventId);  // создание сущности ссылки на ресурс в СМИ/СМК
 
                     if (mediaLink != null)
-                        await _dB.MediaLinks.AddAsync(mediaLink);
+                        await _dB.MediaLinks.AddAsync(mediaLink);           // добавление сущности ссылки в базу данных
                 }
             }
         }
@@ -586,36 +570,29 @@ namespace ATKApp6.Services
         {
             if (createParticipantsRequest is not null)
             {
-                if (createParticipantsRequest.SelectedCategories.Count > 0)                 // Для фиксированных выбранных категорий
+                if (createParticipantsRequest.SelectedCategories.Count > 0) // Для фиксированных выбранных категорий участников
                 {
                     foreach (SelectedCategory categoryRequest in createParticipantsRequest.SelectedCategories)
                     {
-                        //Categories? resultCategory = EnumHelper.GetEnumValueFromEnumMemberValue<Categories>(categoryRequest.Name);
                         string? resultCategory = EnumHelper.GetEnumMemberValueByName<Categories>(categoryRequest.Name);
-
-
                         Category? category = Category.Create(resultCategory ?? "undefined", categoryRequest.Count, eventId);
-                        
-                        if (category != null)
+                        if (category != null) 
                             await _dB.Categories.AddAsync(category);
                     }
                 }
-                if (createParticipantsRequest.CustomCategories.Count > 0)              // Для созданных кастомных категорий
+                if (createParticipantsRequest.CustomCategories.Count > 0)   // Для созданных кастомных категорий участников
                 {
                     foreach (CustomCategory customCategory in createParticipantsRequest?.CustomCategories!)
                     {
                         Category? category = Category.Create(customCategory.Label, customCategory.Count, eventId);
-
-                        if (category != null)
+                        if (category != null) 
                             await _dB.Categories.AddAsync(category);
                     }
                 }
-                else
+                else        // Если пользователь просто указал количество всех участников
                 {
-                    // add just total row info into db
                     Category? category = Category.Create("ВСЕГО", createParticipantsRequest.Total, eventId);
-
-                    if (category != null)
+                    if (category != null) 
                         await _dB.Categories.AddAsync(category);
                 }
             }
@@ -835,27 +812,32 @@ namespace ATKApp6.Services
                         await _dB.Concourses.AddAsync(concourse);
             }
         }
-        
 
 
-        private static string GetMonth(int month)
+
+        private static readonly string[] Months =
         {
-            return month switch
-            {
-                1 => "января",
-                2 => "феврая",
-                3 => "марта",
-                4 => "апреля",
-                5 => "мая",
-                6 => "июня",
-                7 => "июля",
-                8 => "августа",
-                9 => "сентября",
-                10 => "октября",
-                11 => "ноября",
-                12 => "декабря",
-                _ => string.Empty,
-            };
-        }
+            "", "января", "февраля", "марта", "апреля", "мая", "июня",
+            "июля", "августа", "сентября", "октября", "ноября", "декабря"
+        };
+
+        private static string GetMonth(int month) => (month >= 1 && month <= 12) ? Months[month] : string.Empty;
+
+            //return month switch
+            //{
+            //    1 => "января",
+            //    2 => "феврая",
+            //    3 => "марта",
+            //    4 => "апреля",
+            //    5 => "мая",
+            //    6 => "июня",
+            //    7 => "июля",
+            //    8 => "августа",
+            //    9 => "сентября",
+            //    10 => "октября",
+            //    11 => "ноября",
+            //    12 => "декабря",
+            //    _ => string.Empty,
+            //};
     }
 }

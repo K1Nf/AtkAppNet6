@@ -21,7 +21,7 @@ const Info_BlockMaterial = ({
   };
 
   const handleLawFieldChange = (key, field, value) => {
-    if ((field === "sentCount" || field === "blockedCount") && value !== "" && !/^[0-9\b]+$/.test(value)) return;
+    // if ((field === "sentCount" || field === "blockedCount") && value !== "" && !/^[0-9\b]+$/.test(value)) return;
     if (field === "otherText" && value.length > 200) return;
 
     setLaws((prev) => ({

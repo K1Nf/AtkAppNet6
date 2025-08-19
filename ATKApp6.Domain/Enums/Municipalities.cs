@@ -5,36 +5,36 @@ namespace ATKApp6.Domain.Enums
     public enum Municipalities
     {
         [EnumMember(Value = "ATK-ХМАО")]
-        noMunicipality = 0, // for atk_khmao
+        NoMunicipality = 0,                             // for atk_khmao
 
         [EnumMember(Value = "Белоярский район")]
-        Beloyarskiy_rayon = 1,                                               //khanty_mansiysk
+        BeloyarskiyRayon = 1,
 
         [EnumMember(Value = "Березовский район")]
-        Berezovskiy_rayon = 2,
+        BerezovskiyRayon = 2,
 
         [EnumMember(Value = "Кондинский район")]
-        Condinskiy_rayon = 3,
+        CondinskiyRayon = 3,
 
         [EnumMember(Value = "Нефтеюганский район")]
-        Nefteyuganskiy_rayon = 4,
+        NefteyuganskiyRayon = 4,
 
         [EnumMember(Value = "Нижневартовский район")]
-        Nizhnevartovskiy_rayon = 5,
+        NizhnevartovskiyRayon = 5,
 
         [EnumMember(Value = "Октябрьский район")]
-        Oktyabrskiy_rayon = 6,
+        OktyabrskiyRayon = 6,
 
         [EnumMember(Value = "Советский район")]
-        Sovietskiy_rayon = 7,
+        SovietskiyRayon = 7,
 
         [EnumMember(Value = "Сургутский район")]
-        Surgutskiy_rayon = 8,
+        SurgutskiyRayon = 8,
 
         [EnumMember(Value = "Ханты-Мансийский район")]
-        Khanty_mansiyskiy_rayon = 9,
+        KhantyMansiyskiyRayon = 9,
 
-        [EnumMember(Value = "Когалымский район")]
+        [EnumMember(Value = "г. Когалым")]
         Kogalym = 10,
 
         [EnumMember(Value = "г. Лангепас")]
@@ -56,7 +56,7 @@ namespace ATKApp6.Domain.Enums
         Pokachi = 16,
 
         [EnumMember(Value = "г. Пыть-Ях")]
-        Pyth_yach = 17,
+        PythYach = 17,
 
         [EnumMember(Value = "г. Радужный")]
         Raduzhnyi = 18,
@@ -68,7 +68,7 @@ namespace ATKApp6.Domain.Enums
         Urai = 20,
 
         [EnumMember(Value = "г. Ханты-Мансийск")]
-        Khanty_mansiysk = 21,
+        KhantyMansiysk = 21,
 
         [EnumMember(Value = "г. Югорск")]
         Yugorsk = 22,

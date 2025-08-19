@@ -9,6 +9,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using ATKApp6.Infrastructure.Extensions.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -65,11 +67,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             OnMessageReceived = context =>
             {
-                string? token = context.Request.Cookies["tokenATK"];
+                string? token = context.Request.Cookies["commissionToken"];
 
                 if (!string.IsNullOrWhiteSpace(token))
                 {
-                    context.Token = token.Replace("Bearer ", "");
+                    context.Token = token; //.Replace("Bearer ", "");
                 }
 
                 return Task.CompletedTask;
@@ -84,12 +86,15 @@ builder.Services.AddAuthorization(options =>
         policy.Requirements.Add(new PolicyNameRequirements("CanUserReadResource")));
 });
 
-builder.Services.AddControllers()
-    .AddNewtonsoftJson(options =>
-    {
-        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-        options.SerializerSettings.Converters.Add(new StringEnumConverter());
-    });
+builder.Services.AddControllers(o =>
+{
+    o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+})
+.AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+});
 
 
 builder.Services.AddScoped<EventService>();

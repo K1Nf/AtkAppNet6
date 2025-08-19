@@ -77,7 +77,8 @@ const Login = () => {
       const response = await fetch('/api/ref/auth/authorize', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'RequestVerificationToken': localStorage.getItem('RequestVerificationToken')
         },
         body: JSON.stringify({ organizationName, password }),
         credentials: "include"
@@ -86,7 +87,11 @@ const Login = () => {
       if (!response.ok) {
         const errorText = await response.text(); // получаем описание ошибки с сервера
 
-        if (errorText.startsWith("Пароль неверен ")) {
+        if(response.status == 500)
+        {
+          alert(`Ошибка при авторизации: ${errorText}`, "Ошибка");
+        }
+        else if (errorText.startsWith("Пароль неверен ")) {
           alert(`Ошибка при авторизации: ${errorText}`, "Ошибка");
         }
         else {

@@ -93,7 +93,7 @@ namespace ATKApp6.Infrastructure.Extensions.Authorization
                 return;
             }
 
-            if (tokenOrganization.Municipality == Municipalities.noMunicipality) // СОТРУДНИК АТК ХМАО ОТКРЫЛ МЕРОПРИЯТИЕ (НЕ ВАЖНО ЧЬЕ)
+            if (tokenOrganization.Municipality == Municipalities.NoMunicipality) // СОТРУДНИК АТК ХМАО ОТКРЫЛ МЕРОПРИЯТИЕ (НЕ ВАЖНО ЧЬЕ)
             {
                 context.Succeed(requirement);
                 return;

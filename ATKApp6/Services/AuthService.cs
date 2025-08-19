@@ -30,28 +30,28 @@ namespace ATKApp6.Services
                 .AsNoTracking()
                 .FirstOrDefault(o => o.Name == authorizeRequest.OrganizationName);
 
-            if (organization == null)
-            {
+            if (organization == null)   // если организация не найдена, авторизация не проходит 
+            {                           // с соответствующим сообщением для пользователя
                 return Result.Failure<(string, string)>($"Не найдена организация \"{authorizeRequest.OrganizationName}\"");
             }
 
-
             char[] pwdChars = authorizeRequest.Password.ToCharArray();
-            string? russianOrganizationName = EnumHelper.GetEnumMemberValueByName<StructuredOrganizations>(authorizeRequest.OrganizationName.ToString());
+            
+            string? russianOrganizationName = EnumHelper        // Получение названия организации на русском языке
+                .GetEnumMemberValueByName<StructuredOrganizations>(authorizeRequest.OrganizationName.ToString());
 
             try
-            {
-                if (_passwordHasher.VerifyPassword(pwdChars, organization.Password))
-                {
-                    string token = _jwtProvider.CreateNewToken(organization.Id);
+            {   
+                if (_passwordHasher.VerifyPassword(pwdChars, organization.Password))// если пользователь ввел правильный пароль,
+                {                                                                   // он получает токен с соответсвующим 
+                    string token = _jwtProvider.CreateNewToken(organization.Id);    // сообщением об успешной авторизации
                     return Result.Success((token, russianOrganizationName ?? authorizeRequest.OrganizationName.ToString()));
                 }
             }
             finally
-            {
-                Array.Clear(pwdChars, 0, pwdChars.Length);
-            }
-
+            {   
+                Array.Clear(pwdChars, 0, pwdChars.Length);  // очистка памяти
+            }                             // возврат пояснительного сообщения для пользователя, почему не пройдена авторизация
             return Result.Failure<(string, string)>($"Пароль неверен для \"{russianOrganizationName ?? "ВАШЕЙ ОРГАНИЗАЦИИ"}\"!");
         }
     }

@@ -17,7 +17,7 @@ const Info_DestrCont = ({
   };
 
   const handleFieldChange = (key, field, value) => {
-    if ((field === "sentCount" || field === "blockedCount") && value !== "" && !/^[0-9\b]+$/.test(value)) return;
+    // if ((field === "sentCount" || field === "blockedCount") && value !== "" && !/^[0-9\b]+$/.test(value)) return;
     setDepartmentStates((prev) => ({
       ...prev,
       [key]: {

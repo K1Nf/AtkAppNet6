@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -18,59 +19,64 @@ namespace ATKApp6.Infrastructure.Extensions
 
         public async Task InvokeAsync(HttpContext context)
         {
+            int statusCode;
+            string message;
+
             try
             {
                 await _next(context); // передаем выполнение дальше
             }
+            catch (ArgumentNullException ex)
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+                message = "Ссылка на null.";
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = statusCode;
+
+                await context.Response.WriteAsync(message);
+            }
+            catch (ArgumentException ex)
+            {
+                statusCode = (int)HttpStatusCode.BadRequest;
+                message = "Неверный запрос.";
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = statusCode;
+
+                await context.Response.WriteAsync(message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                statusCode = (int)HttpStatusCode.Unauthorized;
+                message = "Доступ запрещен.";
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = statusCode;
+
+                await context.Response.WriteAsync(message);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                statusCode = (int)HttpStatusCode.NotFound;
+                message = "Ресурс не найден.";
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = statusCode;
+
+                await context.Response.WriteAsync(message);
+            }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                statusCode = (int)HttpStatusCode.InternalServerError;
+                message = "Произошла внутренняя ошибка.";
+
+                if (statusCode >= 500)
+                {
+                    _logger.LogError(ex, "Произошло исключение: {Message}", ex.Message);
+                }
+
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = statusCode;
+
+                await context.Response.WriteAsync(message);
             }
-        }
-
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
-        {
-            int statusCode;
-            string message;
-
-            switch (exception)
-            {
-                case ArgumentNullException:
-                    statusCode = (int)HttpStatusCode.BadRequest;
-                    message = "Ссылка на null.";
-                    break;
-
-                case ArgumentException:
-                    statusCode = (int)HttpStatusCode.BadRequest;
-                    message = "Неверный запрос.";
-                    break;
-
-                case UnauthorizedAccessException:
-                    statusCode = (int)HttpStatusCode.Unauthorized;
-                    message = "Доступ запрещен.";
-                    break;
-
-                case KeyNotFoundException:
-                    statusCode = (int)HttpStatusCode.NotFound;
-                    message = "Ресурс не найден.";
-                    break;
-
-                default:
-                    statusCode = (int)HttpStatusCode.InternalServerError;
-                    message = "Произошла внутренняя ошибка.";
-                    break;
-            }
-
-            // Логируем только ошибки 5xx
-            if (statusCode >= 500)
-            {
-                _logger.LogError(exception, "Произошло исключение: {Message}", exception.Message);
-            }
-
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = statusCode;
-
-            await context.Response.WriteAsync(message);
         }
     }
 }

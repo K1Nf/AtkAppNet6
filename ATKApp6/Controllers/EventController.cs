@@ -57,14 +57,18 @@ namespace ATKApp6.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([FromBody] CreateEventBaseRequest createEventBaseRequest)
         {
+            // Получение айди пользователя из JWT токена
             Guid tokenId = Guid.Parse(User.FindFirst(_configuration.GetValue<string>("JWTConfiguration:OrgId"))!.Value);
 
+            // Создание мероприятия и добавление в БД
             var result = await _eventService.CreateBase(tokenId, createEventBaseRequest);
 
             if (result.IsSuccess)
             {
-                return Ok("Created new event with Id: " + result.Value.Id);
+                return Ok("Создано новое мероприятие");
             }
+
+            // Если мероприятие не добавлено, то пользователю отправляется соответствующее сообщение
             return BadRequest("Ошибка. Мероприятие не добавлено.");
         }
 
