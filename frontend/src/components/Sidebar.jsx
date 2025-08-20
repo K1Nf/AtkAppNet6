@@ -62,11 +62,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           >
             <i className="fas fa-chart-pie icon"></i> Статистика
           </li>
-          <li
+          {/* <li
             className="menu-item logout" onClick={handleLogout}
           >
             <i className="fas fa-sign-out-alt icon"></i> Выход
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>
