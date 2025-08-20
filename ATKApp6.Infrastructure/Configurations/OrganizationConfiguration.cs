@@ -134,485 +134,485 @@ namespace ATKApp6.Infrastructure.Configurations
 
         public List<Organization> GetDepartmentsOrgs() => new()
         {
-            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_dep_Culture,
             hasher.HashPassword("vGNoDuUD6kj3".ToCharArray()),
             Municipalities.BeloyarskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_dep_Education,
             hasher.HashPassword("HZwKlg&WgesM".ToCharArray()),
             Municipalities.BeloyarskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_dep_Social,
             hasher.HashPassword("uZpcpTf7YVkh".ToCharArray()),
             Municipalities.BeloyarskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_dep_Sport,
             hasher.HashPassword("24d75P9TAKu0".ToCharArray()),
             Municipalities.BeloyarskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.BeloyarskiyRayon_dep_Young,
             hasher.HashPassword("SYE4WlPcZP4v".ToCharArray()),
             Municipalities.BeloyarskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.BerezovskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.BerezovskiyRayon_dep_Culture,
             hasher.HashPassword("Ud#!QKpMOZ09".ToCharArray()),
             Municipalities.BerezovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BerezovskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.BerezovskiyRayon_dep_Education,
             hasher.HashPassword("v6DsIIcaBGOe".ToCharArray()),
             Municipalities.BerezovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BerezovskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.BerezovskiyRayon_dep_Social,
             hasher.HashPassword("afBmFmd$tyav".ToCharArray()),
             Municipalities.BerezovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BerezovskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.BerezovskiyRayon_dep_Sport,
             hasher.HashPassword("KhPiifDnwCVe".ToCharArray()),
             Municipalities.BerezovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.BerezovskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.BerezovskiyRayon_dep_Young,
             hasher.HashPassword("Z#1z9B4hZyT@".ToCharArray()),
             Municipalities.BerezovskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.CondinskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.CondinskiyRayon_dep_Culture,
             hasher.HashPassword("b6^1!yiLW2Dk".ToCharArray()),
             Municipalities.CondinskiyRayon),
 
-            Organization.Create(StructuredOrganizations.CondinskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.CondinskiyRayon_dep_Education,
             hasher.HashPassword("nkBY2MmmO4!a".ToCharArray()),
             Municipalities.CondinskiyRayon),
 
-            Organization.Create(StructuredOrganizations.CondinskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.CondinskiyRayon_dep_Social,
             hasher.HashPassword("dNcB8skS69*m".ToCharArray()),
             Municipalities.CondinskiyRayon),
 
-            Organization.Create(StructuredOrganizations.CondinskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.CondinskiyRayon_dep_Sport,
             hasher.HashPassword("eO9m2EZsDtDN".ToCharArray()),
             Municipalities.CondinskiyRayon),
 
-            Organization.Create(StructuredOrganizations.CondinskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.CondinskiyRayon_dep_Young,
             hasher.HashPassword("1@iNKEl&EncA".ToCharArray()),
             Municipalities.CondinskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_dep_Culture,
             hasher.HashPassword("x5Rxly^%tUc1".ToCharArray()),
             Municipalities.NefteyuganskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_dep_Education,
             hasher.HashPassword("Kr!HXU3QGUG4".ToCharArray()),
             Municipalities.NefteyuganskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_dep_Social,
             hasher.HashPassword("QVuw3ZOsL5L0".ToCharArray()),
             Municipalities.NefteyuganskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_dep_Sport,
             hasher.HashPassword("Tgl5jdofcVmR".ToCharArray()),
             Municipalities.NefteyuganskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.NefteyuganskiyRayon_dep_Young,
             hasher.HashPassword("vywb#skeNf$M".ToCharArray()),
             Municipalities.NefteyuganskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_dep_Culture,
             hasher.HashPassword("HMNI4F56uKS!".ToCharArray()),
             Municipalities.NizhnevartovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_dep_Education,
             hasher.HashPassword("0yuO4X$bTk!6".ToCharArray()),
             Municipalities.NizhnevartovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_dep_Social,
             hasher.HashPassword("z^T0Rxod2XpB".ToCharArray()),
             Municipalities.NizhnevartovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_dep_Sport,
             hasher.HashPassword("epz3PUE&TIgJ".ToCharArray()),
             Municipalities.NizhnevartovskiyRayon),
 
-            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.NizhnevartovskiyRayon_dep_Young,
             hasher.HashPassword("YsCL!TPZX5uH".ToCharArray()),
             Municipalities.NizhnevartovskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_dep_Culture,
             hasher.HashPassword("KgMEBBWNyWqH".ToCharArray()),
             Municipalities.OktyabrskiyRayon),
 
-            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_dep_Education,
             hasher.HashPassword("d9CFj%XWYpAT".ToCharArray()),
             Municipalities.OktyabrskiyRayon),
 
-            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_dep_Social,
             hasher.HashPassword("ZdQDuwy7sO7j".ToCharArray()),
             Municipalities.OktyabrskiyRayon),
 
-            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_dep_Sport,
             hasher.HashPassword("W2v5IZogx@iF".ToCharArray()),
             Municipalities.OktyabrskiyRayon),
 
-            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.OktyabrskiyRayon_dep_Young,
             hasher.HashPassword("4I&h0O2FSF&q".ToCharArray()),
             Municipalities.OktyabrskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.SovietskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.SovietskiyRayon_dep_Culture,
             hasher.HashPassword("VdH9SXvt@wDC".ToCharArray()),
             Municipalities.SovietskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SovietskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.SovietskiyRayon_dep_Education,
             hasher.HashPassword("tWS#ZvdMqRef".ToCharArray()),
             Municipalities.SovietskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SovietskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.SovietskiyRayon_dep_Social,
             hasher.HashPassword("5Dr9IuTvH@gI".ToCharArray()),
             Municipalities.SovietskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SovietskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.SovietskiyRayon_dep_Sport,
             hasher.HashPassword("W%DRZyb5F$U!".ToCharArray()),
             Municipalities.SovietskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SovietskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.SovietskiyRayon_dep_Young,
             hasher.HashPassword("1il#n@Vnzp0&".ToCharArray()),
             Municipalities.SovietskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.SurgutskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.SurgutskiyRayon_dep_Culture,
             hasher.HashPassword("n1pG6sqS49cJ".ToCharArray()),
             Municipalities.SurgutskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SurgutskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.SurgutskiyRayon_dep_Education,
             hasher.HashPassword("DOBHNu5$lTK7".ToCharArray()),
             Municipalities.SurgutskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SurgutskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.SurgutskiyRayon_dep_Social,
             hasher.HashPassword("JoW2TQZMr&i6".ToCharArray()),
             Municipalities.SurgutskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SurgutskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.SurgutskiyRayon_dep_Sport,
             hasher.HashPassword("r1ZJjl5Kly1u".ToCharArray()),
             Municipalities.SurgutskiyRayon),
 
-            Organization.Create(StructuredOrganizations.SurgutskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.SurgutskiyRayon_dep_Young,
             hasher.HashPassword("9rA3$VDG35UG".ToCharArray()),
             Municipalities.SurgutskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_Culture,
+            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_dep_Culture,
             hasher.HashPassword("CFafcd*Y*u8s".ToCharArray()),
             Municipalities.KhantyMansiyskiyRayon),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_Education,
+            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_dep_Education,
             hasher.HashPassword("t7n1^yEn@@JP".ToCharArray()),
             Municipalities.KhantyMansiyskiyRayon),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_Social,
+            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_dep_Social,
             hasher.HashPassword("nvqN*13MTm3h".ToCharArray()),
             Municipalities.KhantyMansiyskiyRayon),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_Sport,
+            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_dep_Sport,
             hasher.HashPassword("V&U4#h#TUVna".ToCharArray()),
             Municipalities.KhantyMansiyskiyRayon),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_Young,
+            Organization.Create(StructuredOrganizations.KhantyMansiyskiyRayon_dep_Young,
             hasher.HashPassword("Y8qI^8M$C##K".ToCharArray()),
             Municipalities.KhantyMansiyskiyRayon),
 
 
 
-            Organization.Create(StructuredOrganizations.Kogalym_Culture,
+            Organization.Create(StructuredOrganizations.Kogalym_dep_Culture,
             hasher.HashPassword("PZ6Byhp5PO1H".ToCharArray()),
             Municipalities.Kogalym),
 
-            Organization.Create(StructuredOrganizations.Kogalym_Education,
+            Organization.Create(StructuredOrganizations.Kogalym_dep_Education,
             hasher.HashPassword("v8dtI#cQv*5A".ToCharArray()),
             Municipalities.Kogalym),
 
-            Organization.Create(StructuredOrganizations.Kogalym_Social,
+            Organization.Create(StructuredOrganizations.Kogalym_dep_Social,
             hasher.HashPassword("0tJAi1G^7c&h".ToCharArray()),
             Municipalities.Kogalym),
 
-            Organization.Create(StructuredOrganizations.Kogalym_Sport,
+            Organization.Create(StructuredOrganizations.Kogalym_dep_Sport,
             hasher.HashPassword("OeFx9I&cqdkb".ToCharArray()),
             Municipalities.Kogalym),
 
-            Organization.Create(StructuredOrganizations.Kogalym_Young,
+            Organization.Create(StructuredOrganizations.Kogalym_dep_Young,
             hasher.HashPassword("m^Vob!@jc^Py".ToCharArray()),
             Municipalities.Kogalym),
 
 
 
-            Organization.Create(StructuredOrganizations.Langepas_Culture,
+            Organization.Create(StructuredOrganizations.Langepas_dep_Culture,
             hasher.HashPassword("k4WNXdJ2a!Ye".ToCharArray()),
             Municipalities.Langepas),
 
-            Organization.Create(StructuredOrganizations.Langepas_Education,
+            Organization.Create(StructuredOrganizations.Langepas_dep_Education,
             hasher.HashPassword("uF&!1sTtWMQd".ToCharArray()),
             Municipalities.Langepas),
 
-            Organization.Create(StructuredOrganizations.Langepas_Social,
+            Organization.Create(StructuredOrganizations.Langepas_dep_Social,
             hasher.HashPassword("eeuV4T4l%wXb".ToCharArray()),
             Municipalities.Langepas),
 
-            Organization.Create(StructuredOrganizations.Langepas_Sport,
+            Organization.Create(StructuredOrganizations.Langepas_dep_Sport,
             hasher.HashPassword("cGud1wNlaF*r".ToCharArray()),
             Municipalities.Langepas),
 
-            Organization.Create(StructuredOrganizations.Langepas_Young,
+            Organization.Create(StructuredOrganizations.Langepas_dep_Young,
             hasher.HashPassword("ama8om8L^p*z".ToCharArray()),
             Municipalities.Langepas),
 
 
 
-            Organization.Create(StructuredOrganizations.Megion_Culture,
+            Organization.Create(StructuredOrganizations.Megion_dep_Culture,
             hasher.HashPassword("mBW7EpGiQ5PP".ToCharArray()),
             Municipalities.Megion),
 
-            Organization.Create(StructuredOrganizations.Megion_Education,
+            Organization.Create(StructuredOrganizations.Megion_dep_Education,
             hasher.HashPassword("aeGEoaHnv$#8".ToCharArray()),
             Municipalities.Megion),
 
-            Organization.Create(StructuredOrganizations.Megion_Social,
+            Organization.Create(StructuredOrganizations.Megion_dep_Social,
             hasher.HashPassword("xkuiKH8oYMD&".ToCharArray()),
             Municipalities.Megion),
 
-            Organization.Create(StructuredOrganizations.Megion_Sport,
+            Organization.Create(StructuredOrganizations.Megion_dep_Sport,
             hasher.HashPassword("9XlKI#q2osLx".ToCharArray()),
             Municipalities.Megion),
 
-            Organization.Create(StructuredOrganizations.Megion_Young,
+            Organization.Create(StructuredOrganizations.Megion_dep_Young,
             hasher.HashPassword("n$vYpb5GGY&D".ToCharArray()),
             Municipalities.Megion),
 
 
 
-            Organization.Create(StructuredOrganizations.Nefteyugansk_Culture,
+            Organization.Create(StructuredOrganizations.Nefteyugansk_dep_Culture,
             hasher.HashPassword("N5kDAudA%Y0p".ToCharArray()),
             Municipalities.Nefteyugansk),
 
-            Organization.Create(StructuredOrganizations.Nefteyugansk_Education,
+            Organization.Create(StructuredOrganizations.Nefteyugansk_dep_Education,
             hasher.HashPassword("QKuKc814EO6v".ToCharArray()),
             Municipalities.Nefteyugansk),
 
-            Organization.Create(StructuredOrganizations.Nefteyugansk_Social,
+            Organization.Create(StructuredOrganizations.Nefteyugansk_dep_Social,
             hasher.HashPassword("aI@UdSVZ3f3a".ToCharArray()),
             Municipalities.Nefteyugansk),
 
-            Organization.Create(StructuredOrganizations.Nefteyugansk_Sport,
+            Organization.Create(StructuredOrganizations.Nefteyugansk_dep_Sport,
             hasher.HashPassword("jmfk5d3*kxqB".ToCharArray()),
             Municipalities.Nefteyugansk),
 
-            Organization.Create(StructuredOrganizations.Nefteyugansk_Young,
+            Organization.Create(StructuredOrganizations.Nefteyugansk_dep_Young,
             hasher.HashPassword("H^8UaGs7psV2".ToCharArray()),
             Municipalities.Nefteyugansk),
 
 
 
-            Organization.Create(StructuredOrganizations.Nizhnevartovsk_Culture,
+            Organization.Create(StructuredOrganizations.Nizhnevartovsk_dep_Culture,
             hasher.HashPassword("7HDaZptGlD#F".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
-            Organization.Create(StructuredOrganizations.Nizhnevartovsk_Education,
+            Organization.Create(StructuredOrganizations.Nizhnevartovsk_dep_Education,
             hasher.HashPassword("Yf*S1vdiN$rX".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
-            Organization.Create(StructuredOrganizations.Nizhnevartovsk_Social,
+            Organization.Create(StructuredOrganizations.Nizhnevartovsk_dep_Social,
             hasher.HashPassword("y93*&rMxt$U@".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
-            Organization.Create(StructuredOrganizations.Nizhnevartovsk_Sport,
+            Organization.Create(StructuredOrganizations.Nizhnevartovsk_dep_Sport,
             hasher.HashPassword("wq7Ni01xcKi4".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
-            Organization.Create(StructuredOrganizations.Nizhnevartovsk_Young,
+            Organization.Create(StructuredOrganizations.Nizhnevartovsk_dep_Young,
             hasher.HashPassword("n0T%1Z6QvGA6".ToCharArray()),
             Municipalities.Nizhnevartovsk),
 
 
 
-            Organization.Create(StructuredOrganizations.Nyagan_Culture,
+            Organization.Create(StructuredOrganizations.Nyagan_dep_Culture,
             hasher.HashPassword("5YGWkZhUx%am".ToCharArray()),
             Municipalities.Nyagan),
 
-            Organization.Create(StructuredOrganizations.Nyagan_Education,
+            Organization.Create(StructuredOrganizations.Nyagan_dep_Education,
             hasher.HashPassword("DZUFCM#byjve".ToCharArray()),
             Municipalities.Nyagan),
 
-            Organization.Create(StructuredOrganizations.Nyagan_Social,
+            Organization.Create(StructuredOrganizations.Nyagan_dep_Social,
             hasher.HashPassword("v9wMN@FYaOeY".ToCharArray()),
             Municipalities.Nyagan),
 
-            Organization.Create(StructuredOrganizations.Nyagan_Sport,
+            Organization.Create(StructuredOrganizations.Nyagan_dep_Sport,
             hasher.HashPassword("HzzIP#3fEk$x".ToCharArray()),
             Municipalities.Nyagan),
 
-            Organization.Create(StructuredOrganizations.Nyagan_Young,
+            Organization.Create(StructuredOrganizations.Nyagan_dep_Young,
             hasher.HashPassword("q0Zh0wlO%Qdv".ToCharArray()),
             Municipalities.Nyagan),
 
 
 
-            Organization.Create(StructuredOrganizations.Pokachi_Culture,
+            Organization.Create(StructuredOrganizations.Pokachi_dep_Culture,
             hasher.HashPassword("pZzQJDaM@%cq".ToCharArray()),
             Municipalities.Pokachi),
 
-            Organization.Create(StructuredOrganizations.Pokachi_Education,
+            Organization.Create(StructuredOrganizations.Pokachi_dep_Education,
             hasher.HashPassword("qBL*jcYG3kvC".ToCharArray()),
             Municipalities.Pokachi),
 
-            Organization.Create(StructuredOrganizations.Pokachi_Social,
+            Organization.Create(StructuredOrganizations.Pokachi_dep_Social,
             hasher.HashPassword("X@$UXbAA#7ri".ToCharArray()),
             Municipalities.Pokachi),
 
-            Organization.Create(StructuredOrganizations.Pokachi_Sport,
+            Organization.Create(StructuredOrganizations.Pokachi_dep_Sport,
             hasher.HashPassword("RGFaHg0oGMWG".ToCharArray()),
             Municipalities.Pokachi),
 
-            Organization.Create(StructuredOrganizations.Pokachi_Young,
+            Organization.Create(StructuredOrganizations.Pokachi_dep_Young,
             hasher.HashPassword("vCBLK8GqgGVg".ToCharArray()),
             Municipalities.Pokachi),
 
 
 
-            Organization.Create(StructuredOrganizations.PythYach_Culture,
+            Organization.Create(StructuredOrganizations.PythYach_dep_Culture,
             hasher.HashPassword("uVe&&Q8RWS^J".ToCharArray()),
             Municipalities.PythYach),
 
-            Organization.Create(StructuredOrganizations.PythYach_Education,
+            Organization.Create(StructuredOrganizations.PythYach_dep_Education,
             hasher.HashPassword("swB2zP^!16Dw".ToCharArray()),
             Municipalities.PythYach),
 
-            Organization.Create(StructuredOrganizations.PythYach_Social,
+            Organization.Create(StructuredOrganizations.PythYach_dep_Social,
             hasher.HashPassword("A@i#x@3ZKzIg".ToCharArray()),
             Municipalities.PythYach),
 
-            Organization.Create(StructuredOrganizations.PythYach_Sport,
+            Organization.Create(StructuredOrganizations.PythYach_dep_Sport,
             hasher.HashPassword("NUbEBe9nI0Ld".ToCharArray()),
             Municipalities.PythYach),
 
-            Organization.Create(StructuredOrganizations.PythYach_Young,
+            Organization.Create(StructuredOrganizations.PythYach_dep_Young,
             hasher.HashPassword("UQVu1cLiFoEb".ToCharArray()),
             Municipalities.PythYach),
 
 
 
-            Organization.Create(StructuredOrganizations.Raduzhnyi_Culture,
+            Organization.Create(StructuredOrganizations.Raduzhnyi_dep_Culture,
             hasher.HashPassword("q&F86QssK0yH".ToCharArray()),
             Municipalities.Raduzhnyi),
 
-            Organization.Create(StructuredOrganizations.Raduzhnyi_Education,
+            Organization.Create(StructuredOrganizations.Raduzhnyi_dep_Education,
             hasher.HashPassword("ez#e5*x#qT##".ToCharArray()),
             Municipalities.Raduzhnyi),
 
-            Organization.Create(StructuredOrganizations.Raduzhnyi_Social,
+            Organization.Create(StructuredOrganizations.Raduzhnyi_dep_Social,
             hasher.HashPassword("eK0eu3mSZ57s".ToCharArray()),
             Municipalities.Raduzhnyi),
 
-            Organization.Create(StructuredOrganizations.Raduzhnyi_Sport,
+            Organization.Create(StructuredOrganizations.Raduzhnyi_dep_Sport,
             hasher.HashPassword("G7UTo2BfGwZB".ToCharArray()),
             Municipalities.Raduzhnyi),
 
-            Organization.Create(StructuredOrganizations.Raduzhnyi_Young,
+            Organization.Create(StructuredOrganizations.Raduzhnyi_dep_Young,
             hasher.HashPassword("hoH@Jpy6jQGb".ToCharArray()),
             Municipalities.Raduzhnyi),
 
 
 
-            Organization.Create(StructuredOrganizations.Surgut_Culture,
+            Organization.Create(StructuredOrganizations.Surgut_dep_Culture,
             hasher.HashPassword("XlM3^GjtXN3R".ToCharArray()),
             Municipalities.Surgut),
 
-            Organization.Create(StructuredOrganizations.Surgut_Education,
+            Organization.Create(StructuredOrganizations.Surgut_dep_Education,
             hasher.HashPassword("fNHHII^B@vt9".ToCharArray()),
             Municipalities.Surgut),
 
-            Organization.Create(StructuredOrganizations.Surgut_Social,
+            Organization.Create(StructuredOrganizations.Surgut_dep_Social,
             hasher.HashPassword("m5L^ePZyWA12".ToCharArray()),
             Municipalities.Surgut),
 
-            Organization.Create(StructuredOrganizations.Surgut_Sport,
+            Organization.Create(StructuredOrganizations.Surgut_dep_Sport,
             hasher.HashPassword("kzBv#iuyUAC%".ToCharArray()),
             Municipalities.Surgut),
 
-            Organization.Create(StructuredOrganizations.Surgut_Young,
+            Organization.Create(StructuredOrganizations.Surgut_dep_Young,
             hasher.HashPassword("miqk&0gjcfJb".ToCharArray()),
             Municipalities.Surgut),
 
 
 
-            Organization.Create(StructuredOrganizations.Urai_Culture,
+            Organization.Create(StructuredOrganizations.Urai_dep_Culture,
             hasher.HashPassword("iCC6ojdqiOpw".ToCharArray()),
             Municipalities.Urai),
 
-            Organization.Create(StructuredOrganizations.Urai_Education,
+            Organization.Create(StructuredOrganizations.Urai_dep_Education,
             hasher.HashPassword("ZVzTtH*96pwq".ToCharArray()),
             Municipalities.Urai),
 
-            Organization.Create(StructuredOrganizations.Urai_Social,
+            Organization.Create(StructuredOrganizations.Urai_dep_Social,
             hasher.HashPassword("3ZACm0peC7%V".ToCharArray()),
             Municipalities.Urai),
             
-            Organization.Create(StructuredOrganizations.Urai_Sport,
+            Organization.Create(StructuredOrganizations.Urai_dep_Sport,
             hasher.HashPassword("gaHRQyPRNd5e".ToCharArray()),
             Municipalities.Urai),
 
-            Organization.Create(StructuredOrganizations.Urai_Young,
+            Organization.Create(StructuredOrganizations.Urai_dep_Young,
             hasher.HashPassword("AV^^X!5bO!a7".ToCharArray()),
             Municipalities.Urai),
 
 
 
-            Organization.Create(StructuredOrganizations.KhantyMansiysk_Culture,
+            Organization.Create(StructuredOrganizations.KhantyMansiysk_dep_Culture,
             hasher.HashPassword("Cye@yd4GNL6m".ToCharArray()),
             Municipalities.KhantyMansiysk),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiysk_Education,
+            Organization.Create(StructuredOrganizations.KhantyMansiysk_dep_Education,
             hasher.HashPassword("cwJ05Hrt*oif".ToCharArray()),
             Municipalities.KhantyMansiysk),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiysk_Social,
+            Organization.Create(StructuredOrganizations.KhantyMansiysk_dep_Social,
             hasher.HashPassword("WoEsIdzzjpLG".ToCharArray()),
             Municipalities.KhantyMansiysk),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiysk_Sport,
+            Organization.Create(StructuredOrganizations.KhantyMansiysk_dep_Sport,
             hasher.HashPassword("e2#F&Nvgoxiz".ToCharArray()),
             Municipalities.KhantyMansiysk),
 
-            Organization.Create(StructuredOrganizations.KhantyMansiysk_Young,
+            Organization.Create(StructuredOrganizations.KhantyMansiysk_dep_Young,
             hasher.HashPassword("IZ3j4VZZqjkA".ToCharArray()),
             Municipalities.KhantyMansiysk),
 
 
 
-            Organization.Create(StructuredOrganizations.Yugorsk_Culture,
+            Organization.Create(StructuredOrganizations.Yugorsk_dep_Culture,
             hasher.HashPassword("mT^4V5^rge6r".ToCharArray()),
             Municipalities.Yugorsk),
 
-            Organization.Create(StructuredOrganizations.Yugorsk_Education,
+            Organization.Create(StructuredOrganizations.Yugorsk_dep_Education,
             hasher.HashPassword("L%ndqNFXXUJd".ToCharArray()),
             Municipalities.Yugorsk),
 
-            Organization.Create(StructuredOrganizations.Yugorsk_Social,
+            Organization.Create(StructuredOrganizations.Yugorsk_dep_Social,
             hasher.HashPassword("0A&pHXN7XxRX".ToCharArray()),
             Municipalities.Yugorsk),
 
-            Organization.Create(StructuredOrganizations.Yugorsk_Sport,
+            Organization.Create(StructuredOrganizations.Yugorsk_dep_Sport,
             hasher.HashPassword("IwDEY^9r#BFI".ToCharArray()),
             Municipalities.Yugorsk),
 
-            Organization.Create(StructuredOrganizations.Yugorsk_Young,
+            Organization.Create(StructuredOrganizations.Yugorsk_dep_Young,
             hasher.HashPassword("XxU5xToZ0OJD".ToCharArray()),
             Municipalities.Yugorsk),
         };

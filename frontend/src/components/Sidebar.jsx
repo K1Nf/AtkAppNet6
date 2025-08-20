@@ -17,7 +17,10 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       localStorage.removeItem('token');
       sessionStorage.clear();
       // если используешь cookie для токена — он погаснет на бэке по логауту/истечению
-    } catch {}
+    } catch (error) {
+        toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
+        setError(error.message); // Обрабатываем ошибку, если что-то пошло не так
+      } 
     // переход на страницу авторизации
     window.location.href = '/login';
   };

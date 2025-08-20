@@ -38,7 +38,7 @@ namespace ATKApp6.Controllers
 
 
         [HttpPost("authorize")]
-        [IgnoreAntiforgeryToken]
+        [ValidateAntiForgeryToken]
         public IActionResult Authorize([FromBody] AuthorizeRequest authorizeRequest)
         {
             // метод генерации JWT токена и соответствующего для пользователя сообщения
@@ -72,7 +72,7 @@ namespace ATKApp6.Controllers
 
 
         [HttpGet("csrf-token")]
-        [Authorize] // важно: токен CSRF должен выдаваться уже авторизованному юзеру
+        //[Authorize] // важно: токен CSRF должен выдаваться уже авторизованному юзеру
         public IActionResult GetCsrfToken()
         {
             var tokens = _antiforgery.GetAndStoreTokens(HttpContext);

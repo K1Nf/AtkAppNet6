@@ -31,7 +31,7 @@ export const handleForm2Submit = async ({
   equalFormatDescription,
 
 }) => {
-  e.preventDefault();
+  // e.preventDefault();
 
   if (!selectedTopic) {
     toastr.error("Пожалуйста, выберите тему", "Ошибка");
@@ -181,9 +181,8 @@ export const handleForm2Submit = async ({
       result: participationResult,
       details: winnerDetails,
     }
-
   };
-
+  console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {

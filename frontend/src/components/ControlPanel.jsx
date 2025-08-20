@@ -83,8 +83,6 @@ const ControlPanel = ({ onFilter, role }) => {
       .then(res => res.json())
       .then(data => setThemes(data))
       .catch(err => {
-
-        // ОБРАБОТКА ОШИБКА *error*
         toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
       });
   }, []);

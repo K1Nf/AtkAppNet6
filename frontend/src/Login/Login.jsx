@@ -29,6 +29,18 @@ const Login = () => {
   useEffect(() => {
     // Асинхронная функция для запроса
     const fetchData = async () => {
+
+      await fetch('/api/ref/auth/csrf-token', {
+        method: 'GET',
+        credentials: 'include'
+      })
+        .then(r => r.json())
+        .then(data => {
+          localStorage.setItem('RequestVerificationToken', data.csrf);
+        });
+
+
+
       const urlBack = "/api/ref/auth/organizations";
       try {
         const response = await fetch(urlBack); // Пример URL
@@ -87,8 +99,7 @@ const Login = () => {
       if (!response.ok) {
         const errorText = await response.text(); // получаем описание ошибки с сервера
 
-        if(response.status == 500)
-        {
+        if (response.status == 500) {
           alert(`Ошибка при авторизации: ${errorText}`, "Ошибка");
         }
         else if (errorText.startsWith("Пароль неверен ")) {
@@ -109,7 +120,7 @@ const Login = () => {
         .then(data => {
           localStorage.setItem('RequestVerificationToken', data.csrf);
         });
-
+        
       const message = await response.text();
 
       toastr.success(message, 'Добро пожаловать! ');

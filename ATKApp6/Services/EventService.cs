@@ -369,7 +369,7 @@ namespace ATKApp6.Services
             {
                 role = "atk_khmao";
             }
-            else if (userOrganization.Name.ToString().StartsWith("atk_"))
+            else if (userOrganization.Name.ToString().StartsWith("ATK_"))
             {
                 eventsQuery = eventsQuery
                     .Where(e => e.Organizer!.Municipality == userOrganization.Municipality);

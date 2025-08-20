@@ -153,7 +153,6 @@ export const handleForm4Submit = async ({
 
 
   } catch (error) {
-
     // ОБРАБОТКА ОШИБКА *error*
     toastr.error("Произошла системная ошибка. Попробуйте позже.", "Ошибка");
   }
