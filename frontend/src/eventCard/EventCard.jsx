@@ -477,8 +477,42 @@ const EventCard = () => {
 
 
 
+        {/* СОЗДАН ПРИ УЧАСТИИ */}
+        {(ev?.theme?.code === "4.5" || ev?.theme?.code === "4.6" || ev?.theme?.code === "4.7") && (
+          <section className="sec">
+            <label>Создан при участии школьников и молодежи</label>
+            <div className="badge-list">
+              <div className="badge-item">
+                {/* <span className="chip">Описание</span> */}
+                <div className="chip-value">{ev.equalToEqualDescription ?? "Нет"}</div>
+              </div>
+            </div>
+          </section>
+        )}
+
+
+
+        {/* ОТПРАВКА МАТЕРИАЛОВ */}
+        {ev?.theme?.code === "1.3.5" && (
+          <section className="sec">
+            <label>Отправка материала</label>
+            <div className="badge-list">
+              <div className="badge-item">
+                <span className="chip">Отправка в НАК</span>
+                <div className="chip-value">{ev.directToNAC ? "Да" : "Нет"}</div>
+              </div>
+              <div className="badge-item">
+                <span className="chip">Отправка в субъекты</span>
+                <div className="chip-value">{ev.directToSubjects ?? "Нет"}</div>
+              </div>
+            </div>
+          </section>
+        )}
+
+
+
         {/* ПОЛУЧАТЕЛЬ ПОДДЕРЖКИ */}
-        {ev?.supports && ev?.supports.length > 0 && (
+        {ev?.supports && ev?.supports.length > 0 && ev?.supports[0]?.receiver != "" && (
           <section className="sec">
             <label>Получатель поддержки</label>
             <div className="kv"><div className="kv-val">{ev?.supports[0]?.receiver}</div></div>

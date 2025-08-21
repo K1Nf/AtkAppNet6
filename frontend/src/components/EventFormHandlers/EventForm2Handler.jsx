@@ -182,7 +182,6 @@ export const handleForm2Submit = async ({
       details: winnerDetails,
     }
   };
-  console.log(createEventForm1Request);
 
   try {
     const response = await fetch(`/api/ref/events/createform1`, {

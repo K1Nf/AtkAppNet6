@@ -28,10 +28,10 @@ public class MediaLink
     {
         if(!content.StartsWith("https://"))
         {
-            Console.WriteLine("Неправильная ссылка");
+            //Console.WriteLine("Неправильная ссылка");
             return null;
         }
-        Console.WriteLine("Создали новую ссылку");
+        //Console.WriteLine("Создали новую ссылку");
 
         orgName = string.IsNullOrEmpty(orgName) ?
             null :

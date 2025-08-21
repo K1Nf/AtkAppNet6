@@ -62,21 +62,21 @@ namespace ATKApp6.Infrastructure.Extensions
 
                 await context.Response.WriteAsync(message);
             }
-            catch (Exception ex)
-            {
-                statusCode = (int)HttpStatusCode.InternalServerError;
-                message = "Произошла внутренняя ошибка.";
+            //catch (Exception ex)
+            //{
+            //    statusCode = (int)HttpStatusCode.InternalServerError;
+            //    message = "Произошла внутренняя ошибка.";
 
-                if (statusCode >= 500)
-                {
-                    _logger.LogError(ex, "Произошло исключение: {Message}", ex.Message);
-                }
+            //    if (statusCode >= 500)
+            //    {
+            //        _logger.LogError(ex, "Произошло исключение: {Message}", ex.Message);
+            //    }
 
-                context.Response.ContentType = "application/json";
-                context.Response.StatusCode = statusCode;
+            //    context.Response.ContentType = "application/json";
+            //    context.Response.StatusCode = statusCode;
 
-                await context.Response.WriteAsync(message);
-            }
+            //    await context.Response.WriteAsync(message);
+            //}
         }
     }
 }

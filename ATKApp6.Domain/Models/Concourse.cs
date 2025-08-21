@@ -2,7 +2,7 @@
 {
     public class Concourse
     {
-        public Concourse(string description, string result, string? details, Guid eventId)
+        public Concourse(string? description, string? result, string? details, Guid eventId)
         {
             Id = Guid.NewGuid();
             Description = description;
@@ -11,8 +11,8 @@
             EventId = eventId;
         }
         public Guid Id { get; init; }
-        public string Description { get; set; }
-        public string Result { get; set; }
+        public string? Description { get; set; }
+        public string? Result { get; set; }
         public string? Details { get; set; }
 
 

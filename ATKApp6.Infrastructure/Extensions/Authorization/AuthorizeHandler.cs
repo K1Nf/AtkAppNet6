@@ -101,7 +101,7 @@ namespace ATKApp6.Infrastructure.Extensions.Authorization
 
             string name = tokenOrganization.Name.ToString();
 
-            if (tokenOrganization.Name.ToString().StartsWith("atk_") 
+            if (tokenOrganization.Name.ToString().StartsWith("ATK_") 
                 && tokenOrganization.Municipality == organizationOwner.Municipality) // СОТРУДНИК МУНИЦИПАЛЬНОГО АТК
             {                                                                        // ОТКРЫВАЕТ МЕРОПРИЯТИЕ СВОЕ ИЛИ СВОЕЙ ОРГАНИЗАЦИИ
                 context.Succeed(requirement);

@@ -100,11 +100,7 @@ namespace ATKApp6.Services
                     ParticipantsCount = x.Categories!.Sum(x => x.Count),
                     Content = x.Content,
                     OrganizerName = x.Organizer!.Name,
-
-                    Date = x.Date == null ?
-                        string.Empty :
-                        $"{x.Date.Value.Day} {GetMonth(x.Date.Value.Month)} {x.Date.Value.Year}",
-
+                    Date = x.Date.ToString(),
                     Links = x.MediaLinks
                         .Select(x => x.Content)
                         .ToArray(),
@@ -359,11 +355,7 @@ namespace ATKApp6.Services
 
             IQueryable<EventBase> eventsQuery = _dB.EventsBase
                 .AsQueryable();
-                /*.Include(x => x.Finance)
-                //.Include(x => x.FeedBack)
-                //.Include(x => x.InterAgencyCooperations)
-                //.Include(x => x.Theme)
-                //.Include(x => x.Organizer)*/
+
 
             if(userOrganization.Municipality == Municipalities.NoMunicipality) // atk_khmao
             {
@@ -486,18 +478,14 @@ namespace ATKApp6.Services
                 .Take(10)                       // 10 записей на одной странице
             .Select(x => new ShortEventResponse // Объект для возврата пользователю
             {
-                Id = x.Id,                      // айди мероприятия
-                ThemeCode = x.Theme!.Code,      // номер темы
-                Name = x.Name,                  // название мероприятия
+                Id = x.Id,                                              // айди мероприятия
+                ThemeCode = x.Theme!.Code,                              // номер темы
+                Name = x.Name,                                          // название мероприятия
                 ParticipantsCount = x.Categories!.Sum(x => x.Count),    // количество участников
-                Content = x.Content,            // Описание мероприятия
+                Content = x.Content,                                    // Описание мероприятия
                 OrganizerName = x.Organizer!.Name,                      // Название организации
-
-                Date = x.Date == null ?         // Дата мероприятия
-                        string.Empty :
-                        $"{x.Date.Value.Day} {GetMonth(x.Date.Value.Month)} {x.Date.Value.Year}",
-
-                Links = x.MediaLinks            // Ссылки на медиаресурсы
+                Date = x.Date.ToString(),                               // Дата мероприятия
+                Links = x.MediaLinks                                    // Ссылки на медиаресурсы
                         .Select(x => x.Content)
                         .ToArray(),
             })
@@ -589,9 +577,9 @@ namespace ATKApp6.Services
                             await _dB.Categories.AddAsync(category);
                     }
                 }
-                else        // Если пользователь просто указал количество всех участников
-                {
-                    Category? category = Category.Create("ВСЕГО", createParticipantsRequest.Total, eventId);
+                if(createParticipantsRequest.SelectedCategories.Count == 0 && createParticipantsRequest.CustomCategories.Count == 0)
+                {        // Если пользователь просто указал количество всех участников
+                    Category? category = Category.Create("Всего", createParticipantsRequest.Total, eventId);
                     if (category != null) 
                         await _dB.Categories.AddAsync(category);
                 }

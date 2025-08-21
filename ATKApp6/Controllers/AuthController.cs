@@ -72,7 +72,6 @@ namespace ATKApp6.Controllers
 
 
         [HttpGet("csrf-token")]
-        //[Authorize] // важно: токен CSRF должен выдаваться уже авторизованному юзеру
         public IActionResult GetCsrfToken()
         {
             var tokens = _antiforgery.GetAndStoreTokens(HttpContext);

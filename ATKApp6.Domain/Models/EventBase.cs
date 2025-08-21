@@ -45,7 +45,7 @@ namespace ATKApp6.Domain.Models
 
         public static EventBase Create(string? name, string actor, string content, DateOnly? date, Guid organizerId, Guid themeId)
         {
-            Console.WriteLine("Создаем новое мероприятие");
+            //Console.WriteLine("Создаем новое мероприятие");
             return new(name, actor, content, date, organizerId, themeId);
         }
     }
