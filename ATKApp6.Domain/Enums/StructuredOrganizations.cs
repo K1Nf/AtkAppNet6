@@ -8,7 +8,7 @@ namespace ATKApp6.Domain.Enums
         ATK_KHMAO = 0,
 
         [EnumMember(Value = "АТК Белоярский район")]
-        ATK_BeloyarskiyRayon = 1,                                               //ATK_khanty_mansiysk
+        ATK_BeloyarskiyRayon = 1,                                              
 
         [EnumMember(Value = "АТК Березовский район")]
         ATK_BerezovskiyRayon = 2,
@@ -34,7 +34,7 @@ namespace ATKApp6.Domain.Enums
         [EnumMember(Value = "АТК Ханты-Мансийский район")]
         ATK_KhantyMansiyskiyRayon = 9,
 
-        [EnumMember(Value = "АТК Когалым район")]
+        [EnumMember(Value = "АТК г. Когалым")]
         ATK_Kogalym = 10,
 
         [EnumMember(Value = "АТК г. Лангепас")]

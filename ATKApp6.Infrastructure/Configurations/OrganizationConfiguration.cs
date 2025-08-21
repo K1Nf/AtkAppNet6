@@ -102,7 +102,7 @@ namespace ATKApp6.Infrastructure.Configurations
             Municipalities.Nyagan),
 
             Organization.Create(StructuredOrganizations.ATK_Pokachi,
-            hasher.HashPassword("atkpok".ToCharArray()),
+            hasher.HashPassword("q#5HHS5yEv5K".ToCharArray()),
             Municipalities.Pokachi),
 
             Organization.Create(StructuredOrganizations.ATK_PythYach,
@@ -118,7 +118,7 @@ namespace ATKApp6.Infrastructure.Configurations
             Municipalities.Surgut),
 
             Organization.Create(StructuredOrganizations.ATK_Urai,
-            hasher.HashPassword("atkurai".ToCharArray()),
+            hasher.HashPassword("Sf6eaP&tFrq0".ToCharArray()),
             Municipalities.Urai),
 
             Organization.Create(StructuredOrganizations.ATK_KhantyMansiysk,
